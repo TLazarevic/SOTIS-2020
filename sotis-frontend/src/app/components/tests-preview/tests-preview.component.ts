@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TestDTO } from 'src/app/model/testDTO';
 
 @Component({
   selector: 'app-tests-preview',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TestsPreviewComponent implements OnInit {
 
-  constructor() { }
+  tests:TestDTO[];
+
+  constructor() { 
+    this.tests = [];
+    this.tests.push(new TestDTO("SOTIS"));
+    this.tests.push(new TestDTO("Neuronske mreze"));
+  }
 
   ngOnInit(): void {
   }
