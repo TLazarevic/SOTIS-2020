@@ -29,13 +29,6 @@ public class Nastavnik {
 	/** @pdOid ae58c1fd-e5b8-4efa-993a-7bbef9991cef */
 	private String lastName;
 
-	@OneToMany
-	/**
-	 * @pdRoleInfo migr=no name=Test assc=association3 coll=java.util.Collection
-	 *             impl=java.util.HashSet mult=0..* type=Aggregation
-	 */
-	public Set<Test> test;
-
 	public long getId() {
 		return id;
 	}
@@ -60,12 +53,5 @@ public class Nastavnik {
 		this.lastName = lastName;
 	}
 
-	public Set<Test> getTest() {
-		return test;
-	}
-
-	public void setTest(Set<Test> test) {
-		this.test = test;
-	}
 
 }

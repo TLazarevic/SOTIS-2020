@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 /** @pdOid b9e0a4d4-18b8-4c35-87c6-39374d7494f6 */
@@ -26,10 +27,7 @@ public class Test {
 	private long id;
 
 	@ManyToMany
-	@JoinTable(
-			name="test_pitanje",
-			joinColumns=@JoinColumn(name="test_id"),
-			inverseJoinColumns=@JoinColumn(name="pitanje_id"))
+	@JoinTable(name = "test_pitanje", joinColumns = @JoinColumn(name = "test_id"), inverseJoinColumns = @JoinColumn(name = "pitanje_id"))
 	/**
 	 * @pdRoleInfo migr=no name=Pitanje assc=association1 coll=java.util.List
 	 *             impl=java.util.HashSet mult=0..* type=Composition
@@ -41,6 +39,21 @@ public class Test {
 	 * @pdRoleInfo migr=no name=Predmet assc=association8 mult=0..1 type=Aggregation
 	 */
 	public Predmet predmet;
+
+	@ManyToOne
+	public Nastavnik nastavnik;
+
+	public Nastavnik getNastavik() {
+		return nastavnik;
+	}
+
+	public void setNastavik(Nastavnik nastavik) {
+		this.nastavnik = nastavik;
+	}
+
+	public void setPitanje(Set<Pitanje> pitanje) {
+		this.pitanje = pitanje;
+	}
 
 	/** @pdGenerated default getter */
 	public Set<Pitanje> getPitanje() {

@@ -19,7 +19,7 @@ public class TestService {
 	}
 
 	public List<TestDTO> findAllByUcenik(Long id) {
-		return null;
+		return testRepo.findAllByUcenik(id);
 	}
 
 }

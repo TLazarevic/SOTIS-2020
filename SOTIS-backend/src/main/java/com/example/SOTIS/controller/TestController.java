@@ -1,6 +1,9 @@
 package com.example.SOTIS.controller;
 
 import java.util.List;
+
+import javax.websocket.server.PathParam;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,14 +20,14 @@ public class TestController {
 
 	@Autowired
 	TestService testService;
-	
-	@GetMapping(value="/nastavnik", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TestDTO>> getAllByNastavnik(Long nastavnikId){
-		return new ResponseEntity<>(testService.findAllByNastavnik(nastavnikId),HttpStatus.OK);
+
+	@GetMapping(value = "/nastavnik/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TestDTO>> getAllByNastavnik(@PathParam("id") Long nastavnikId) {
+		return new ResponseEntity<>(testService.findAllByNastavnik(nastavnikId), HttpStatus.OK);
 	}
-	
-	@GetMapping(value="/ucenik", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TestDTO>> getAllByUcenik(Long ucenikId){
-		return new ResponseEntity<>(testService.findAllByUcenik(ucenikId),HttpStatus.OK);
+
+	@GetMapping(value = "/ucenik/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<TestDTO>> getAllByUcenik(Long ucenikId) {
+		return new ResponseEntity<>(testService.findAllByUcenik(ucenikId), HttpStatus.OK);
 	}
 }

@@ -5,6 +5,7 @@ import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -32,6 +33,9 @@ public class Predmet {
 	 *             type=Aggregation
 	 */
 	public Set<Nastavnik> nastavnik;
+	
+	@ManyToMany(mappedBy="predmet")
+	public Set<Ucenik> ucenik;
 
 	/** @pdGenerated default getter */
 	public java.util.Collection<Nastavnik> getNastavnik() {
@@ -93,6 +97,18 @@ public class Predmet {
 
 	public void setNaziv(String naziv) {
 		this.naziv = naziv;
+	}
+
+	public Set<Ucenik> getUcenik() {
+		return ucenik;
+	}
+
+	public void setUcenik(Set<Ucenik> ucenik) {
+		this.ucenik = ucenik;
+	}
+
+	public void setNastavnik(Set<Nastavnik> nastavnik) {
+		this.nastavnik = nastavnik;
 	}
 
 }
