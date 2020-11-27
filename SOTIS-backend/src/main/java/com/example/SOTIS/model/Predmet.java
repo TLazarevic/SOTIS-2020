@@ -1,36 +1,47 @@
 package com.example.SOTIS.model;
 
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
 /***********************************************************************
- * Module:  Predmet.java
- * Author:  Tamara and Dusan
- * Purpose: Defines the Class Predmet
+ * Module: Predmet.java Author: Tamara and Dusan Purpose: Defines the Class
+ * Predmet
  ***********************************************************************/
 
+@Entity
 /** @pdOid 504d1e35-43bb-40db-b9db-8ec39a8f5555 */
 public class Predmet {
+
+	@Id
 	/** @pdOid 54579e1c-d939-47ca-b481-e4cb69285da4 */
 	private long id;
+
+	@Column
 	/** @pdOid ad754e5d-65e8-4044-94c4-29d7b089052f */
 	private String naziv;
 
+	@OneToMany
 	/**
 	 * @pdRoleInfo migr=no name=Nastavnik assc=association7
 	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
 	 *             type=Aggregation
 	 */
-	public java.util.Collection<Nastavnik> nastavnik;
+	public Set<Nastavnik> nastavnik;
 
 	/** @pdGenerated default getter */
 	public java.util.Collection<Nastavnik> getNastavnik() {
-		if (nastavnik == null)
-			nastavnik = new java.util.HashSet<Nastavnik>();
+
 		return nastavnik;
 	}
 
 	/** @pdGenerated default iterator getter */
 	public java.util.Iterator getIteratorNastavnik() {
-		if (nastavnik == null)
-			nastavnik = new java.util.HashSet<Nastavnik>();
+
 		return nastavnik.iterator();
 	}
 
@@ -49,12 +60,8 @@ public class Predmet {
 	 * @param newNastavnik
 	 */
 	public void addNastavnik(Nastavnik newNastavnik) {
-		if (newNastavnik == null)
-			return;
-		if (this.nastavnik == null)
-			this.nastavnik = new java.util.HashSet<Nastavnik>();
-		if (!this.nastavnik.contains(newNastavnik))
-			this.nastavnik.add(newNastavnik);
+
+		this.nastavnik.add(newNastavnik);
 	}
 
 	/**
@@ -62,17 +69,14 @@ public class Predmet {
 	 * @param oldNastavnik
 	 */
 	public void removeNastavnik(Nastavnik oldNastavnik) {
-		if (oldNastavnik == null)
-			return;
-		if (this.nastavnik != null)
-			if (this.nastavnik.contains(oldNastavnik))
-				this.nastavnik.remove(oldNastavnik);
+
+		this.nastavnik.remove(oldNastavnik);
 	}
 
 	/** @pdGenerated default removeAll */
 	public void removeAllNastavnik() {
-		if (nastavnik != null)
-			nastavnik.clear();
+
+		nastavnik.clear();
 	}
 
 	public long getId() {

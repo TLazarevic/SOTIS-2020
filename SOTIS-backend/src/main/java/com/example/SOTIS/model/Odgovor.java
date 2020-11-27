@@ -1,19 +1,27 @@
 package com.example.SOTIS.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
 /***********************************************************************
- * Module:  Odgovor.java
- * Author:  Tamara and Dusan
- * Purpose: Defines the Class Odgovor
+ * Module: Odgovor.java Author: Tamara and Dusan Purpose: Defines the Class
+ * Odgovor
  ***********************************************************************/
 
-
-
+@Entity
 /** @pdOid fde4f205-5a55-45ef-afc3-68d1fe2ee0cc */
 public class Odgovor {
+
+	@Id
 	/** @pdOid baff2039-fee0-4139-aca6-4000a8a98302 */
 	private long id;
+	
+	@Column
 	/** @pdOid bd34634f-27ee-4c35-aba0-dd4bdb22183c */
 	private String tekst;
+	
+	@Column
 	/** @pdOid 8ccea436-8bd7-4eb8-b146-d51b565d5641 */
 	private boolean tacnost;
 

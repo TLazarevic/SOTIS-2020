@@ -1,4 +1,5 @@
 package com.example.SOTIS.model;
+
 /***********************************************************************
  * Module:  Pitanje.java
  * Author:  Tamara and Dusan
@@ -6,29 +7,44 @@ package com.example.SOTIS.model;
  ***********************************************************************/
 
 import java.util.Iterator;
+import java.util.Set;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+
+@Entity
 /** @pdOid ca9d29ef-a4f5-4bcf-9b64-ba4b4ea47657 */
 public class Pitanje {
+
+	@Id
 	/** @pdOid 8fa48bab-3db0-4639-b14e-41bbef66c068 */
 	private long id;
 
+	@ManyToMany(mappedBy="pitanje")
 	/**
-	 * @pdRoleInfo migr=no name=Odgovor assc=association2 coll=java.util.Collection
-	 *             impl=java.util.HashSet mult=0..* type=Composition
+	 * @pdRoleInfo migr=no name=Odgovor assc=association2 coll=java.util.Set
+	 *             impl=java.util.Set mult=0..* type=Composition
 	 */
-	public java.util.Collection<Odgovor> odgovor;
+	public Set<Test> test;
+	
+	@OneToMany
+	public Set<Odgovor> odgovor;
 
 	/** @pdGenerated default getter */
-	public java.util.Collection<Odgovor> getOdgovor() {
-		if (odgovor == null)
-			odgovor = new java.util.HashSet<Odgovor>();
+	public Set<Odgovor> getOdgovor() {
+
 		return odgovor;
 	}
 
 	/** @pdGenerated default iterator getter */
 	public java.util.Iterator getIteratorOdgovor() {
-		if (odgovor == null)
-			odgovor = new java.util.HashSet<Odgovor>();
+
 		return odgovor.iterator();
 	}
 
@@ -36,7 +52,7 @@ public class Pitanje {
 	 * @pdGenerated default setter
 	 * @param newOdgovor
 	 */
-	public void setOdgovor(java.util.Collection<Odgovor> newOdgovor) {
+	public void setOdgovor(java.util.Set<Odgovor> newOdgovor) {
 		removeAllOdgovor();
 		for (Iterator<Odgovor> iter = newOdgovor.iterator(); iter.hasNext();)
 			addOdgovor((Odgovor) iter.next());
@@ -47,12 +63,7 @@ public class Pitanje {
 	 * @param newOdgovor
 	 */
 	public void addOdgovor(Odgovor newOdgovor) {
-		if (newOdgovor == null)
-			return;
-		if (this.odgovor == null)
-			this.odgovor = new java.util.HashSet<Odgovor>();
-		if (!this.odgovor.contains(newOdgovor))
-			this.odgovor.add(newOdgovor);
+		this.odgovor.add(newOdgovor);
 	}
 
 	/**
