@@ -4,7 +4,7 @@ import { Predmet } from './predmet';
 
 export class Test{
 
-    id:number=0;
+    id!:number;
     pitanje: Pitanje[] = [];
     predmet!: Predmet;
     nastavnik! : Nastavnik;

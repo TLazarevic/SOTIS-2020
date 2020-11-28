@@ -36,7 +36,7 @@ public class Test {
 	 * @pdRoleInfo migr=no name=Predmet assc=association8 mult=0..1 type=Aggregation
 	 */
 	public Predmet predmet;
-
+	
 	@ManyToOne
 	public Nastavnik nastavnik;
 
@@ -97,5 +97,6 @@ public class Test {
 	public void setPredmet(Predmet predmet) {
 		this.predmet = predmet;
 	}
+
 
 }

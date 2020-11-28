@@ -1,8 +1,8 @@
-import { Odgovor } from './Odgovor'
+import { Odgovor } from './odgovor'
 
 export class Pitanje {
 
     id:number=0;
     tekst:String="";
-    odgovori: Odgovor[] = [];
+    odgovori!: Odgovor[];
 }
