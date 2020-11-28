@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /***********************************************************************
@@ -33,30 +32,14 @@ public class Predmet {
 	 *             type=Aggregation
 	 */
 	public Set<Nastavnik> nastavnik;
-	
-	@ManyToMany(mappedBy="predmet")
+
+	@ManyToMany(mappedBy = "predmet")
 	public Set<Ucenik> ucenik;
 
 	/** @pdGenerated default getter */
 	public java.util.Collection<Nastavnik> getNastavnik() {
 
 		return nastavnik;
-	}
-
-	/** @pdGenerated default iterator getter */
-	public java.util.Iterator getIteratorNastavnik() {
-
-		return nastavnik.iterator();
-	}
-
-	/**
-	 * @pdGenerated default setter
-	 * @param newNastavnik
-	 */
-	public void setNastavnik(java.util.Collection<Nastavnik> newNastavnik) {
-		removeAllNastavnik();
-		for (java.util.Iterator iter = newNastavnik.iterator(); iter.hasNext();)
-			addNastavnik((Nastavnik) iter.next());
 	}
 
 	/**

@@ -15,6 +15,7 @@ public class TestService {
 	TestRepository testRepo;
 
 	public List<TestDTO> findAllByNastavnik(Long id) {
+		System.out.println(testRepo.findAllByNastavnik(id).size());
 		return testRepo.findAllByNastavnik(id);
 	}
 

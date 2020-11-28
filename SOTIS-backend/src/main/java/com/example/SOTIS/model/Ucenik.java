@@ -11,6 +11,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 /** @pdOid a8444d5b-5cb7-4497-865b-0eb2abb0682d */
 public class Ucenik {
@@ -21,11 +23,11 @@ public class Ucenik {
 
 	@Column
 	/** @pdOid 0959a844-ca2b-42ba-b6d6-756bdcffe819 */
-	private String name;
+	private String ime;
 
 	@Column
 	/** @pdOid ce10ec1b-51a0-48cf-ae50-72d9f042f277 */
-	private String lastName;
+	private String prezime;
 
 	@OneToMany
 	/**
@@ -40,7 +42,8 @@ public class Ucenik {
 	 *             type=Composition
 	 */
 	public Set<ProstorZnanja> prostorZnanja;
-	
+
+	@JsonIgnore
 	@ManyToMany
 	@JoinTable(name = "ucenik_predmet", joinColumns = @JoinColumn(name = "ucenik_id"), inverseJoinColumns = @JoinColumn(name = "predmet_id"))
 	public Set<Predmet> predmet;
@@ -53,20 +56,28 @@ public class Ucenik {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getIme() {
+		return ime;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setIme(String ime) {
+		this.ime = ime;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getPrezime() {
+		return prezime;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
+	}
+
+	public Set<Predmet> getPredmet() {
+		return predmet;
+	}
+
+	public void setPredmet(Set<Predmet> predmet) {
+		this.predmet = predmet;
 	}
 
 	public Set<Test> getTest() {

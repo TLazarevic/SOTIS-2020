@@ -23,11 +23,11 @@ public class Nastavnik {
 	
 	@Column
 	/** @pdOid 84924235-ca8d-4674-819c-c2c057056afe */
-	private String name;
+	private String ime;
 	
 	@Column
 	/** @pdOid ae58c1fd-e5b8-4efa-993a-7bbef9991cef */
-	private String lastName;
+	private String prezime;
 
 	public long getId() {
 		return id;
@@ -37,20 +37,20 @@ public class Nastavnik {
 		this.id = id;
 	}
 
-	public String getName() {
-		return name;
+	public String getIme() {
+		return ime;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setIme(String ime) {
+		this.ime = ime;
 	}
 
-	public String getLastName() {
-		return lastName;
+	public String getPrezime() {
+		return prezime;
 	}
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setPrezime(String prezime) {
+		this.prezime = prezime;
 	}
 
 

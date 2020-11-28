@@ -6,17 +6,14 @@ package com.example.SOTIS.model;
  * Purpose: Defines the Class Test
  ***********************************************************************/
 
-import java.util.Iterator;
 import java.util.Set;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 @Entity
 /** @pdOid b9e0a4d4-18b8-4c35-87c6-39374d7494f6 */
@@ -60,20 +57,6 @@ public class Test {
 		return pitanje;
 	}
 
-	/** @pdGenerated default iterator getter */
-	public java.util.Iterator getIteratorPitanje() {
-		return pitanje.iterator();
-	}
-
-	/**
-	 * @pdGenerated default setter
-	 * @param newPitanje
-	 */
-	public void setPitanje(java.util.List<Pitanje> newPitanje) {
-		removeAllPitanje();
-		for (Iterator<Pitanje> iter = newPitanje.iterator(); iter.hasNext();)
-			addPitanje((Pitanje) iter.next());
-	}
 
 	/**
 	 * @pdGenerated default add
