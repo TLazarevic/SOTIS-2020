@@ -1,7 +1,7 @@
 export class Odgovor{
     
     id:number=0;
-    tekstt:String="";
+    tekst:String="";
     tacnost:boolean=false;
 
 }

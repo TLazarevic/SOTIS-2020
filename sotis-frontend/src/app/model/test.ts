@@ -1,12 +1,12 @@
+import { Nastavnik } from './Nastavnik';
 import { Pitanje } from "./pitanje";
+import { Predmet } from './predmet';
 
 export class Test{
 
     id:number=0;
-    pitanja: Pitanje[] = [];
-    predmet: String="";
+    pitanje: Pitanje[] = [];
+    predmet!: Predmet;
+    nastavnik! : Nastavnik;
 
-    constructor(predmet : String){
-        this.predmet = predmet;
-    }
 }

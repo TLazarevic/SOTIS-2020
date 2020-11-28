@@ -1,0 +1,28 @@
+.page {
+    margin-bottom: 200px;
+}
+
+.pitanje {
+    border: 1px solid #E7E6E6;
+    border-radius: 15px;
+    /* background-color: #E7E6E6; */
+}
+
+.questionNo {
+    font-size: 22px;
+    margin: 20px;
+}
+
+.questionText {
+    font-size: 18px;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+label {
+    margin-left: 10px;
+}
+
+#submit {
+    margin: 5px;
+}
