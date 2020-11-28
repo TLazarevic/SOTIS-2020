@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pitanje } from 'src/app/model/pitanje';
 import { Predmet } from 'src/app/model/predmet';
-import { Test } from 'src/app/model/test';
+import { TestViewDTO } from 'src/app/model/test';
 import { PageEvent } from '@angular/material/paginator';
 import { Odgovor } from 'src/app/model/odgovor';
 import { TakeTestService } from 'src/app/services/take-test.service';
@@ -16,9 +16,9 @@ const ZAKUCANO = 1
 })
 export class TestPreviewComponent implements OnInit {
 
-  test!: Test;
+  test!: TestViewDTO;
   testSize: number = 0;
-  studentAnswers!: Test;
+  studentAnswers: TestViewDTO = new TestViewDTO;
 
   // MatPaginator Output
   pageEvent: PageEvent = new PageEvent;
@@ -55,7 +55,6 @@ export class TestPreviewComponent implements OnInit {
         for (let p of this.studentAnswers.pitanje) {
           for (let o of p.odgovori) {
             o.tacnost = false;
-            alert(o.tekst)
           }
         }
       })

@@ -16,6 +16,7 @@ import org.springframework.http.MediaType;
 import com.example.SOTIS.service.TestService;
 import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.DTO.TestDTO;
+import com.example.SOTIS.model.DTO.TestViewDTO;
 
 @RestController
 @RequestMapping(value = "/test")
@@ -26,9 +27,12 @@ public class TestController {
 	TestService testService;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Test> getTest(@PathVariable Long id) {
+	public ResponseEntity<TestViewDTO> getTest(@PathVariable Long id) {
 		System.out.print(testService.findById(id));
-		return new ResponseEntity<>(testService.findById(id), HttpStatus.OK);
+		if (testService.findById(id)!=null)
+			return new ResponseEntity<>(testService.findById(id), HttpStatus.OK);
+		else
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	@GetMapping(value = "/nastavnik/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -42,11 +46,11 @@ public class TestController {
 	}
 
 	@PostMapping(value = "/uradjen/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<TestDTO>> submitTest(@PathVariable Long id, @RequestBody Test test) {
+	public ResponseEntity<Boolean> submitTest(@PathVariable Long id, @RequestBody TestViewDTO test) {
 		System.out.print(test);
 		if (testService.submitTest(id, test))
-			return new ResponseEntity<>(testService.findAllByUcenik(id), HttpStatus.OK);
+			return new ResponseEntity<>(true, HttpStatus.OK);
 		else
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }
