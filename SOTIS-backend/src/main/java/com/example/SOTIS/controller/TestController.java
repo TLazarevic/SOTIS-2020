@@ -8,11 +8,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
 import com.example.SOTIS.service.TestService;
+import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.DTO.TestDTO;
+import com.example.SOTIS.model.DTO.TestViewDTO;
 
 @RestController
 @RequestMapping(value = "/test")
@@ -22,6 +26,15 @@ public class TestController {
 	@Autowired
 	TestService testService;
 
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<TestViewDTO> getTest(@PathVariable Long id) {
+		System.out.print(testService.findById(id));
+		if (testService.findById(id)!=null)
+			return new ResponseEntity<>(testService.findById(id), HttpStatus.OK);
+		else
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
 	@GetMapping(value = "/nastavnik/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TestDTO>> getAllByNastavnik(@PathVariable Long id) {
 		return new ResponseEntity<>(testService.findAllByNastavnik(id), HttpStatus.OK);
@@ -30,5 +43,14 @@ public class TestController {
 	@GetMapping(value = "/ucenik/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TestDTO>> getAllByUcenik(@PathVariable Long id) {
 		return new ResponseEntity<>(testService.findAllByUcenik(id), HttpStatus.OK);
+	}
+
+	@PostMapping(value = "/uradjen/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> submitTest(@PathVariable Long id, @RequestBody TestViewDTO test) {
+		System.out.print(test);
+		if (testService.submitTest(id, test))
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 }

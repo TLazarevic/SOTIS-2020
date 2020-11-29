@@ -1,7 +1,8 @@
 import { Odgovor } from './odgovor'
 
-export class Pitanje {
+export class PitanjeDTO {
 
     id:number=0;
     tekst:String="";
+    odgovori!: Odgovor[];
 }

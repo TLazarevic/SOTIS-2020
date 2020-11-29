@@ -78,16 +78,12 @@
 
                     <p class="questionText">{{test.pitanje[i].tekst}}</p>
 
-
                     <div *ngFor="let o of p.odgovori">
                         <input type="checkbox" [checked]="o.tacnost" (change)="o.tacnost = !o.tacnost">
                         <label for="vehicle1"> {{o.tekst}}</label><br>
                     </div>
                     <div *ngIf="i==studentAnswers.pitanje.length-1"> <button id="submit" (click)="submit()" mat-raised-button color="primary">Submit</button>
                     </div>
-
-
-
 
                 </div>
             </div>
