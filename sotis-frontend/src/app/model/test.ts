@@ -1,11 +1,12 @@
 import { Nastavnik } from './Nastavnik';
-import { Odgovor } from './odgovor';
-import { PitanjeDTO } from "./PitanjeDTO";
+import { Pitanje } from "./pitanje";
 import { Predmet } from './predmet';
 
-export class TestViewDTO{
+export class Test{
 
-    id!:number;
-    pitanje: PitanjeDTO[] = [];
+    id:number=0;
+    pitanje: Pitanje[] = [];
+    predmet!: Predmet;
+    nastavnik! : Nastavnik;
 
 }
