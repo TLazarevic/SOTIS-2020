@@ -3,7 +3,8 @@ import { Nastavnik } from '../model/Nastavnik';
 import { Odgovor } from '../model/odgovor';
 import { Pitanje } from '../model/pitanje';
 import { Predmet } from '../model/predmet';
-import { Test } from '../model/test';
+import { Test } from '../model/Test';
+
 
 @Component({
   selector: 'app-new-test',

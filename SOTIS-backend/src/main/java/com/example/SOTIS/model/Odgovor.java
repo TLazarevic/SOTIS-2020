@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /***********************************************************************
  * Module: Odgovor.java Author: Tamara and Dusan Purpose: Defines the Class
  * Odgovor
@@ -28,7 +30,8 @@ public class Odgovor {
 	@Column
 	/** @pdOid 8ccea436-8bd7-4eb8-b146-d51b565d5641 */
 	private boolean tacnost;
-
+	
+	@JsonIgnore
 	@ManyToOne
 	public Pitanje pitanje;
 
@@ -62,6 +65,11 @@ public class Odgovor {
 
 	public void setTacnost(boolean tacnost) {
 		this.tacnost = tacnost;
+	}
+
+	@Override
+	public String toString() {
+		return "Odgovor [id=" + id + ", tekst=" + tekst + ", tacnost=" + tacnost + "]";
 	}
 
 }

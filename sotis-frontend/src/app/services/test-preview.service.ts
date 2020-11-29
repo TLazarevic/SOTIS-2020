@@ -12,7 +12,7 @@ export class TestPreviewService {
   constructor(private http: HttpClient) { }
 
   getTestsByNastavnik(id: number) {
-    return this.http.get<TestDTO[]>("http://localhost:8080/test/nastavnik/"+id, httpOptions)
+    return this.http.get<TestDTO[]>("http://localhost:8080/test/nastavnik/" + id, httpOptions)
   }
 
 }

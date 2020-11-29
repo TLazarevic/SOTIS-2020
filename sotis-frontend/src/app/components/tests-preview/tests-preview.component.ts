@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TestDTO } from 'src/app/model/testDTO';
 import { TestPreviewService } from 'src/app/services/test-preview.service';
-
+import { Router } from '@angular/router';
 
 const zakucano = 1
 
@@ -15,7 +15,7 @@ export class TestsPreviewComponent implements OnInit {
 
   tests: TestDTO[] = [];
 
-  constructor(private testService: TestPreviewService) {
+  constructor(private testService: TestPreviewService, private router: Router) {
     // this.tests = [];
     // this.tests.push(new TestDTO("SOTIS"));
     // this.tests.push(new TestDTO("Neuronske mreze"));
@@ -28,5 +28,10 @@ export class TestsPreviewComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  submit(id: number) {
+    this.router.navigate(['/Test', { id: id }]);
+  }
+
 
 }
