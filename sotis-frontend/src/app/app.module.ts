@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import {FormsModule} from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +18,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
-
+import { NewTestComponent } from './new-test/new-test.component';
+ 
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,8 @@ import { MatListModule } from '@angular/material/list';
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    TestPreviewComponent
+    TestPreviewComponent,
+    NewTestComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ import { MatListModule } from '@angular/material/list';
     HttpClientModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatListModule
+    MatListModule,
+    FormsModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent],
