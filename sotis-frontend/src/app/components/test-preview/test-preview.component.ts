@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Pitanje } from 'src/app/model/pitanje';
 import { Predmet } from 'src/app/model/predmet';
-import { TestViewDTO } from 'src/app/model/test';
+import { TestViewDTO } from 'src/app/model/testViewDTO';
 import { PageEvent } from '@angular/material/paginator';
 import { Odgovor } from 'src/app/model/odgovor';
 import { TakeTestService } from 'src/app/services/take-test.service';
