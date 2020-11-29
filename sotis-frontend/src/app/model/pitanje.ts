@@ -1,4 +1,4 @@
-import { Odgovor } from './Odgovor'
+import { Odgovor } from './odgovor'
 
 export class Pitanje {
 

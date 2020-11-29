@@ -3,7 +3,7 @@ import { Pitanje } from 'src/app/model/pitanje';
 import { Predmet } from 'src/app/model/predmet';
 import { Test } from 'src/app/model/test';
 import { PageEvent } from '@angular/material/paginator';
-import { Odgovor } from 'src/app/model/Odgovor';
+import { Odgovor } from 'src/app/model/odgovor';
 
 @Component({
   selector: 'app-test-preview',

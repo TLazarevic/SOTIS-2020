@@ -48,7 +48,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Your Tests</title>
+    <title>New Test</title>
     <meta content="" name="descriptison">
     <meta content="" name="keywords">
 
@@ -59,24 +59,6 @@
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
-
-    <!-- <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
-    <!-- <link href="assets/vendor/icofont/icofont.min.css" rel="stylesheet"> -->
-    <!-- <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/owl.carousel/assets/owl.carousel.min.css" rel="stylesheet">
-  <link href="assets/vendor/animate.css/animate.min.css" rel="stylesheet">
-  <link href="assets/vendor/aos/aos.css" rel="stylesheet"> -->
-
-    <!-- Template Main CSS File -->
-    <!-- <link href="assets/css/style.css" rel="stylesheet"> -->
-
-    <!-- =======================================================
-  * Template Name: Mentor - v2.1.0
-  * Template URL: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
 </head>
 
 <body>
@@ -104,7 +86,7 @@
             <div class="container">
                 <h2>New test</h2>
                 <br/>
-                <button (click) = "finishTest()" class="btn-delete"> Finish test</button>
+                <button (click) = "finishTest()" class="btn-delete" [hidden]="hiddenUnosPitanja">Finish test</button>
             </div>
         </div>
         <!-- End Breadcrumbs -->
@@ -148,7 +130,7 @@
             <table>
                 <tbody>
                     <tr>
-                        <td>Answer </td>
+                        <td>Answer</td>
                         <td>True/False</td>
                     </tr>
                     <tr>
@@ -168,6 +150,37 @@
         </div>
 
 
+        <div id="divPotvrdaTesta" [hidden] = "hiddenPotvrdaTesta"  align = "center">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>Question</td>
+                        <td>Answers</td>
+                    </tr>
+                    <tr *ngFor="let p of krajnjiTest.pitanje">
+                        <td> {{p.tekst}} </td>
+                        <td>
+
+                            <table>
+                                <tr *ngFor="let o of p.odgovori"> 
+                                    <td>
+                                        {{o.tekst}}
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" [checked]="o.tacnost" disabled>
+                                    </td>
+                                </tr>
+                            </table>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td> <button class="btn-add" (click)="sendTestToBackend()"> Confirm </button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 
 
     </main>
