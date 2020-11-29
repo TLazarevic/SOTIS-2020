@@ -28,6 +28,16 @@ public class Pitanje {
 	@Column
 	private String tekst;
 
+	public Pitanje(long id, String tekst) {
+		super();
+		this.id = id;
+		this.tekst = tekst;
+	}
+
+	public Pitanje() {
+		super();
+	}
+
 	public Set<Test> getTest() {
 		return test;
 	}

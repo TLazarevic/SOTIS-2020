@@ -1,4 +1,4 @@
-package com.example.SOTIS.repository;
+package com.example.SOTIS.model.DTO;
 
 import java.util.HashSet;
 import java.util.Set;

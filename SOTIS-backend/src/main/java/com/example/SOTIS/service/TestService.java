@@ -11,10 +11,10 @@ import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
 import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.Ucenik;
+import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
 import com.example.SOTIS.repository.OdgovoriRepository;
-import com.example.SOTIS.repository.PitanjeDTO;
 import com.example.SOTIS.repository.TestRepository;
 import com.example.SOTIS.repository.UcenikRepository;
 
@@ -41,10 +41,18 @@ public class TestService {
 
 	public boolean submitTest(Long id, TestViewDTO test) {
 		try {
-//			Ucenik ucenik = ucenikRepo.findById(id).get();
-//			Test originalTest = testRepo.findById(test.getId()).get();
-//			ucenik.test.add(originalTest);
-//			ucenikRepo.save(ucenik);
+			Ucenik ucenik = ucenikRepo.findById(id).get();
+			Test originalTest = testRepo.findById(test.getId()).get();
+			for (PitanjeDTO pit : test.getPitanje()) {
+				for (Odgovor o: pit.getOdgovori()) {
+					Pitanje newPitanje = new Pitanje(pit.getId(), pit.getTekst());
+					o.setPitanje(newPitanje);
+					odgovorRepo.save(o);
+				}
+				
+			}
+			ucenik.test.add(originalTest);
+			ucenikRepo.save(ucenik);
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();

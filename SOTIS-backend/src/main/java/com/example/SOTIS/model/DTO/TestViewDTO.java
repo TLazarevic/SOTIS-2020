@@ -6,7 +6,6 @@ import java.util.Set;
 
 import com.example.SOTIS.model.Predmet;
 import com.example.SOTIS.model.Test;
-import com.example.SOTIS.repository.PitanjeDTO;
 
 public class TestViewDTO {
 

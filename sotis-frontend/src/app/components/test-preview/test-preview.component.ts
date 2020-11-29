@@ -70,6 +70,7 @@ export class TestPreviewComponent implements OnInit {
   submit() {
     console.log(this.studentAnswers)
     this.takeTestService.sendAnswers(this.studentAnswers, ZAKUCANO).subscribe()
+    alert('submitted')
   }
 
 
