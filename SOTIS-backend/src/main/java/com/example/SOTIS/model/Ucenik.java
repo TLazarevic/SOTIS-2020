@@ -5,6 +5,8 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
@@ -18,6 +20,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Ucenik {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** @pdOid 09de1032-caf4-47b1-9ee1-586656fbb2d2 */
 	private long id;
 

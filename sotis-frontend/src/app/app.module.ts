@@ -19,6 +19,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { NewTestComponent } from './new-test/new-test.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
  
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { NewTestComponent } from './new-test/new-test.component';
     MatPaginatorModule,
     MatButtonModule,
     MatListModule,
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent],

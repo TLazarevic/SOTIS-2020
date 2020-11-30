@@ -23,6 +23,7 @@ public class UserController {
 
 	@PostMapping(value = "/ucenik", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> addUcenik(@RequestBody Ucenik ucenik) {
+		System.out.println(ucenik);
 		if (userService.addUcenik(ucenik)) {
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		} else {
