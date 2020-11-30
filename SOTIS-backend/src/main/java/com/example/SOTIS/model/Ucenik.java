@@ -32,12 +32,15 @@ public class Ucenik {
 	/** @pdOid ce10ec1b-51a0-48cf-ae50-72d9f042f277 */
 	private String prezime;
 
-	@OneToMany
-	/**
-	 * @pdRoleInfo migr=no name=Test assc=association4 coll=java.util.Collection
-	 *             impl=java.util.HashSet mult=0..* type=Aggregation
-	 */
-	public Set<Test> test;
+	@Column
+	private String email;
+
+//	@OneToMany
+//	/**
+//	 * @pdRoleInfo migr=no name=Test assc=association4 coll=java.util.Collection
+//	 *             impl=java.util.HashSet mult=0..* type=Aggregation
+//	 */
+//	public Set<Test> test;
 
 	@OneToMany
 	/**
@@ -83,13 +86,13 @@ public class Ucenik {
 		this.predmet = predmet;
 	}
 
-	public Set<Test> getTest() {
-		return test;
-	}
-
-	public void setTest(Set<Test> test) {
-		this.test = test;
-	}
+//	public Set<Test> getTest() {
+//		return test;
+//	}
+//
+//	public void setTest(Set<Test> test) {
+//		this.test = test;
+//	}
 
 	public Set<ProstorZnanja> getProstorZnanja() {
 		return prostorZnanja;
@@ -97,6 +100,14 @@ public class Ucenik {
 
 	public void setProstorZnanja(Set<ProstorZnanja> prostorZnanja) {
 		this.prostorZnanja = prostorZnanja;
+	}
+	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 }

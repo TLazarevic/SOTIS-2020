@@ -5,9 +5,9 @@ import { TestViewDTO } from 'src/app/model/testViewDTO';
 import { PageEvent } from '@angular/material/paginator';
 import { Odgovor } from 'src/app/model/odgovor';
 import { TakeTestService } from 'src/app/services/take-test.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
-const ZAKUCANO = 1
+const ZAKUCANO = 100
 
 @Component({
   selector: 'app-test-preview',
@@ -25,7 +25,7 @@ export class TestPreviewComponent implements OnInit {
   testId!: number;
 
 
-  constructor(private takeTestService: TakeTestService, private route: ActivatedRoute) {
+  constructor(private takeTestService: TakeTestService, private route: ActivatedRoute, private router: Router) {
 
     // this.test = new Test();
     // var pitanje1 = new Pitanje();
@@ -48,10 +48,10 @@ export class TestPreviewComponent implements OnInit {
       console.log(this.testId)
       this.takeTestService.getTest(this.testId).subscribe(data => {
         this.test = data
-       console.log(this.test)
+        console.log(this.test)
         this.pageEvent.pageIndex = 0
 
-        this.studentAnswers =this.test
+        this.studentAnswers = this.test
         for (let p of this.studentAnswers.pitanje) {
           for (let o of p.odgovori) {
             o.tacnost = false;
@@ -71,6 +71,7 @@ export class TestPreviewComponent implements OnInit {
     console.log(this.studentAnswers)
     this.takeTestService.sendAnswers(this.studentAnswers, ZAKUCANO).subscribe()
     alert('submitted')
+    this.router.navigate(['/Tests']);
   }
 
 

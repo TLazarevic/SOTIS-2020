@@ -5,6 +5,5 @@ export class Predmet {
     id!: number;
     naziv!: string;
     nastavnik!: Nastavnik[];
-    ucenik!: Ucenik[];
 
 }

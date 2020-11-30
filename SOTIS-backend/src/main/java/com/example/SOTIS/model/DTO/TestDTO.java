@@ -14,6 +14,16 @@ public class TestDTO {
 	public Predmet predmet;
 
 	public Nastavnik nastavnik;
+
+	public boolean uradjen;
+
+	public TestDTO(Test t, Nastavnik n, boolean uradjen) {
+		this.id = t.getId();
+		this.predmet = t.predmet;
+		this.pitanje = t.pitanje;
+		this.nastavnik = n;
+		this.uradjen = uradjen;
+	}
 	
 	public TestDTO(Test t, Nastavnik n) {
 		this.id = t.getId();
@@ -52,6 +62,14 @@ public class TestDTO {
 
 	public void setNastavnik(Nastavnik nastavnik) {
 		this.nastavnik = nastavnik;
+	}
+
+	public boolean isUradjen() {
+		return uradjen;
+	}
+
+	public void setUradjen(boolean uradjen) {
+		this.uradjen = uradjen;
 	}
 
 }

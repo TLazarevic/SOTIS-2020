@@ -43,11 +43,11 @@ public class Test {
 	@ManyToOne
 	public Nastavnik nastavnik;
 
-	public Nastavnik getNastavik() {
+	public Nastavnik getNastavnik() {
 		return nastavnik;
 	}
 
-	public void setNastavik(Nastavnik nastavik) {
+	public void setNastavnik(Nastavnik nastavik) {
 		this.nastavnik = nastavik;
 	}
 

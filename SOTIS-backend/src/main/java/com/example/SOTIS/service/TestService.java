@@ -11,12 +11,15 @@ import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
 import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.Ucenik;
+import com.example.SOTIS.model.UcenikTest;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
 import com.example.SOTIS.repository.OdgovoriRepository;
 import com.example.SOTIS.repository.TestRepository;
 import com.example.SOTIS.repository.UcenikRepository;
+import com.example.SOTIS.repository.UcenikTestRepository;
+
 
 @Service
 public class TestService {
@@ -29,14 +32,17 @@ public class TestService {
 
 	@Autowired
 	OdgovoriRepository odgovorRepo;
+	
+	@Autowired
+	UcenikTestRepository ucenikTestRepo;
 
 	public List<TestDTO> findAllByNastavnik(Long id) {
-		System.out.println(testRepo.findAllByNastavnik(id).size());
 		return testRepo.findAllByNastavnik(id);
 	}
 
 	public List<TestDTO> findAllByUcenik(Long id) {
-		return testRepo.findAllByUcenik(id);
+		System.out.println(ucenikTestRepo.findByUcenikId(id).size());
+		return ucenikTestRepo.findByUcenikId(id);
 	}
 
 	public boolean submitTest(Long id, TestViewDTO test) {
@@ -51,8 +57,10 @@ public class TestService {
 				}
 				
 			}
-			ucenik.test.add(originalTest);
-			ucenikRepo.save(ucenik);
+			UcenikTest ut = ucenikTestRepo.findByUcenikAndTest(ucenik,originalTest);
+			ut.setUradjen(true);
+			ucenikTestRepo.save(ut);
+			
 			return true;
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -66,9 +74,7 @@ public class TestService {
 			TestViewDTO dto = new TestViewDTO(t);
 			
 			for (Pitanje p : t.pitanje) {
-				System.out.println(p.getId());
 				Set<Odgovor> o = odgovorRepo.findByPitanjeId(p.getId());
-				System.out.println(o.size());
 				PitanjeDTO pit = new PitanjeDTO(p, o);
 				dto.pitanje.add(pit);
 			}

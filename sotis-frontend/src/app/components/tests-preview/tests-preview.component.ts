@@ -3,7 +3,7 @@ import { TestDTO } from 'src/app/model/testDTO';
 import { TestPreviewService } from 'src/app/services/test-preview.service';
 import { Router } from '@angular/router';
 
-const zakucano = 1
+const zakucano = 100
 
 @Component({
   selector: 'app-tests-preview',
@@ -19,14 +19,17 @@ export class TestsPreviewComponent implements OnInit {
     // this.tests = [];
     // this.tests.push(new TestDTO("SOTIS"));
     // this.tests.push(new TestDTO("Neuronske mreze"));
-    this.testService.getTestsByNastavnik(zakucano).subscribe(
+    this.testService.getTestsByUcenik(zakucano).subscribe(
       data => {
         this.tests = data;
+        console.log(this.tests[0])
+        
       }
     )
   }
 
   ngOnInit(): void {
+
   }
 
   submit(id: number) {

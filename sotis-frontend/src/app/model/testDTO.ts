@@ -8,4 +8,5 @@ export class TestDTO {
     pitanje: Pitanje[] = [];
     predmet!: Predmet;
     nastavnik!: Nastavnik;
+    uradjen! : boolean
 }

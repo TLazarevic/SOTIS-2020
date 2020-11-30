@@ -69,7 +69,7 @@
         <section id="courses" class="courses">
             <div class="container" data-aos="fade-up">
 
-                <div class="row" data-aos="zoom-in" data-aos-delay="100">
+                <div class="row" data-aos="zoom-in" data-aos-delay="100" *ngIf="tests">
 
                     <div *ngFor="let test of tests" div class="col-lg-4 col-md-6 d-flex align-items-stretch">
                         <div class="course-item">
@@ -88,7 +88,15 @@
                                         <img src="assets/img/teacher.png" class="img-fluid" alt="">
                                         <span>{{test.nastavnik.ime}} {{test.nastavnik.prezime}}</span>
                                     </div>
-                                    <button id="submit" (click)="submit(test.id)" mat-raised-button color="primary">Take test</button>
+
+                                    <div *ngIf="!test.uradjen; else elseBlock">
+                                        <button id="submit" (click)="submit(test.id)" mat-raised-button color="primary">Take test
+                                        </button></div>
+                                    <ng-template #elseBlock>
+                                        <div>Uradjen</div>
+                                    </ng-template>
+
+
                                     <!-- <div class="trainer-rank d-flex align-items-center">
                     <i class="bx bx-user"></i>&nbsp;50
                     &nbsp;&nbsp;

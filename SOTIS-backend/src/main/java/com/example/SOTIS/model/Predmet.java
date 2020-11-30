@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /***********************************************************************
  * Module: Predmet.java Author: Tamara and Dusan Purpose: Defines the Class
  * Predmet
@@ -25,7 +27,7 @@ public class Predmet {
 	/** @pdOid ad754e5d-65e8-4044-94c4-29d7b089052f */
 	private String naziv;
 
-	@OneToMany
+	@ManyToMany
 	/**
 	 * @pdRoleInfo migr=no name=Nastavnik assc=association7
 	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
@@ -33,6 +35,7 @@ public class Predmet {
 	 */
 	public Set<Nastavnik> nastavnik;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "predmet")
 	public Set<Ucenik> ucenik;
 

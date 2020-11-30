@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Nastavnik } from '../model/Nastavnik';
 import { Odgovor } from '../model/odgovor';
 import { Pitanje } from '../model/pitanje';
+import { PitanjeDTO } from '../model/PitanjeDTO';
 import { Predmet } from '../model/predmet';
 import { Test } from '../model/Test';
 
@@ -56,7 +57,7 @@ export class NewTestComponent implements OnInit {
   }
 
   public addQuestion(){
-    var question = new Pitanje();
+    var question = new PitanjeDTO();
     question.tekst = this.textTempPitanje;
     this.textTempPitanje = "";
     question.odgovori = this.tempOdgovori;
