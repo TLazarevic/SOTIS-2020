@@ -16,6 +16,7 @@ export class NewTestComponent implements OnInit {
 
   public hiddenUnosTest: boolean;
   public hiddenUnosPitanja: boolean;
+  public hiddenPotvrdaTesta: boolean;
 
   public textTempTest: String = new String();
   public predmetTempTest: String = new String();
@@ -23,11 +24,15 @@ export class NewTestComponent implements OnInit {
   public textTempOdgovor: String = new String();
   public tacnostTempOdgovor: boolean;
 
+  public krajnjiTest: Test = new Test()
+
   tempOdgovori: Array<Odgovor> = [];
   tempPitanja: Array<Pitanje> = [];
   constructor() {
     this.hiddenUnosTest = false;
     this.hiddenUnosPitanja = true;
+    this.hiddenPotvrdaTesta = true;
+
     this.tacnostTempOdgovor = false;
    }
 
@@ -79,8 +84,16 @@ export class NewTestComponent implements OnInit {
     test.pitanje = this.tempPitanja;
     test.predmet = new Predmet();
 
-    alert(test);
-    console.log(test);
+    this.krajnjiTest = test;
+    console.log(this.krajnjiTest);
 
+    this.hiddenUnosTest = true;
+    this.hiddenUnosPitanja = true;
+    this.hiddenPotvrdaTesta = false;
+
+  }
+
+  public sendTestToBackend(){
+    alert("Success");
   }
 }
