@@ -62,7 +62,7 @@ export class NewTestComponent implements OnInit {
   }
 
   public addQuestion(){
-    var question = new PitanjeDTO();
+    var question = new Pitanje();
     question.tekst = this.textTempPitanje;
     this.textTempPitanje = "";
     question.odgovori = this.tempOdgovori;

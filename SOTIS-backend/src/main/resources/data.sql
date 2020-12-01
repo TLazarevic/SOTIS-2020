@@ -13,8 +13,11 @@ insert into ucenik_predmet(ucenik_id, predmet_id) values (100,2);
 
 insert into pitanje(id, tekst) values (1, 'tekstpitanja');
 insert into odgovor(id, tekst, tacnost, pitanje_id) values (1, 'teksttt', true,1);
+insert into pitanje(id, tekst) values (2, 'tekstpitanja2');
+insert into odgovor(id, tekst, tacnost, pitanje_id) values (2, 'teksttt2', true,2);
 insert into test_pitanje(test_id,pitanje_id) values(1,1);
 insert into test_pitanje(test_id,pitanje_id) values(2,1);
+insert into test_pitanje(test_id,pitanje_id) values(2,2);
 insert into test_pitanje(test_id,pitanje_id) values(3,1);
 
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 1, true);
