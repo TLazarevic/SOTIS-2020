@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -21,7 +21,9 @@ import { MatListModule } from '@angular/material/list';
 import { NewTestComponent } from './new-test/new-test.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
- 
+import { NgxGraphModule } from '@swimlane/ngx-graph';
+import { KnowledgePreviewComponent } from './components/knowledge-preview/knowledge-preview.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +33,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HomeComponent,
     NavbarComponent,
     TestPreviewComponent,
-    NewTestComponent
+    NewTestComponent,
+    KnowledgePreviewComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +47,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatListModule,
     FormsModule,
     ReactiveFormsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    NgxGraphModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent],
