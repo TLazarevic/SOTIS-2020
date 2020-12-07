@@ -19,7 +19,17 @@ public class PitanjeDTO {
 
 	private String tekst;
 
-	private Set<Odgovor> odgovori = new HashSet<>();;
+	private Set<Odgovor> odgovori = new HashSet<>();
+	
+	private Long predmetId;
+
+	public Long getPredmetId() {
+		return predmetId;
+	}
+
+	public void setPredmetId(Long predmetId) {
+		this.predmetId = predmetId;
+	}
 
 	public PitanjeDTO() {
 		super();

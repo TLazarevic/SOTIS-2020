@@ -23,6 +23,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { KnowledgePreviewComponent } from './components/knowledge-preview/knowledge-preview.component';
+import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
+import { NewQuestionService } from './services/new-question.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,8 @@ import { KnowledgePreviewComponent } from './components/knowledge-preview/knowle
     NavbarComponent,
     TestPreviewComponent,
     NewTestComponent,
-    KnowledgePreviewComponent
+    KnowledgePreviewComponent,
+    NewPitanjeComponent
   ],
   imports: [
     BrowserModule,
@@ -50,7 +53,8 @@ import { KnowledgePreviewComponent } from './components/knowledge-preview/knowle
     MatSnackBarModule,
     NgxGraphModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+  providers: [NewQuestionService,
+    { provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
