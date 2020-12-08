@@ -8,17 +8,17 @@ import {PitanjeDTO } from '../model/PitanjeDTO';
 @Injectable()
 export class NewQuestionService {
   private readonly dodajPitanjeUrl: string;
-  private readonly createModelUrl: string;
+  private readonly predmetiUrl: string;
   
 
   constructor(private http: HttpClient) {
     this.dodajPitanjeUrl = 'http://localhost:8080/pitanje';
-    this.createModelUrl = 'http://localhost:8079/admin-service/model/';
+    this.predmetiUrl = 'http://localhost:8080/predmet';
   }
 
-  public getMoguciPredmeti(){
-    alert("Bice dobavljanje predmeta");
-    //return this.http.get<any>(this.getUsersUrl + '/True');
+  public getSviPredmeti(){
+    //alert("Bice dobavljanje predmeta");
+    return this.http.get<any>(this.predmetiUrl);
   }
 
 

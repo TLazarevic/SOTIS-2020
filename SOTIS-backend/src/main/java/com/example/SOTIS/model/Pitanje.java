@@ -37,6 +37,8 @@ public class Pitanje {
 		this.tekst = tekst;
 	}
 	
+
+
 	//@ManyToOne
 	/**
 	 * @pdRoleInfo migr=no name=Predmet assc=association8 mult=0..1 type=Aggregation

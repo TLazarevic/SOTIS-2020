@@ -1,5 +1,6 @@
 package com.example.SOTIS.service;
 
+import java.util.List;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
+import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.repository.OdgovoriRepository;
 import com.example.SOTIS.repository.PitanjeRepository;
 import com.example.SOTIS.repository.TestRepository;
@@ -33,6 +35,7 @@ public class PitanjeService {
 		
 		Pitanje p = new Pitanje();
 		p.setTekst(pitanjeDTO.getTekst());
+		p.setPredmetId(pitanjeDTO.getPredmetId());
 		//p.setPredmetId(pitanjeDTO.getPredmetId());
 		pitanjeRepo.save(p);
 		Set<Odgovor> odgovori = pitanjeDTO.getOdgovori();
@@ -64,6 +67,10 @@ public class PitanjeService {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	public List<Pitanje> findAllByPredmet(Long id) {
+		return pitanjeRepo.findByPredmet(id);
 	}
 	
 	

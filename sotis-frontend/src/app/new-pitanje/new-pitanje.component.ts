@@ -26,6 +26,10 @@ export class NewPitanjeComponent implements OnInit {
 
   tempOdgovori: Array<Odgovor> = [];
   tempPitanja: Array<Pitanje> = [];
+
+  predmeti: Array<Predmet> = [];
+  odabraniPredmet: Predmet = new Predmet();
+
   constructor(private newQuestionService: NewQuestionService) {
     this.hiddenUnosTest = false;
     this.hiddenUnosPitanja = true;
@@ -34,17 +38,18 @@ export class NewPitanjeComponent implements OnInit {
     this.tacnostTempOdgovor = false;
    }
 
-
-  
   ngOnInit(): void {
 
     // dobavljanje predmeta za odabir
-    this.newQuestionService.getMoguciPredmeti();
+    this.newQuestionService.getSviPredmeti().subscribe(response => {this.predmeti = response; this.odabraniPredmet = this.predmeti[0]});
+    
   }
 
   public confirmTest(){
     this.hiddenUnosTest = true;
     this.hiddenUnosPitanja = false;
+    console.log(this.odabraniPredmet);
+    alert(this.odabraniPredmet.naziv);
   }
 
   public addAnswer(){
@@ -72,6 +77,7 @@ export class NewPitanjeComponent implements OnInit {
     this.hiddenUnosTest = true;
     this.hiddenUnosPitanja = true;
     this.hiddenPotvrdaPitanja = false;
+    alert(this.odabraniPredmet.id)
   }
 
 
@@ -81,7 +87,7 @@ export class NewPitanjeComponent implements OnInit {
     let pitanje: PitanjeDTO = new PitanjeDTO();
     pitanje.tekst = this.textTempPitanje
     pitanje.odgovori = this.tempOdgovori
-  
+    pitanje.predmetId = this.odabraniPredmet.id;
     this.newQuestionService.dodajPitanje(pitanje).subscribe();
   }
 
