@@ -45,7 +45,8 @@ import {MatSelectModule} from '@angular/material/select';
     KnowledgePreviewComponent,
     NewNodeDialogComponent,
     NewPitanjeComponent,
-    LinkDialogComponent
+    LinkDialogComponent,
+    NewPitanjeComponent
   ],
   imports: [
     BrowserModule,

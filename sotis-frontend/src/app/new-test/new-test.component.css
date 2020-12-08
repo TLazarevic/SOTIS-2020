@@ -1,0 +1,50 @@
+.table-main {
+    border-collapse: collapse;
+    width: 70%;
+  }
+  th, td {
+    text-align: left;
+    padding: 8px;
+  }
+  .btn-delete{
+    background:  none;
+    color: red;
+    border: none;
+  }
+  .btn-delete:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .btn-delete{
+    background:  none;
+    color: red;
+    border: none;
+  }
+  .btn-delete:hover {
+    background-color: red;
+    color: white;
+  }
+
+  .btn-block{
+    background:  none;
+    color: orange;
+    border: none;
+  }
+  .btn-block:hover {
+    background-color: orange;
+    color: white;
+  }
+
+  .btn-add{
+    background:  none;
+    color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+  }
+  .btn-add:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+  tr:nth-child(even) {background-color: #f2f2f2;}
+

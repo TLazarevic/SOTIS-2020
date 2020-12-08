@@ -5,6 +5,7 @@ import { Pitanje } from '../model/pitanje';
 import { PitanjeDTO } from '../model/PitanjeDTO';
 import { Predmet } from '../model/predmet';
 import { Test } from '../model/Test';
+import { NewQuestionService } from '../services/new-question.service';
 
 
 @Component({
@@ -18,22 +19,24 @@ export class NewTestComponent implements OnInit {
   public hiddenUnosPitanja: boolean;
   public hiddenPotvrdaTesta: boolean;
 
-  public textTempTest: String = new String();
   public predmetTempTest: String = new String();
-  public textTempPitanje: String = new String();
-  public textTempOdgovor: String = new String();
-  public tacnostTempOdgovor: boolean;
 
   public krajnjiTest: Test = new Test()
 
-  tempOdgovori: Array<Odgovor> = [];
   tempPitanja: Array<Pitanje> = [];
-  constructor() {
+
+  predmeti: Array<Predmet> = [];
+  pitanjaZaPredmet: Array<Pitanje> = []
+  odabraniPredmet: Predmet = new Predmet();
+
+  odabranaPitanja: Array<Pitanje> = []
+  constructor(private newQuestionService: NewQuestionService) {
     this.hiddenUnosTest = false;
     this.hiddenUnosPitanja = true;
     this.hiddenPotvrdaTesta = true;
 
-    this.tacnostTempOdgovor = false;
+    this.newQuestionService.getSviPredmeti().subscribe(response => {this.predmeti = response; this.odabraniPredmet = this.predmeti[0]});
+
    }
 
 
@@ -44,33 +47,33 @@ export class NewTestComponent implements OnInit {
   public confirmTest(){
     this.hiddenUnosTest = true;
     this.hiddenUnosPitanja = false;
-    alert("Kreiran test: " + this.textTempTest)
+    this.newQuestionService.getPitanjaZaPredmet(this.odabraniPredmet.id).subscribe(response => this.pitanjaZaPredmet = response);
+
+    console.log(this.odabraniPredmet)
   }
 
   public addAnswer(){
     
     var odg = new Odgovor();
-    odg.tacnost = this.tacnostTempOdgovor;
-    odg.tekst = this.textTempOdgovor;
 
-    this.tempOdgovori.push(odg)
 
-    
-    this.textTempOdgovor = "";
-    this.tacnostTempOdgovor = false;
+
 
   }
 
-  public addQuestion(){
-    var question = new Pitanje();
-    question.tekst = this.textTempPitanje;
-    this.textTempPitanje = "";
-    question.odgovori = this.tempOdgovori;
+  public addQuestion(q: Pitanje){
 
-    this.tempPitanja.push(question)
-    console.log(this.tempPitanja)
+    console.log(q);
+    this.odabranaPitanja.push(q);
+    this.pitanjaZaPredmet = this.pitanjaZaPredmet.filter(item => item != q);
+    
+  }
 
-    this.tempOdgovori = [];
+  public removeQuestion(q: Pitanje){
+    console.log(q);
+    this.pitanjaZaPredmet.push(q);
+    this.odabranaPitanja = this.odabranaPitanja.filter(item => item != q);
+
   }
 
 
@@ -81,8 +84,8 @@ export class NewTestComponent implements OnInit {
     // za predmet staviti odabrani
     // za nastavnika na back-u staviti onog koji je ulogovan
     test.nastavnik = new Nastavnik()
-    test.pitanje = this.tempPitanja;
-    test.predmet = new Predmet();
+    test.pitanje = this.odabranaPitanja;
+    test.predmet = this.odabraniPredmet;
 
     this.krajnjiTest = test;
     console.log(this.krajnjiTest);
@@ -94,6 +97,8 @@ export class NewTestComponent implements OnInit {
   }
 
   public sendTestToBackend(){
+    console.log(this.krajnjiTest);
+    this.newQuestionService.dodajTest(this.krajnjiTest).subscribe();
     alert("Success");
   }
 }

@@ -1,43 +1,5 @@
 <style>
-    .table-main {
-      border-collapse: collapse;
-      width: 70%;
-    }
-    th, td {
-      text-align: left;
-      padding: 8px;
-    }
-    .btn-delete{
-      background:  none;
-      color: red;
-      border: none;
-    }
-    .btn-delete:hover {
-      background-color: red;
-      color: white;
-    }
-  
-    .btn-block{
-      background:  none;
-      color: orange;
-      border: none;
-    }
-    .btn-block:hover {
-      background-color: orange;
-      color: white;
-    }
-  
-    .btn-add{
-      background:  none;
-      color: #4CAF50;
-      border: none;
-      border-radius: 5px;
-    }
-    .btn-add:hover {
-      background-color: #4CAF50;
-      color: white;
-    }
-    tr:nth-child(even) {background-color: #f2f2f2;}
+
   </style>
 
 <script src="new-test.component.ts"></script>
@@ -100,13 +62,12 @@
             <table>
                 <tbody>
                     <tr>
-                        <td>Test name</td>
-                        <td><input id='txtNazivTesta' [(ngModel)]="textTempTest" [ngModelOptions]="{standalone: true}"></td>
-                    </tr>
-                    <tr>
                         <td>Subject</td>
-                        <td><input id='txtNazivPredmeta' [(ngModel)]="predmetTempTest" [ngModelOptions]="{standalone: true}"></td>
-                    </tr>
+                        <td> 
+                            <select [(ngModel)]="odabraniPredmet" >
+                                <option *ngFor="let p of predmeti" selected [ngValue]="p"> {{p.naziv}}</option>
+                            </select>
+                        </td>                    </tr>
                     <tr>
                         <td> <button id='btnConfirmTest' (click) = "confirmTest()" class="btn-add">Confirm</button></td>
                     </tr>
@@ -115,36 +76,52 @@
         </div>
 
         <div id="divPitanja" align = "center" [hidden]="hiddenUnosPitanja">
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Question</td>
+
+                <table>
+                    <tr valign="top">
+
+                        <td>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>Question</td>
+                                    <td>Add</td>
+                                </tr>
+                                <tr *ngFor="let p of pitanjaZaPredmet"> 
+                                    <td>
+                                        {{p.tekst}}
+                                    </td>
+                                    <td>
+                                        <button class="btn-add" (click) = "addQuestion(p)">Add</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tbody>
+                                <tr>
+                                    <td>Question</td>
+                                    <td>Remove</td>
+                                </tr>
+                                <tr *ngFor="let p of odabranaPitanja"> 
+                                    <td>
+                                        {{p.tekst}}
+                                    </td>
+                                    <td>
+                                        <button class="btn-delete" (click) = "removeQuestion(p)">Remove</button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                                </table>
+                        </td>
                     </tr>
-                    <tr>
-                        <td><input id="inputTextPitanja" [(ngModel)]="textTempPitanje" [ngModelOptions]="{standalone: true}"></td>
-                        <td><button (click) = "addQuestion()" class="btn-add">Next question</button></td>
-                    </tr>
-                </tbody>
-            </table>        
-            
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Answer</td>
-                        <td>True/False</td>
-                    </tr>
-                    <tr>
-                        <td><input id="inputTextOdgovora" [(ngModel)]="textTempOdgovor" [ngModelOptions]="{standalone: true}"></td>
-                        <td><input type="checkbox" [checked]="tacnostTempOdgovor" (change)="tacnostTempOdgovor = !tacnostTempOdgovor"></td>
-                        <td><button (click) = "addAnswer()" class="btn-block">Add answer</button></td>
-                    </tr>
-                    
-                    <tr *ngFor="let o of tempOdgovori">
-                        <td>{{o.tekst}}</td>
-                        <td><input type="checkbox" [checked]="o.tacnost" disabled></td>
-                    </tr>
-                </tbody>
-            </table>
+                </table>
+
+
+
+
 
 
         </div>
