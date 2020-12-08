@@ -6,10 +6,9 @@ import java.util.Set;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.example.SOTIS.model.Pitanje;
-import com.example.SOTIS.model.DTO.TestDTO;
+import com.example.SOTIS.model.Predmet;
 
-public interface PitanjeRepository extends JpaRepository<Pitanje, Long>{
+public interface PredmetRepository extends JpaRepository<Predmet, Long>{
 
 	//Set<Pitanje> findByOdgovorId(Long id);
 	
@@ -18,10 +17,4 @@ public interface PitanjeRepository extends JpaRepository<Pitanje, Long>{
 
 	/// Iz ovoga dobijam info o pitanju, a iz odgovori repository dobijam odgovore
 	//Pitanje findById(Long id);
-	
-	@Query(value = "select * from pitanje where predmet_id = ?1", nativeQuery = true)
-	public List<Pitanje> findByPredmet(Long id);
-	
-
-	
 }

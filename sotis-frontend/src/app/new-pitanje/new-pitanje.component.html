@@ -101,7 +101,11 @@
                 <tbody>
                     <tr>
                         <td>Subject</td>
-                        <td><input id='txtNazivPredmeta' [(ngModel)]="predmetTempTest" [ngModelOptions]="{standalone: true}"></td>
+                        <td> 
+                            <select [(ngModel)]="odabraniPredmet" >
+                                <option *ngFor="let p of predmeti" selected [ngValue]="p"> {{p.naziv}}</option>
+                            </select>
+                        </td>
                     </tr>
                     <tr>
                         <td> <button id='btnConfirmTest' (click) = "confirmTest()" class="btn-add">Confirm</button></td>
