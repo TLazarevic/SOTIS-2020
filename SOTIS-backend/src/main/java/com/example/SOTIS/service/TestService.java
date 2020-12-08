@@ -1,14 +1,19 @@
 package com.example.SOTIS.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import org.hibernate.bytecode.internal.javassist.BulkAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.SOTIS.model.Nastavnik;
 import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
+import com.example.SOTIS.model.Predmet;
 import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.Ucenik;
 import com.example.SOTIS.model.UcenikTest;
@@ -16,6 +21,8 @@ import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
 import com.example.SOTIS.repository.OdgovoriRepository;
+import com.example.SOTIS.repository.PitanjeRepository;
+import com.example.SOTIS.repository.PredmetRepository;
 import com.example.SOTIS.repository.TestRepository;
 import com.example.SOTIS.repository.UcenikRepository;
 import com.example.SOTIS.repository.UcenikTestRepository;
@@ -35,6 +42,12 @@ public class TestService {
 	
 	@Autowired
 	UcenikTestRepository ucenikTestRepo;
+	
+	@Autowired
+	PredmetRepository predmetRepo;
+	
+	@Autowired
+	PitanjeRepository pitanjeRepo;
 
 	public List<TestDTO> findAllByNastavnik(Long id) {
 		return testRepo.findAllByNastavnik(id);
@@ -43,6 +56,27 @@ public class TestService {
 	public List<TestDTO> findAllByUcenik(Long id) {
 		System.out.println(ucenikTestRepo.findByUcenikId(id).size());
 		return ucenikTestRepo.findByUcenikId(id);
+	}
+	
+	public boolean addTest(Test t) {
+		Test newTest = new Test();
+		newTest.setPitanje(new HashSet<Pitanje>());
+		
+		Predmet predmet = predmetRepo.findById(t.predmet.getId()).get();
+		newTest.setPredmet(predmet);
+
+		/*//Staviti da bude ulogovani nastavnik
+		Nastavnik nastavnik = null;
+		newTest.setNastavnik(nastavnik);
+		*/
+		for(Pitanje pitanje : t.pitanje) {
+			newTest.pitanje.add(pitanjeRepo.findById(pitanje.getId()).get());
+		}
+		
+		//Ucenik ucenik = ucenikRepo.findById(100L).get();
+		
+		testRepo.save(newTest);
+		return true;
 	}
 
 	public boolean submitTest(Long id, TestViewDTO test) {

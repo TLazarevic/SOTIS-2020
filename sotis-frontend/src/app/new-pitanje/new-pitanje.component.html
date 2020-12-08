@@ -114,45 +114,111 @@
             </table>
         </div>
 
-        <div id="divPitanja" align = "center" [hidden]="hiddenUnosPitanja">
+        <div id="divPitanja" class="galaksija" align = "center" [hidden]="hiddenUnosPitanja">
             <table>
                 <tbody>
-                    <tr>
-                        <td>Question</td>
-                    </tr>
-                    <tr>
-                        <td><input id="inputTextPitanja" [(ngModel)]="textTempPitanje" [ngModelOptions]="{standalone: true}"></td>
-                    </tr>
-                </tbody>
-            </table>        
-            
-            <table>
-                <tbody>
-                    <tr>
-                        <td>Answer</td>
-                        <td>True/False</td>
-                    </tr>
-                    <tr>
-                        <td><input id="inputTextOdgovora" [(ngModel)]="textTempOdgovor" [ngModelOptions]="{standalone: true}"></td>
-                        <td><input type="checkbox" [checked]="tacnostTempOdgovor" (change)="tacnostTempOdgovor = !tacnostTempOdgovor"></td>
-                        <td><button (click) = "addAnswer()" class="btn-block">Add answer</button></td>
-                    </tr>
+                <tr valign="top">
+                <td>
+                    <div class="graph" align="left">
+                        <ngx-graph class="chart-container" [center$]="center$" [zoomToFit$]="zoomToFit$" [update$]="update$" [showMiniMap]="true"  [links]="links" [nodes]="nodes" (select)="onNodeSelect($event)" (contextmenu)="onRightClick($event)">
+                            <ng-template #nodeTemplate let-node>
+                                <svg:g class=" node ">
+                                    <svg:circle [attr.cx]="0 " [attr.cy]="40 " r="40 " [attr.fill]="node.data.color " />
+                                    <svg:text alignment-baseline="central " [attr.y]="node.dimension.height / 2 "> {{node.label}}
+                                    </svg:text>
+                                </svg:g>
+                            </ng-template>
+                        </ngx-graph>
+                    </div>
+                </td>
+                <td>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Node</td>
+                            </tr>
+                            <tr>
+                                <td><input id="inputTextPitanja" [(ngModel)]="odabraniCvor" disabled [ngModelOptions]="{standalone: true}"></td>
+                            </tr>
+                            <tr>
+                                <td>Question</td>
+                            </tr>
+                            <tr>
+                                <td><input id="inputTextPitanja" [(ngModel)]="textTempPitanje" [ngModelOptions]="{standalone: true}"></td>
+                            </tr>
+                        </tbody>
+                    </table>        
                     
-                    <tr *ngFor="let o of tempOdgovori">
-                        <td>{{o.tekst}}</td>
-                        <td><input type="checkbox" [checked]="o.tacnost" disabled></td>
-                    </tr>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Answer</td>
+                                <td>True/False</td>
+                            </tr>
+                            <tr>
+                                <td><input id="inputTextOdgovora" [(ngModel)]="textTempOdgovor" [ngModelOptions]="{standalone: true}"></td>
+
+                                
+                                <td>
+                                    
+                                    <label class="switch">
+                                        <input type="checkbox" [checked]="tacnostTempOdgovor" (change)="tacnostTempOdgovor = !tacnostTempOdgovor">
+                                        <span class="slider round"></span>
+                                      </label>
+                                </td>
+                                <td><button (click) = "addAnswer()" class="btn-block">Add answer</button></td>
+                            </tr>
+                            
+                            <tr *ngFor="let o of tempOdgovori">
+                                <td>{{o.tekst}}</td>
+                                <td><input type="checkbox" [checked]="o.tacnost" disabled></td>
+                            </tr>
+                        </tbody>
+                    </table>
+        
+                </td>
+                </tr>
                 </tbody>
-            </table>
+                </table>
+
+
+           
+
 
 
         </div>
 
 
         <div id="divPotvrdaPitanja" [hidden] = "hiddenPotvrdaPitanja"  align = "center">
-            <textarea id="potvrdaPitanjaTxt" name="potvrdaPitanjaTxt" [(ngModel)]="textTempPitanje" disabled> </textarea>
             <table>
                 <tbody>
+                    <tr>
+                        <td>
+                            Subject
+                        </td>
+                        <td>
+                            <input [(ngModel)]="odabraniPredmet.naziv" disabled>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Node
+                        </td>
+                        <td>
+                            <input [(ngModel)]="odabraniCvor" disabled>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>
+                            Question
+                        </td>
+                        <td>
+                            <textarea id="potvrdaPitanjaTxt" name="potvrdaPitanjaTxt" [(ngModel)]="textTempPitanje" disabled> </textarea>
+                        </td>
+                    </tr>
+
                     <tr>
                         <td>Answers</td>
                         <td>True/False</td>

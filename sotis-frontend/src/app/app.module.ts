@@ -40,7 +40,7 @@ import { NewQuestionService } from './services/new-question.service';
     TestPreviewComponent,
     NewTestComponent,
     KnowledgePreviewComponent,
-    NewNodeDialogComponent
+    NewNodeDialogComponent,
     NewPitanjeComponent
   ],
   imports: [

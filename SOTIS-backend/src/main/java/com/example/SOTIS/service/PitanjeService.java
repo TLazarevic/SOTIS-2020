@@ -70,6 +70,7 @@ public class PitanjeService {
 	}
 	
 	public List<Pitanje> findAllByPredmet(Long id) {
+		System.out.println(" PITANJA ZA PREDMET ID: " + id);
 		return pitanjeRepo.findByPredmet(id);
 	}
 	

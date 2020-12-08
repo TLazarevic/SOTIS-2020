@@ -7,6 +7,11 @@ import { Predmet } from '../model/predmet';
 import { Test } from '../model/Test';
 import { NewQuestionService } from '../services/new-question.service';
 
+// imports for graph
+import { Subject } from 'rxjs';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
+
 @Component({
   selector: 'app-new-pitanje',
   templateUrl: './new-pitanje.component.html',
@@ -14,6 +19,55 @@ import { NewQuestionService } from '../services/new-question.service';
 })
 export class NewPitanjeComponent implements OnInit {
 
+  ///
+  center$: Subject<boolean> = new Subject();
+  zoomToFit$: Subject<boolean> = new Subject();
+  update$: Subject<boolean> = new Subject();
+  label!: string;
+
+  nodes = [
+    {
+      id: 'A',
+      label: 'A'
+    }, {
+      id: 'B',
+      label: 'B'
+    }, {
+      id: 'C',
+      label: 'C'
+    }, {
+      id: 'D',
+      label: 'D'
+    }, {
+      id: 'E',
+      label: 'E'
+    }
+  ]
+
+  links = [
+    {
+      id: 'a',
+      source: 'A',
+      target: 'B',
+      label: 'is parent of'
+    }, {
+      id: 'b',
+      source: 'A',
+      target: 'C',
+      label: 'custom label'
+    }, {
+      id: 'c',
+      source: 'B',
+      target: 'D',
+      label: 'custom label'
+    }, {
+      id: 'd',
+      source: 'B',
+      target: 'E',
+      label: 'custom label'
+    }
+  ]
+  ///
   public hiddenUnosTest: boolean;
   public hiddenUnosPitanja: boolean;
   public hiddenPotvrdaPitanja: boolean;
@@ -23,6 +77,8 @@ export class NewPitanjeComponent implements OnInit {
   public textTempOdgovor: String = new String();
   public tacnostTempOdgovor: boolean;
 
+
+  odabraniCvor: String = ""
 
   tempOdgovori: Array<Odgovor> = [];
   tempPitanja: Array<Pitanje> = [];
@@ -43,6 +99,22 @@ export class NewPitanjeComponent implements OnInit {
     // dobavljanje predmeta za odabir
     this.newQuestionService.getSviPredmeti().subscribe(response => {this.predmeti = response; this.odabraniPredmet = this.predmeti[0]});
     
+  }
+
+  onNodeSelect(node: any) {
+    console.log(node.label)
+    this.odabraniCvor = node.label;
+  }
+  onRightClick(node: any) {
+
+    // this.trigger.openMenu();
+  }  
+  centerGraph() {
+    this.center$.next(true)
+  }
+
+  fitGraph() {
+    this.zoomToFit$.next(true)
   }
 
   public confirmTest(){
@@ -77,7 +149,6 @@ export class NewPitanjeComponent implements OnInit {
     this.hiddenUnosTest = true;
     this.hiddenUnosPitanja = true;
     this.hiddenPotvrdaPitanja = false;
-    alert(this.odabraniPredmet.id)
   }
 
 
@@ -89,6 +160,13 @@ export class NewPitanjeComponent implements OnInit {
     pitanje.odgovori = this.tempOdgovori
     pitanje.predmetId = this.odabraniPredmet.id;
     this.newQuestionService.dodajPitanje(pitanje).subscribe();
+    alert("Success");
+    this.hiddenUnosTest = false;
+    this.hiddenUnosPitanja = true;
+    this.hiddenPotvrdaPitanja = true;
+
+    this.tacnostTempOdgovor = false;
+    this.tempOdgovori = [];
   }
 
 }
