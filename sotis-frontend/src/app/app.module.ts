@@ -28,6 +28,9 @@ import {MatDialogModule} from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
 import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
 import { NewQuestionService } from './services/new-question.service';
+import { LinkDialogComponent } from './components/link-dialog/link-dialog.component';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -41,6 +44,8 @@ import { NewQuestionService } from './services/new-question.service';
     NewTestComponent,
     KnowledgePreviewComponent,
     NewNodeDialogComponent,
+    NewPitanjeComponent,
+    LinkDialogComponent,
     NewPitanjeComponent
   ],
   imports: [
@@ -57,7 +62,8 @@ import { NewQuestionService } from './services/new-question.service';
     MatSnackBarModule,
     NgxGraphModule,
     MatDialogModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSelectModule
   ],
   providers: [NewQuestionService,
     { provide: APP_BASE_HREF, useValue: '/' }],
