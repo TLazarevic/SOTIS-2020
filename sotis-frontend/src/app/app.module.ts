@@ -23,6 +23,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { KnowledgePreviewComponent } from './components/knowledge-preview/knowledge-preview.component';
+import { NewNodeDialogComponent } from './components/new-node-dialog/new-node-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
 import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
 import { NewQuestionService } from './services/new-question.service';
 
@@ -37,6 +40,7 @@ import { NewQuestionService } from './services/new-question.service';
     TestPreviewComponent,
     NewTestComponent,
     KnowledgePreviewComponent,
+    NewNodeDialogComponent
     NewPitanjeComponent
   ],
   imports: [
@@ -51,7 +55,9 @@ import { NewQuestionService } from './services/new-question.service';
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    NgxGraphModule
+    NgxGraphModule,
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: [NewQuestionService,
     { provide: APP_BASE_HREF, useValue: '/' }],
