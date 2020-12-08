@@ -26,7 +26,8 @@ import { KnowledgePreviewComponent } from './components/knowledge-preview/knowle
 import { NewNodeDialogComponent } from './components/new-node-dialog/new-node-dialog.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatMenuModule} from '@angular/material/menu';
-
+import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
+import { NewQuestionService } from './services/new-question.service';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import {MatMenuModule} from '@angular/material/menu';
     NewTestComponent,
     KnowledgePreviewComponent,
     NewNodeDialogComponent
+    NewPitanjeComponent
   ],
   imports: [
     BrowserModule,
@@ -57,7 +59,8 @@ import {MatMenuModule} from '@angular/material/menu';
     MatDialogModule,
     MatMenuModule
   ],
-  providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
+  providers: [NewQuestionService,
+    { provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

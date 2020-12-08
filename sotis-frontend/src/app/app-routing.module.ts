@@ -6,11 +6,13 @@ import { RegisterComponent } from './components/permissions/register/register.co
 import { TestPreviewComponent } from './components/test-preview/test-preview.component';
 import { TestsPreviewComponent } from './components/tests-preview/tests-preview.component';
 import { NewTestComponent } from './new-test/new-test.component';
+import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
 
 const routes: Routes = [
   { path: 'Tests', component: TestsPreviewComponent },
   { path: 'Test', component: TestPreviewComponent },
   { path: 'NewTest', component: NewTestComponent },
+  { path: 'NewPitanje', component: NewPitanjeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'knowledge-graph', component: KnowledgePreviewComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },

@@ -4,8 +4,11 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -14,7 +17,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 public class Pitanje {
 
 	@Id
-	/** @pdOid 8fa48bab-3db0-4639-b14e-41bbef66c068 */
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@JsonIgnore
@@ -33,6 +36,13 @@ public class Pitanje {
 		this.id = id;
 		this.tekst = tekst;
 	}
+	
+	//@ManyToOne
+	/**
+	 * @pdRoleInfo migr=no name=Predmet assc=association8 mult=0..1 type=Aggregation
+	 */
+	@Column
+	public Long predmetId;
 
 	public Pitanje() {
 		super();
@@ -67,4 +77,14 @@ public class Pitanje {
 		return "Pitanje [id=" + id + ", test=" + test + ", tekst=" + tekst + "]";
 	}
 
+	public Long getPredmetId() {
+		return predmetId;
+	}
+
+	public void setPredmetId(Long predmet_id) {
+		this.predmetId = predmet_id;
+	}
+
+
+	
 }
