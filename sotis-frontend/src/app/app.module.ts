@@ -23,6 +23,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { NgxGraphModule } from '@swimlane/ngx-graph';
 import { KnowledgePreviewComponent } from './components/knowledge-preview/knowledge-preview.component';
+import { NewNodeDialogComponent } from './components/new-node-dialog/new-node-dialog.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatMenuModule} from '@angular/material/menu';
+
 
 @NgModule({
   declarations: [
@@ -34,7 +38,8 @@ import { KnowledgePreviewComponent } from './components/knowledge-preview/knowle
     NavbarComponent,
     TestPreviewComponent,
     NewTestComponent,
-    KnowledgePreviewComponent
+    KnowledgePreviewComponent,
+    NewNodeDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -48,7 +53,9 @@ import { KnowledgePreviewComponent } from './components/knowledge-preview/knowle
     FormsModule,
     ReactiveFormsModule,
     MatSnackBarModule,
-    NgxGraphModule
+    NgxGraphModule,
+    MatDialogModule,
+    MatMenuModule
   ],
   providers: [{ provide: APP_BASE_HREF, useValue: '/' }],
   bootstrap: [AppComponent],
