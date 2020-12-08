@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { NewNodeDialogComponent } from '../new-node-dialog/new-node-dialog.component';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { LinkDialogComponent } from '../link-dialog/link-dialog.component';
 
 @Component({
   selector: 'app-knowledge-preview',
@@ -97,7 +98,22 @@ export class KnowledgePreviewComponent implements OnInit {
   }
 
   addLink(event: any) {
-      alert("to be implemented")
+    const dialogRef = this.dialog.open(LinkDialogComponent, {
+      width: '250px',
+      data: { "nodes": this.nodes }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+
+      this.links.push({
+        id: result.source + " " + result.target,
+        source: result.source,
+        target: result.target,
+        label: 'custom label'
+      })
+
+      this.update$.next(true)
+    });
   }
 
   onRightClick(node: any) {
