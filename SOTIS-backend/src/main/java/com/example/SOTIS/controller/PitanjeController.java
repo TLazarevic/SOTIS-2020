@@ -25,22 +25,22 @@ import com.example.SOTIS.service.PitanjeService;
 @CrossOrigin(origins = "http://localhost:4200")
 public class PitanjeController {
 
-	@Autowired 
+	@Autowired
 	PitanjeService pitanjeService;
-	
+
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Boolean> submitPitanje( @RequestBody PitanjeDTO pitanje) {
+	public ResponseEntity<Boolean> submitPitanje(@RequestBody PitanjeDTO pitanje) {
 		System.out.print(pitanje);
 		if (pitanjeService.dodajPitanje(pitanje))
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		else
 			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
-	
+
 	// dobavljanje pitanja za odredjeni predmet
 	@GetMapping(value = "/predmet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Pitanje>> getAllByNastavnik(@PathVariable Long id) {
 		return new ResponseEntity<>(pitanjeService.findAllByPredmet(id), HttpStatus.OK);
 	}
-	
+
 }

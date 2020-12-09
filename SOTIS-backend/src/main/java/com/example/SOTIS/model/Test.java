@@ -22,7 +22,7 @@ import javax.persistence.ManyToOne;
 public class Test {
 
 	@Id
-	 @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** @pdOid da220cbc-edb8-426f-8054-783e0ba641bf */
 	private long id;
 
@@ -39,7 +39,7 @@ public class Test {
 	 * @pdRoleInfo migr=no name=Predmet assc=association8 mult=0..1 type=Aggregation
 	 */
 	public Predmet predmet;
-	
+
 	@ManyToOne
 	public Nastavnik nastavnik;
 
@@ -59,7 +59,6 @@ public class Test {
 	public Set<Pitanje> getPitanje() {
 		return pitanje;
 	}
-
 
 	/**
 	 * @pdGenerated default add
@@ -100,6 +99,5 @@ public class Test {
 	public void setPredmet(Predmet predmet) {
 		this.predmet = predmet;
 	}
-
 
 }

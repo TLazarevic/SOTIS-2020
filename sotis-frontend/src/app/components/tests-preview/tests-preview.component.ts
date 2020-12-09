@@ -16,9 +16,7 @@ export class TestsPreviewComponent implements OnInit {
   tests: TestDTO[] = [];
 
   constructor(private testService: TestPreviewService, private router: Router) {
-    // this.tests = [];
-    // this.tests.push(new TestDTO("SOTIS"));
-    // this.tests.push(new TestDTO("Neuronske mreze"));
+
     this.testService.getTestsByUcenik(zakucano).subscribe(
       data => {
         this.tests = data;

@@ -76,6 +76,11 @@ public class TestService {
 		//Ucenik ucenik = ucenikRepo.findById(100L).get();
 		
 		testRepo.save(newTest);
+		
+//		//TEST
+//		Ucenik u=new Ucenik();
+//		u.setId(100);
+//		ucenikTestRepo.save(new UcenikTest(u, testID, false));
 		return true;
 	}
 

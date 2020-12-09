@@ -72,5 +72,14 @@ public class UcenikTest {
 	public void setUradjen(boolean uradjen) {
 		this.uradjen = uradjen;
 	}
+	
+
+	public Ucenik getUcenik() {
+		return ucenik;
+	}
+
+	public void setUcenik(Ucenik ucenik) {
+		this.ucenik = ucenik;
+	}
 
 }
