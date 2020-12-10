@@ -10,6 +10,8 @@ import java.util.*;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -18,6 +20,7 @@ import javax.persistence.OneToMany;
 public class Nastavnik {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** @pdOid ce0768ab-aba1-4c10-944e-e608c6f8d31f */
 	private long id;
 	

@@ -7,12 +7,17 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sun.istack.NotNull;
 
 @Entity
 public class Veza {
 
+	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long vezaId;
@@ -23,14 +28,16 @@ public class Veza {
 	@Column
 	private String label;
 
-	@OneToOne(cascade = { CascadeType.MERGE })
+	@OneToOne(cascade = { CascadeType.ALL })
 	private Cvor source;
 
-	@OneToOne(cascade = { CascadeType.MERGE })
+	@OneToOne(cascade = { CascadeType.ALL })
 	private Cvor target;
-	
-	@ManyToOne
-	ProstorZnanja pz;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "pz_id", referencedColumnName = "id")
+	@JsonIgnore
+	private ProstorZnanja pz;
 
 	public Veza() {
 		super();
@@ -74,6 +81,14 @@ public class Veza {
 
 	public void setTarget(Cvor target) {
 		this.target = target;
+	}
+
+	public ProstorZnanja getPz() {
+		return pz;
+	}
+
+	public void setPz(ProstorZnanja pz) {
+		this.pz = pz;
 	}
 
 }

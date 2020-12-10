@@ -70,7 +70,7 @@ export class KnowledgePreviewComponent implements OnInit {
   // ]
 
   constructor(public dialog: MatDialog, private knowledgeService: KnowledgeService) {
-    var ZAKUCANO = 100
+    var ZAKUCANO = 1
     knowledgeService.getGraph(ZAKUCANO).subscribe(data => {
       this.nodes = data.cvorovi
       for (let v of data.veze) {
@@ -90,7 +90,7 @@ export class KnowledgePreviewComponent implements OnInit {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result.label && result.label != "") {
+      if (result.label && result.source != "" && result.source) {
         this.nodes.push({
           cvorId: 0,
           id: result.label,
@@ -105,7 +105,7 @@ export class KnowledgePreviewComponent implements OnInit {
         })
         this.update$.next(true)
       }
-      else if (result.source) {
+      else if (result.label) {
         this.nodes.push({
           cvorId: 0,
           id: result.label,
@@ -175,11 +175,10 @@ export class KnowledgePreviewComponent implements OnInit {
     var i = this.nodes.length;
     while (i--) {
       console.log("/")
-      console.log(this.nodes[i])
+      console.log(this.nodes[i].id)
       if (
         this.nodes[i] &&
-        this.nodes[i].hasOwnProperty(id) &&
-        this.nodes[i].id === id
+        this.nodes[i].id == id
 
       ) {
         console.log('found')

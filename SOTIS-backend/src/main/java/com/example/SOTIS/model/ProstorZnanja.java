@@ -15,36 +15,32 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.JoinColumn;
 
 @Entity
-@Table(name="prostor_znanja")
+@Table(name = "prostor_znanja")
 /** @pdOid 57a62dc1-ac08-4a92-a809-4b89906c4e06 */
 public class ProstorZnanja {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	/** @pdOid 0c5692b5-f53e-4085-b01f-3137c8eef333 */
 	private long id;
 
-	@OneToOne(cascade = { CascadeType.MERGE })
+	@OneToOne(cascade = { CascadeType.REFRESH })
+	@JoinColumn(name = "predmet_id", referencedColumnName = "id")
 	/**
 	 * @pdRoleInfo migr=no name=Predmet assc=association9 mult=0..1 type=Aggregation
 	 */
 	public Predmet predmet;
 
-	@OneToMany(
-	        cascade = CascadeType.ALL,
-	        orphanRemoval = true
-	    )
-	@JoinColumn(name = "prostor_znanja_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pz", orphanRemoval = true, fetch = FetchType.EAGER)
 	public Set<Cvor> cvorovi = new HashSet<>();
 
-	@OneToMany(
-	        cascade = CascadeType.ALL,
-	        orphanRemoval = true
-	    )
-	@JoinColumn(name = "prostor_znanja_id")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pz", orphanRemoval = true, fetch = FetchType.EAGER)
 	public Set<Veza> veze = new HashSet<>();
 
 	public ProstorZnanja() {
@@ -72,6 +68,13 @@ public class ProstorZnanja {
 	}
 
 	public void setCvorovi(Set<Cvor> cvorovi) {
+		// https://stackoverflow.com/questions/43246259/jpa-manytoone-onetomany-not-inserting-the-value-on-child
+		// sve me boli
+		for (Cvor child : cvorovi) {
+			// initializing the TestObj instance in Children class (Owner side)
+			// so that it is not a null and PK can be created
+			child.setPz(this);
+		}
 		this.cvorovi = cvorovi;
 	}
 
@@ -80,6 +83,13 @@ public class ProstorZnanja {
 	}
 
 	public void setVeze(Set<Veza> veze) {
+		// https://stackoverflow.com/questions/43246259/jpa-manytoone-onetomany-not-inserting-the-value-on-child
+		// sve me boli
+		for (Veza child : veze) {
+			// initializing the TestObj instance in Children class (Owner side)
+			// so that it is not a null and PK can be created
+			child.setPz(this);
+		}
 		this.veze = veze;
 	}
 

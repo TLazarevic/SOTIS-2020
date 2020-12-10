@@ -38,12 +38,11 @@ public class ZnanjeController {
 
 	@PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> newSpace(@RequestBody ProstorZnanja pz) {
-		System.out.print(pz.getCvorovi().size());
-		for (Cvor c : pz.getCvorovi()) {
-			c.setId(null);
-		}
-		this.znanjeService.newProstor(pz);
-		return new ResponseEntity<>(true, HttpStatus.OK);
+		if (this.znanjeService.newProstor(pz))
+			return new ResponseEntity<>(true, HttpStatus.OK);
+		else
+			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
+
 	}
 
 }

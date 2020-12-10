@@ -30,6 +30,8 @@ import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
 import { NewQuestionService } from './services/new-question.service';
 import { LinkDialogComponent } from './components/link-dialog/link-dialog.component';
 import {MatSelectModule} from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -63,7 +65,9 @@ import {MatSelectModule} from '@angular/material/select';
     NgxGraphModule,
     MatDialogModule,
     MatMenuModule,
-    MatSelectModule
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule
   ],
   providers: [NewQuestionService,
     { provide: APP_BASE_HREF, useValue: '/' }],

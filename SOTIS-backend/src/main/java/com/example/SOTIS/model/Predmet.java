@@ -4,9 +4,12 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -21,6 +24,7 @@ public class Predmet {
 
 	@Id
 	/** @pdOid 54579e1c-d939-47ca-b481-e4cb69285da4 */
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 
 	@Column
@@ -33,11 +37,15 @@ public class Predmet {
 	 *             coll=java.util.Collection impl=java.util.HashSet mult=0..*
 	 *             type=Aggregation
 	 */
-	public Set<Nastavnik> nastavnik;
+	private Set<Nastavnik> nastavnik;
 
 	@JsonIgnore
 	@ManyToMany(mappedBy = "predmet")
-	public Set<Ucenik> ucenik;
+	private Set<Ucenik> ucenik;
+
+	@JsonIgnore
+	@OneToOne(mappedBy = "predmet")
+	private ProstorZnanja prostorZnanja;
 
 	/** @pdGenerated default getter */
 	public java.util.Collection<Nastavnik> getNastavnik() {
@@ -95,6 +103,46 @@ public class Predmet {
 
 	public void setNastavnik(Set<Nastavnik> nastavnik) {
 		this.nastavnik = nastavnik;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result + ((nastavnik == null) ? 0 : nastavnik.hashCode());
+		result = prime * result + ((naziv == null) ? 0 : naziv.hashCode());
+		result = prime * result + ((ucenik == null) ? 0 : ucenik.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Predmet other = (Predmet) obj;
+		if (id != other.id)
+			return false;
+		if (nastavnik == null) {
+			if (other.nastavnik != null)
+				return false;
+		} else if (!nastavnik.equals(other.nastavnik))
+			return false;
+		if (naziv == null) {
+			if (other.naziv != null)
+				return false;
+		} else if (!naziv.equals(other.naziv))
+			return false;
+		if (ucenik == null) {
+			if (other.ucenik != null)
+				return false;
+		} else if (!ucenik.equals(other.ucenik))
+			return false;
+		return true;
 	}
 
 }
