@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.example.SOTIS.model.Predmet;
 import com.example.SOTIS.model.Test;
 
 public class TestViewDTO {
@@ -21,7 +20,7 @@ public class TestViewDTO {
 		this.id = t.getId();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
