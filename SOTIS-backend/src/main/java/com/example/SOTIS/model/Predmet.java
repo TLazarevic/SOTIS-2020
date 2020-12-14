@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -77,7 +76,7 @@ public class Predmet {
 		nastavnik.clear();
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -103,6 +102,14 @@ public class Predmet {
 
 	public void setNastavnik(Set<Nastavnik> nastavnik) {
 		this.nastavnik = nastavnik;
+	}
+
+	public ProstorZnanja getProstorZnanja() {
+		return prostorZnanja;
+	}
+
+	public void setProstorZnanja(ProstorZnanja prostorZnanja) {
+		this.prostorZnanja = prostorZnanja;
 	}
 
 	@Override
@@ -143,6 +150,11 @@ public class Predmet {
 		} else if (!ucenik.equals(other.ucenik))
 			return false;
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Predmet [id=" + id + ", naziv=" + naziv + "]";
 	}
 
 }
