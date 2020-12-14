@@ -12,10 +12,6 @@ insert into ucenik(id, ime, prezime) values (100, 'Tamara', 'Lazarevic');
 insert into ucenik_predmet(ucenik_id, predmet_id) values (100,1);
 insert into ucenik_predmet(ucenik_id, predmet_id) values (100,2);
 
-insert into pitanje(id, tekst) values (100, 'tekstpitanja');
-insert into odgovor(id, tekst, tacnost, pitanje_id) values (100, 'teksttt', true,100);
-insert into pitanje(id, tekst) values (200, 'tekstpitanja2');
-insert into odgovor(id, tekst, tacnost, pitanje_id) values (200, 'teksttt2', true,200);
 insert into test_pitanje(test_id,pitanje_id) values(100,100);
 insert into test_pitanje(test_id,pitanje_id) values(200,100);
 insert into test_pitanje(test_id,pitanje_id) values(200,200);

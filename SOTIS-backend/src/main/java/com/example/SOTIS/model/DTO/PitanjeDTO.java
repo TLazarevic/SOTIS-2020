@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.example.SOTIS.model.Cvor;
 import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
 import com.example.SOTIS.model.Test;
@@ -23,6 +24,8 @@ public class PitanjeDTO {
 	
 	private Long predmetId;
 
+	private Cvor cvor;
+	
 	public Long getPredmetId() {
 		return predmetId;
 	}
@@ -63,6 +66,14 @@ public class PitanjeDTO {
 
 	public void setTekst(String tekst) {
 		this.tekst = tekst;
+	}
+
+	public Cvor getCvor() {
+		return cvor;
+	}
+
+	public void setCvor(Cvor cvor) {
+		this.cvor = cvor;
 	}
 
 }

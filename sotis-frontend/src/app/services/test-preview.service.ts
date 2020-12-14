@@ -15,4 +15,8 @@ export class TestPreviewService {
     return this.http.get<TestDTO[]>("http://localhost:8080/test/ucenik/" + id, httpOptions)
   }
 
+  getAllTests() {
+    return this.http.get<TestDTO[]>("http://localhost:8080/test/all")
+  }
+
 }

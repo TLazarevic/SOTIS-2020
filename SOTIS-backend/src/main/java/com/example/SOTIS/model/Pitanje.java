@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -36,7 +37,10 @@ public class Pitanje {
 		this.id = id;
 		this.tekst = tekst;
 	}
-	
+
+
+	@OneToOne
+	public Cvor cvor;
 
 
 	//@ManyToOne
@@ -85,6 +89,15 @@ public class Pitanje {
 
 	public void setPredmetId(Long predmet_id) {
 		this.predmetId = predmet_id;
+	}
+	
+	
+	public Cvor getCvor() {
+		return cvor;
+	}
+
+	public void setCvor(Cvor cvor) {
+		this.cvor = cvor;
 	}
 
 

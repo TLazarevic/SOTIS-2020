@@ -16,7 +16,6 @@ import com.sun.istack.NotNull;
 @Entity
 public class Cvor {
 
-	@JsonIgnore
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cvorId;
@@ -39,6 +38,9 @@ public class Cvor {
 	@JsonIgnore
 	@OneToOne(mappedBy = "target")
 	private Veza veza2;
+	
+	@OneToOne
+	private Pitanje pitanje;
 
 	public Cvor() {
 		super();
@@ -90,6 +92,14 @@ public class Cvor {
 
 	public void setVeza2(Veza veza2) {
 		this.veza2 = veza2;
+	}
+
+	public Pitanje getPitanje() {
+		return pitanje;
+	}
+
+	public void setPitanje(Pitanje pitanje) {
+		this.pitanje = pitanje;
 	}
 
 }

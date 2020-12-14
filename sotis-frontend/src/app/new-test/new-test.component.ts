@@ -4,7 +4,7 @@ import { Odgovor } from '../model/odgovor';
 import { Pitanje } from '../model/pitanje';
 import { PitanjeDTO } from '../model/PitanjeDTO';
 import { Predmet } from '../model/predmet';
-import { Test } from '../model/Test';
+import { Test } from '../model/test';
 import { NewQuestionService } from '../services/new-question.service';
 
 

@@ -4,9 +4,13 @@ import { Odgovor } from '../model/odgovor';
 import { Pitanje } from '../model/pitanje';
 import { PitanjeDTO } from '../model/PitanjeDTO';
 import { Predmet } from '../model/predmet';
-import { Test } from '../model/Test';
+import { Test } from '../model/test';
 import { NewQuestionService } from '../services/new-question.service';
-
+import { KnowledgeService } from 'src/app/services/knowledge.service';
+import { VezaDTO } from 'src/app/model/VezaDTO';
+import { ProstorZnanja } from 'src/app/model/ProstorZnanja';
+import { Veza } from 'src/app/model/Veza';
+import { Cvor } from 'src/app/model/Cvor';
 // imports for graph
 import { Subject } from 'rxjs';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -25,48 +29,10 @@ export class NewPitanjeComponent implements OnInit {
   update$: Subject<boolean> = new Subject();
   label!: string;
 
-  nodes = [
-    {
-      id: 'A',
-      label: 'A'
-    }, {
-      id: 'B',
-      label: 'B'
-    }, {
-      id: 'C',
-      label: 'C'
-    }, {
-      id: 'D',
-      label: 'D'
-    }, {
-      id: 'E',
-      label: 'E'
-    }
-  ]
+  nodes: Cvor[] = []
 
-  links = [
-    {
-      id: 'a',
-      source: 'A',
-      target: 'B',
-      label: 'is parent of'
-    }, {
-      id: 'b',
-      source: 'A',
-      target: 'C',
-      label: 'custom label'
-    }, {
-      id: 'c',
-      source: 'B',
-      target: 'D',
-      label: 'custom label'
-    }, {
-      id: 'd',
-      source: 'B',
-      target: 'E',
-      label: 'custom label'
-    }
-  ]
+
+  links: VezaDTO[] = []
   ///
   public hiddenUnosTest: boolean;
   public hiddenUnosPitanja: boolean;
@@ -78,20 +44,30 @@ export class NewPitanjeComponent implements OnInit {
   public tacnostTempOdgovor: boolean;
 
 
-  odabraniCvor: String = ""
+  odabraniCvor: Cvor = new Cvor(-1,"","");
 
   tempOdgovori: Array<Odgovor> = [];
   tempPitanja: Array<Pitanje> = [];
 
+  pitanjaZaPredmet: Array<Pitanje> = []
+
   predmeti: Array<Predmet> = [];
   odabraniPredmet: Predmet = new Predmet();
 
-  constructor(private newQuestionService: NewQuestionService) {
+  constructor(private newQuestionService: NewQuestionService,private knowledgeService: KnowledgeService) {
     this.hiddenUnosTest = false;
     this.hiddenUnosPitanja = true;
     this.hiddenPotvrdaPitanja = true;
 
     this.tacnostTempOdgovor = false;
+
+    var ZAKUCANO = 1
+    knowledgeService.getGraph(ZAKUCANO).subscribe(data => {
+      this.nodes = data.cvorovi
+      for (let v of data.veze) {
+        this.links.push(new VezaDTO(v))
+      }
+    })
    }
 
   ngOnInit(): void {
@@ -101,9 +77,25 @@ export class NewPitanjeComponent implements OnInit {
     
   }
 
+  // proveravam da li vec postoji pitanje sa tim cvorom, ako ne postoji postavljam taj cvor za odabrani
   onNodeSelect(node: any) {
-    console.log(node.label)
-    this.odabraniCvor = node.label;
+
+    var slobodno: Boolean;
+    slobodno = true;
+    this.pitanjaZaPredmet.forEach(function (value) {
+
+      if(value.cvor.cvorId == node.cvorId){
+        slobodno = false;
+        alert("Za odabrani cvor je vec uneto pitanje");
+        return;
+      }
+    }); 
+
+    if (slobodno){
+      console.log(node.label)
+      this.odabraniCvor = node;
+    }
+
   }
   onRightClick(node: any) {
 
@@ -118,6 +110,8 @@ export class NewPitanjeComponent implements OnInit {
   }
 
   public confirmTest(){
+    this.newQuestionService.getPitanjaZaPredmet(this.odabraniPredmet.id).subscribe(response => this.pitanjaZaPredmet = response);
+
     this.hiddenUnosTest = true;
     this.hiddenUnosPitanja = false;
     console.log(this.odabraniPredmet);
@@ -149,6 +143,8 @@ export class NewPitanjeComponent implements OnInit {
     this.hiddenUnosTest = true;
     this.hiddenUnosPitanja = true;
     this.hiddenPotvrdaPitanja = false;
+
+    console.log(this.pitanjaZaPredmet)
   }
 
 
@@ -159,14 +155,19 @@ export class NewPitanjeComponent implements OnInit {
     pitanje.tekst = this.textTempPitanje
     pitanje.odgovori = this.tempOdgovori
     pitanje.predmetId = this.odabraniPredmet.id;
-    this.newQuestionService.dodajPitanje(pitanje).subscribe();
-    alert("Success");
+    pitanje.cvor = this.odabraniCvor;
+
+   
+    this.newQuestionService.dodajPitanje(pitanje).subscribe( next => alert("Success"));
+    
     this.hiddenUnosTest = false;
     this.hiddenUnosPitanja = true;
     this.hiddenPotvrdaPitanja = true;
 
     this.tacnostTempOdgovor = false;
     this.tempOdgovori = [];
+    this.odabraniCvor = new Cvor(-1,"", "");
+    this.textTempPitanje = "";
   }
 
 }

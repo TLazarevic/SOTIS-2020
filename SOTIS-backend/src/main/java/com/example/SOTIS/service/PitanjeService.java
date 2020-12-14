@@ -6,10 +6,12 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.SOTIS.model.Cvor;
 import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
+import com.example.SOTIS.repository.CvorRepository;
 import com.example.SOTIS.repository.OdgovoriRepository;
 import com.example.SOTIS.repository.PitanjeRepository;
 import com.example.SOTIS.repository.TestRepository;
@@ -31,18 +33,30 @@ public class PitanjeService {
 	@Autowired
 	PitanjeRepository pitanjeRepo;
 	
+	@Autowired
+	CvorRepository cvorRepo;
 	public boolean dodajPitanje(PitanjeDTO pitanjeDTO) {
 		
 		Pitanje p = new Pitanje();
 		p.setTekst(pitanjeDTO.getTekst());
 		p.setPredmetId(pitanjeDTO.getPredmetId());
+		
+		System.out.println("Id cvora za dobavljanje: " + pitanjeDTO.getCvor().getCvorId());
+		
+		Cvor cvor = cvorRepo.findById(pitanjeDTO.getCvor().getCvorId()).get();
+		p.setCvor(cvor);
+		//cvor.setPitanje(p);
 		//p.setPredmetId(pitanjeDTO.getPredmetId());
 		pitanjeRepo.save(p);
 		Set<Odgovor> odgovori = pitanjeDTO.getOdgovori();
 		
 		for(Odgovor odg : odgovori) {
 			odg.setPitanje(p);
+			
 			odgovorRepo.save(odg);
+			
+			//cvorRepo.save(cvor);
+
 		}
 		
 		return true;
