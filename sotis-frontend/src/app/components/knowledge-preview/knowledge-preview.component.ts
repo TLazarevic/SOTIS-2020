@@ -10,6 +10,7 @@ import { ProstorZnanja } from 'src/app/model/ProstorZnanja';
 import { Veza } from 'src/app/model/Veza';
 import { Predmet } from 'src/app/model/predmet';
 import { Cvor } from 'src/app/model/Cvor';
+import * as shape from 'd3-shape';
 
 @Component({
   selector: 'app-knowledge-preview',
@@ -23,6 +24,7 @@ export class KnowledgePreviewComponent implements OnInit {
   zoomToFit$: Subject<boolean> = new Subject();
   update$: Subject<boolean> = new Subject();
   label!: string;
+  curve = shape.curveBundle
 
   nodes: Cvor[] = []
   // = [
@@ -91,6 +93,7 @@ export class KnowledgePreviewComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result.label && result.source != "" && result.source) {
+
         this.nodes.push({
           cvorId: 0,
           id: result.label,
@@ -103,18 +106,25 @@ export class KnowledgePreviewComponent implements OnInit {
           target: result.label,
           label: 'custom label'
         })
-        this.update$.next(true)
+        this.detectCycle()
+          this.update$.next(true)
       }
       else if (result.label) {
+
         this.nodes.push({
           cvorId: 0,
           id: result.label,
           label: result.label
         })
-        this.update$.next(true)
+          this.detectCycle
+          this.update$.next(true)
+        
+
       }
 
     });
+
+
 
   }
 
@@ -133,9 +143,13 @@ export class KnowledgePreviewComponent implements OnInit {
           target: result.target,
           label: 'custom label'
         })
-        this.update$.next(true)
+        this.detectCycle()
+          this.update$.next(true)
+       
       }
     });
+
+
   }
 
   saveGraph() {
@@ -152,7 +166,7 @@ export class KnowledgePreviewComponent implements OnInit {
       newNodes.push(new Cvor(0, l.id, l.label))
     }
     var ZAKUCANO = new Predmet()
-    ZAKUCANO.id=1
+    ZAKUCANO.id = 1
     var prostorZnanja = new ProstorZnanja(newNodes, newLinks, ZAKUCANO)
     console.log(prostorZnanja)
     this.knowledgeService.newGraph(prostorZnanja).subscribe()
@@ -208,6 +222,67 @@ export class KnowledgePreviewComponent implements OnInit {
 
   fitGraph() {
     this.zoomToFit$.next(true)
+  }
+  dfs() {
+    const nodes = this.links.map(a => a.source);
+    const visited = {}
+    for (let i = 0; i < nodes.length; i++) {
+      const node = nodes[i]
+      this._dfsUtil(node, visited)
+    }
+  }
+
+  _dfsUtil(vertex: string, visited: { [x: string]: boolean; }) {
+    if (!visited[vertex]) {
+      visited[vertex] = true
+      console.log(vertex, visited)
+      const neighbors = this.links.filter(a => a.source == vertex);
+      for (let i = 0; i < neighbors.length; i++) {
+        const neighbor = neighbors[i]
+        this._dfsUtil(neighbor.source, visited)
+      }
+    }
+  }
+
+  //https://hackernoon.com/the-javascript-developers-guide-to-graphs-and-detecting-cycles-in-them-96f4f619d563
+  detectCycle() {
+    console.log('detecting')
+    // if (this.links.length == 0) {
+    //   return false
+    // }
+    var graphNodes = this.links.map(a => a.source);
+    var visited = {};
+    var recStack = {};
+
+    for (let i = 0; i < graphNodes.length; i++) {
+      var node = graphNodes[i]
+      if (this._detectCycleUtil(node, visited, recStack))
+        console.log('there is a cycle')
+        return true
+    }
+    //console.log('there are no cycles')
+    return false
+  }
+
+  _detectCycleUtil(vertex: string, visited: { [x: string]: any; }, recStack: { [x: string]: boolean; }) {
+    if (!visited[vertex]) {
+      visited[vertex] = true;
+      recStack[vertex] = true;
+      var nodeNeighbors = this.links.filter(a => a.source == vertex);
+      for (let i = 0; i < nodeNeighbors.length; i++) {
+        var currentNode = nodeNeighbors[i].target
+        //console.log('parent', vertex, 'Child', currentNode);
+        if (!visited[currentNode] && this._detectCycleUtil(currentNode, visited, recStack)) {
+          return true;
+        } else if (recStack[currentNode]) {
+          //console.log(recStack)
+          return true;
+        }
+      }
+    }
+    recStack[vertex] = false;
+
+    return false;
   }
 
 }
