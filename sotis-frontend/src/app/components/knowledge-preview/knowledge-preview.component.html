@@ -30,7 +30,7 @@
     <!-- End Breadcrumbs -->
 
     <div class="graph">
-        <ngx-graph class="chart-container" [center$]="center$" [zoomToFit$]="zoomToFit$" [update$]="update$" [showMiniMap]="true" [view]="[2000, 700]" [links]="links" [nodes]="nodes" (select)="onNodeSelect($event)" (contextmenu)="onRightClick($event)">
+        <ngx-graph class="chart-container" [center$]="center$" [autoCenter]="true" [zoomToFit$]="zoomToFit$" [update$]="update$" [showMiniMap]="true" [curve]="curve" [view]="[2000, 700]" [links]="links" [nodes]="nodes" (select)="onNodeSelect($event)" (contextmenu)="onRightClick($event)">
             <ng-template #nodeTemplate let-node>
                 <svg:g class=" node ">
                     <svg:circle [attr.cx]="0 " [attr.cy]="40 " r="40 " [attr.fill]="node.data.color " />
@@ -38,7 +38,20 @@
                     </svg:text>
                 </svg:g>
             </ng-template>
+            <ng-template #defsTemplate>
+                <svg:marker id="arrow" viewBox="0 -5 10 10" refX="10" refY="0" markerWidth="4" fill="white" markerHeight="4" orient="auto">
+                    <svg:path d="M0,-10L10,0L0,5" class="arrow-head" />
+                </svg:marker>
+            </ng-template>
+
+            <ng-template #linkTemplate let-link>
+                <svg:g class="edge">
+                    <svg:path class="line" stroke-width="2" marker-end="url(#arrow)"></svg:path>
+
+                </svg:g>
+            </ng-template>
         </ngx-graph>
+
         <!-- <mat-menu #menu="matMenu">
             <button mat-menu-item (select)="onNodeSelect($event)">New Linked Node</button>
             <button mat-menu-item>Delete Node</button>
