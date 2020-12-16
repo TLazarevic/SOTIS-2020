@@ -1,7 +1,9 @@
 package com.example.SOTIS.model.DTO;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import com.example.SOTIS.model.Test;
@@ -10,7 +12,7 @@ public class TestViewDTO {
 
 	private long id;
 
-	public Set<PitanjeDTO> pitanje = new HashSet<>();
+	public List<PitanjeDTO> pitanje = new ArrayList<>();
 
 	public TestViewDTO() {
 		super();
@@ -28,11 +30,11 @@ public class TestViewDTO {
 		this.id = id;
 	}
 
-	public Collection<PitanjeDTO> getPitanje() {
+	public List<PitanjeDTO> getPitanje() {
 		return pitanje;
 	}
 
-	public void setPitanje(Set<PitanjeDTO> pitanje) {
+	public void setPitanje(List<PitanjeDTO> pitanje) {
 		this.pitanje = pitanje;
 	}
 
