@@ -124,15 +124,17 @@ public class TestService {
 		for (Cvor k : korenovi) {
 			queue.add(k);
 		}
+		
+		HashMap<Long, Boolean> visited = new HashMap<Long, Boolean>();
+		for (Cvor tmp : cvorovi) {
+			visited.put(tmp.getCvorId(), false);
+		}
 
 		while (queue.size() != 0) {
 			for (int i = 0; i < korenovi.size(); i++) {
 				Cvor c = korenovi.get(i);
 
-				HashMap<Long, Boolean> visited = new HashMap<Long, Boolean>();
-				for (Cvor tmp : cvorovi) {
-					visited.put(tmp.getCvorId(), false);
-				}
+				
 				visited.put(c.getCvorId(), true);
 
 				// Dequeue a vertex from queue and print it
@@ -161,12 +163,12 @@ public class TestService {
 	}
 
 	public List<Cvor> getSiblings(List<Veza> veze, List<Cvor> cvorovi, String l) {
-		
+
 		List<Cvor> resultCvor = new ArrayList<>();
 		for (Veza v : veze) {
 
 			if (v.getSource().getId().equals(l)) {
-				
+
 				Optional<Cvor> result = (cvorovi.stream().filter(cv -> v.getTarget().getCvorId() == cv.getCvorId())
 						.findAny());
 				if (result.isPresent()) {
@@ -190,6 +192,7 @@ public class TestService {
 
 		for (Veza v : veze) {
 			nisu_korenovi.add(v.getTarget());
+
 		}
 
 		// korenovi su preostali cvorovi
@@ -202,17 +205,31 @@ public class TestService {
 	}
 
 	public TestViewDTO findById(Long id) {
+		
 		try {
 			Test t = testRepo.findById(id).get();
 
 			List<Cvor> sortirani_cvorovi = sortirajCvorove(t);
+			List<Pitanje> sortirana_pitanja = new ArrayList<>();
+
 			for (Cvor s : sortirani_cvorovi) {
 				System.out.println(s.getLabel());
-			}
 
+				Optional<Pitanje> result = (t.getPitanje().stream().filter(p -> p.getCvor().getId() == s.getId())
+						.findAny());
+				if (result.isPresent()) {
+					sortirana_pitanja.add(result.get());
+				}
+
+			}
+			for (Pitanje p : sortirana_pitanja) {
+				System.out.println(p.getTekst());
+				//System.out.println(p.getCvor().getLabel());
+			}
+			
 			TestViewDTO dto = new TestViewDTO(t);
 
-			for (Pitanje p : t.pitanje) {
+			for (Pitanje p : sortirana_pitanja) {
 				Set<Odgovor> o = odgovorRepo.findByPitanjeId(p.getId());
 				PitanjeDTO pit = new PitanjeDTO(p, o);
 				dto.pitanje.add(pit);
