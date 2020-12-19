@@ -4,10 +4,12 @@ import pickle
 from http.server import HTTPServer, BaseHTTPRequestHandler
 import json
 
-
 import sys
+
 sys.path.append('learning_spaces/')
 from learning_spaces.kst import iita
+
+
 
 '''
     Serverski deo
@@ -32,5 +34,8 @@ def start_server():
     server.serve_forever()
 
 if __name__ == '__main__':
+    data_frame = pd.DataFrame({'a': [1, 0, 0], 'b': [0, 1, 0], 'c': [0, 1, 1]})
+    response = iita(data_frame, v=1)
+    print(response.values())
     start_server()
     print('Kraj')
