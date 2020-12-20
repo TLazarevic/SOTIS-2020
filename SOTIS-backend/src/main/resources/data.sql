@@ -37,6 +37,10 @@ insert into pitanje(id, tekst, cvor_cvor_id, predmet_id) values (400,'p4','400',
 insert into pitanje(id, tekst, cvor_cvor_id, predmet_id) values (500,'p5','500',1);
 insert into pitanje(id, tekst, cvor_cvor_id, predmet_id) values (600,'p6','600',1);
 
+insert into odgovor(id, tacnost, tekst, pitanje_id) values (100, true, 'tekst_pitanja1', 100);
+insert into odgovor(id, tacnost, tekst, pitanje_id) values (200, true, 'tekst_pitanja2', 100);
+insert into odgovor(id, tacnost, tekst, pitanje_id) values (300, true, 'lalalala', 200);
+
 insert into test_pitanje(test_id,pitanje_id) values(100,100);
 insert into test_pitanje(test_id,pitanje_id) values(100,200);
 insert into test_pitanje(test_id,pitanje_id) values(100,300);

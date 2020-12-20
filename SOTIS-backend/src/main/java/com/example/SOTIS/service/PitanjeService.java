@@ -29,64 +29,68 @@ public class PitanjeService {
 
 	@Autowired
 	OdgovoriRepository odgovorRepo;
-	
+
 	@Autowired
 	PitanjeRepository pitanjeRepo;
-	
+
 	@Autowired
 	CvorRepository cvorRepo;
+
 	public boolean dodajPitanje(PitanjeDTO pitanjeDTO) {
-		
+
 		Pitanje p = new Pitanje();
 		p.setTekst(pitanjeDTO.getTekst());
 		p.setPredmetId(pitanjeDTO.getPredmetId());
-		
+
 		System.out.println("Id cvora za dobavljanje: " + pitanjeDTO.getCvor().getCvorId());
-		
+
 		Cvor cvor = cvorRepo.findById(pitanjeDTO.getCvor().getCvorId()).get();
 		p.setCvor(cvor);
-		//cvor.setPitanje(p);
-		//p.setPredmetId(pitanjeDTO.getPredmetId());
+		// cvor.setPitanje(p);
+		// p.setPredmetId(pitanjeDTO.getPredmetId());
 		pitanjeRepo.save(p);
 		Set<Odgovor> odgovori = pitanjeDTO.getOdgovori();
-		
-		for(Odgovor odg : odgovori) {
+
+		for (Odgovor odg : odgovori) {
 			odg.setPitanje(p);
-			
+
 			odgovorRepo.save(odg);
-			
-			//cvorRepo.save(cvor);
+
+			// cvorRepo.save(cvor);
 
 		}
-		
+
 		return true;
 	}
-	
+
 	public PitanjeDTO findById(Long id) {
 		try {
-			
+
 			Pitanje p = pitanjeRepo.findById(id).get();
-			
+
 			Set<Odgovor> odgovori = odgovorRepo.findByPitanjeId(id);
-			
+
 			PitanjeDTO retPitanjeDTO = new PitanjeDTO();
-			
-			
+
 			retPitanjeDTO.setTekst(p.getTekst());
-			
+
 			retPitanjeDTO.setOdgovori(odgovori);
-			
+
 			return retPitanjeDTO;
-		} catch (Exception e) { 
+		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
 		}
 	}
-	
+
 	public List<Pitanje> findAllByPredmet(Long id) {
 		System.out.println(" PITANJA ZA PREDMET ID: " + id);
 		return pitanjeRepo.findByPredmet(id);
 	}
-	
-	
+
+	public Set<Odgovor> findByPitanje(Long id) {
+		Set<Odgovor> odgovori = odgovorRepo.findByPitanjeId(id);
+		return odgovori;
+	}
+
 }
