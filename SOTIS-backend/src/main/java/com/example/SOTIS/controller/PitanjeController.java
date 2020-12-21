@@ -1,6 +1,7 @@
 package com.example.SOTIS.controller;
 
 import java.util.List;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,6 +20,7 @@ import com.example.SOTIS.model.Predmet;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.service.PitanjeService;
+import com.example.SOTIS.model.Odgovor;
 
 @RestController
 @RequestMapping(value = "/pitanje")
@@ -41,6 +43,12 @@ public class PitanjeController {
 	@GetMapping(value = "/predmet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Pitanje>> getAllByNastavnik(@PathVariable Long id) {
 		return new ResponseEntity<>(pitanjeService.findAllByPredmet(id), HttpStatus.OK);
+	}
+
+	// dobavljanje odgovora za odredjeno pitanje
+	@GetMapping(value = "/odgovori/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Set<Odgovor>> getOdgovoriByPitanje(@PathVariable Long id) {
+		return new ResponseEntity<>(pitanjeService.findByPitanje(id), HttpStatus.OK);
 	}
 
 }

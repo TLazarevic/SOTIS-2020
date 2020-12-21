@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -29,14 +30,20 @@ public class Odgovor {
 	/** @pdOid bd34634f-27ee-4c35-aba0-dd4bdb22183c */
 	private String tekst;
 
-	@Column
+	@Column(nullable = false)
 	/** @pdOid 8ccea436-8bd7-4eb8-b146-d51b565d5641 */
 	private boolean tacnost;
-	
+
 	@JsonIgnore
 	@ManyToOne
 	public Pitanje pitanje;
-	
+
+	@JsonIgnore
+	@OneToOne
+	public Ucenik ucenik;
+
+	@Column(nullable = false)
+	private int redniBr;
 
 	public Pitanje getPitanje() {
 		return pitanje;
@@ -70,9 +77,32 @@ public class Odgovor {
 		this.tacnost = tacnost;
 	}
 
+	public Ucenik getUcenik() {
+		return ucenik;
+	}
+
+	public void setUcenik(Ucenik ucenik) {
+		this.ucenik = ucenik;
+	}
+
+	public int getRedniBr() {
+		return redniBr;
+	}
+
+	public void setRedniBr(int redniBr) {
+		this.redniBr = redniBr;
+	}
+
 	@Override
 	public String toString() {
-		return "Odgovor [id=" + id + ", tekst=" + tekst + ", tacnost=" + tacnost + "]";
+		try {
+			return "Odgovor [id=" + id + ", tekst=" + tekst + ", tacnost=" + tacnost + ", pitanje=" + pitanje.getId()
+					+ ", ucenik=" + ucenik.getId() + ", redniBr=" + redniBr + "]";
+		} catch (Exception e) {
+			return " TACAN Odgovor [id=" + id + ", tekst=" + tekst + ", tacnost=" + tacnost + ", pitanje="
+					+ pitanje.getId() + ", redniBr=" + redniBr + "]";
+		}
+
 	}
 
 }
