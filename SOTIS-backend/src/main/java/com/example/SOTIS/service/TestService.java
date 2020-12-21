@@ -1,23 +1,17 @@
 package com.example.SOTIS.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-import org.hibernate.bytecode.internal.javassist.BulkAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.validation.ValidationBindHandler;
 import org.springframework.stereotype.Service;
 
 import com.example.SOTIS.model.Cvor;
-import com.example.SOTIS.model.Nastavnik;
 import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
 import com.example.SOTIS.model.Predmet;
@@ -25,6 +19,7 @@ import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.Ucenik;
 import com.example.SOTIS.model.UcenikTest;
 import com.example.SOTIS.model.Veza;
+import com.example.SOTIS.model.DTO.MatrixDTO;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
@@ -62,6 +57,11 @@ public class TestService {
 
 	public List<TestDTO> findAllByUcenik(Long id) {
 		System.out.println(ucenikTestRepo.findByUcenikId(id).size());
+		return ucenikTestRepo.findByUcenikId(id);
+	}
+
+	public List<TestDTO> findAllByTest(Long id) {
+		System.out.println(ucenikTestRepo.findByTestId(id).size());
 		return ucenikTestRepo.findByUcenikId(id);
 	}
 
@@ -114,6 +114,53 @@ public class TestService {
 		}
 	}
 
+	public MatrixDTO getMatrix(Long testId) {
+		try {
+			MatrixDTO matrica = new MatrixDTO();
+
+			List<Long> studentsThatTookTheTest = ucenikTestRepo.studentsThatTookTheTest(testId);
+			System.out.println(studentsThatTookTheTest);
+			List<Pitanje> pitanjaSaTesta = pitanjeRepo.findByTestId(testId);
+			System.out.println(pitanjaSaTesta);
+
+			for (Long studId : studentsThatTookTheTest) {
+				for (Pitanje p : pitanjaSaTesta) {
+					Set<Odgovor> odgovori = odgovorRepo.findByUcenikIdAndPitanjeId(studId, p.getId());
+					System.out.println(odgovori);
+					Set<Odgovor> tacniOdgovori = odgovorRepo.findTacniOdgovori(p.getId());
+					System.out.println(tacniOdgovori);
+
+					boolean sviOdgTacni = true;
+					for (Odgovor tacanO : tacniOdgovori) {
+						for (Odgovor o : odgovori) {
+							if (o.getRedniBr() == tacanO.getRedniBr()) {
+								if (o.isTacnost() != tacanO.isTacnost()) {
+									if (!matrica.getMatrix().containsKey(studId)) {
+										matrica.getMatrix().put(studId, new HashMap<>());
+									}
+									matrica.getMatrix().get(studId).put(p.getId(), 0);
+									sviOdgTacni = false;
+									break;
+								}
+							}
+						}
+					}
+					if (sviOdgTacni) {
+						if (!matrica.getMatrix().containsKey(studId)) {
+							matrica.getMatrix().put(studId, new HashMap<>());
+						}
+						matrica.getMatrix().get(studId).put(p.getId(), 1);
+					}
+				}
+			}
+
+			return matrica;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+
 	// https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
 	public List<Cvor> BFS(List<Cvor> korenovi, List<Cvor> cvorovi, Set<Veza> veze) {
 
@@ -124,7 +171,7 @@ public class TestService {
 		for (Cvor k : korenovi) {
 			queue.add(k);
 		}
-		
+
 		HashMap<Long, Boolean> visited = new HashMap<Long, Boolean>();
 		for (Cvor tmp : cvorovi) {
 			visited.put(tmp.getCvorId(), false);
@@ -134,7 +181,6 @@ public class TestService {
 			for (int i = 0; i < korenovi.size(); i++) {
 				Cvor c = korenovi.get(i);
 
-				
 				visited.put(c.getCvorId(), true);
 
 				// Dequeue a vertex from queue and print it
@@ -205,7 +251,7 @@ public class TestService {
 	}
 
 	public TestViewDTO findById(Long id) {
-		
+
 		try {
 			Test t = testRepo.findById(id).get();
 
@@ -224,9 +270,9 @@ public class TestService {
 			}
 			for (Pitanje p : sortirana_pitanja) {
 				System.out.println(p.getTekst());
-				//System.out.println(p.getCvor().getLabel());
+				// System.out.println(p.getCvor().getLabel());
 			}
-			
+
 			TestViewDTO dto = new TestViewDTO(t);
 
 			for (Pitanje p : sortirana_pitanja) {

@@ -16,6 +16,10 @@ public interface UcenikTestRepository extends JpaRepository<UcenikTest, Long> {
 
 	public UcenikTest findByUcenikAndTest(Ucenik ucenik, Test originalTest);
 
+	public List<TestDTO> findByTestId(Long id);
+	
+	@Query("Select ut.ucenik.id from UcenikTest ut where ut.test.id = ?1 and ut.uradjen = true")
+	public List<Long> studentsThatTookTheTest(Long id);
 	
 	
 
