@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {PitanjeDTO } from '../model/PitanjeDTO';
-import { Test } from '../model/Test';
+import { Test } from '../model/test';
 
 
 @Injectable()

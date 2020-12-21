@@ -10,14 +10,18 @@ insert into test(id, nastavnik_id, predmet_id) values (200,1,2);
 insert into test(id, nastavnik_id, predmet_id) values (300,1,1);
 insert into ucenik(id, ime, prezime) values (100, 'Tamara', 'Lazarevic');
 insert into ucenik(id, ime, prezime) values (200, 'Dusan', 'Blanusa');
+insert into ucenik(id, ime, prezime) values (300, 'Bla', 'Blabic');
+
 insert into ucenik_predmet(ucenik_id, predmet_id) values (100,1);
 insert into ucenik_predmet(ucenik_id, predmet_id) values (100,2);
 insert into ucenik_predmet(ucenik_id, predmet_id) values (200,1);
+insert into ucenik_predmet(ucenik_id, predmet_id) values (300,1);
 
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 100, true);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 200, false);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 300, false);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (200, 100, true);
+insert into ucenik_test(ucenik_id,test_id, uradjen) values (300, 100, true);
 
 insert into prostor_znanja(id, predmet_id) values (100,1);
 insert into cvor(cvor_id, string_id, label, pz_id) values (100, 'a','a',100);
@@ -54,6 +58,12 @@ insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values 
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (990, true, 'tekst_odg2', 100, 2, 200);
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (980, true, 'lalalala', 200,  1, 200);
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (970, true, 'lalalala', 200, 2, 200);
+
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (960, true, 'tekst_odg1', 100, 1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (950, true, 'tekst_odg2', 100, 2, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (940, true, 'lalalala', 200,  1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (930, true, 'lalalala', 200, 2, 300);
+
 
 insert into test_pitanje(test_id,pitanje_id) values(100,100);
 insert into test_pitanje(test_id,pitanje_id) values(100,200);

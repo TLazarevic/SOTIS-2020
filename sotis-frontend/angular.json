@@ -126,5 +126,8 @@
       }
     }
   },
-  "defaultProject": "siap-frontend"
+  "defaultProject": "siap-frontend",
+  "cli": {
+    "analytics": false
+  }
 }
