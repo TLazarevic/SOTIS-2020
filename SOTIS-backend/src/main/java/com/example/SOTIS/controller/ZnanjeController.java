@@ -36,6 +36,11 @@ public class ZnanjeController {
 		return new ResponseEntity<>(znanjeService.findById(id), HttpStatus.OK);
 	}
 
+	@GetMapping(value = "predmet/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<List<ProstorZnanja>> getPredmetGrafovi(@PathVariable Long id) {
+		return new ResponseEntity<>(znanjeService.findByPredmetId(id), HttpStatus.OK);
+	}
+
 	@PostMapping(value = "", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> newSpace(@RequestBody ProstorZnanja pz) {
 		if (this.znanjeService.newProstor(pz))

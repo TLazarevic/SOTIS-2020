@@ -1,0 +1,12 @@
+.chart-container {
+    margin-bottom: 200px;
+    height: 700px;
+}
+
+.graph {
+    background-image: url("src/assets/img/space.jpg");
+    background-repeat: repeat-y;
+    background-repeat: repeat-x;
+    border-style: dotted;
+    border-color: gray;
+}

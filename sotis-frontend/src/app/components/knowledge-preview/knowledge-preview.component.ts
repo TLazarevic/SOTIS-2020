@@ -72,7 +72,7 @@ export class KnowledgePreviewComponent implements OnInit {
   // ]
 
   constructor(public dialog: MatDialog, private knowledgeService: KnowledgeService) {
-    var ZAKUCANO = 6
+    var ZAKUCANO = 1
     knowledgeService.getGraph(ZAKUCANO).subscribe(data => {
       this.nodes = data.cvorovi
       for (let v of data.veze) {
