@@ -21,7 +21,7 @@
     <div class="breadcrumbs">
         <div class="container">
             <h2>Graph comparison</h2>
-            <button class="button button1" (click) = "generateKnowledgeSpace()">Generate knowledge space</button>
+            <button class="button button1" (click)="generateKnowledgeSpace()">Generate knowledge space</button>
         </div>
     </div>
     <!-- End Breadcrumbs -->
@@ -38,7 +38,7 @@
     </div>
 
     <div *ngIf="showGraphs " class="graph ">
-        <h1>Graph 1</h1>
+        <h1>Expert space</h1>
         <ngx-graph class="chart-container " [center$]="center$ " [autoCenter]="true " [zoomToFit$]="zoomToFit$ " [update$]="update$ " [showMiniMap]="true " [curve]="curve " [view]="[2000, 700] " [links]="links " [nodes]="nodes ">
             <ng-template #nodeTemplate let-node>
                 <svg:g class=" node ">
@@ -62,7 +62,7 @@
         </ngx-graph>
     </div>
     <div *ngIf="showGraphs " class="graph ">
-        <h1>Graph 2</h1>
+        <h1>Generated space</h1>
         <ngx-graph class="chart-container " [center$]="center$ " [autoCenter]="true " [zoomToFit$]="zoomToFit$ " [update$]="update$ " [showMiniMap]="true " [curve]="curve " [view]="[2000, 700] " [links]="links2 " [nodes]="nodes2 ">
             <ng-template #nodeTemplate let-node>
                 <svg:g class=" node ">

@@ -45,22 +45,34 @@ export class GraphComparisonComponent implements OnInit {
     this.nodes = []; this.links = []; this.update$.next(true)
     this.knowledgeService.getGraphs(Number(this.selected)).subscribe(data => {
       console.log(data)
-      this.nodes = data[0].cvorovi
-      this.nodes2 = data[1].cvorovi
-      for (let v of data[0].veze) {
-        this.links.push(new VezaDTO(v))
+      if (data[1].generisan == true) {
+        this.nodes = data[0].cvorovi
+        this.nodes2 = data[1].cvorovi
+        for (let v of data[0].veze) {
+          this.links.push(new VezaDTO(v))
+        }
+        for (let v of data[1].veze) {
+          this.links2.push(new VezaDTO(v))
+        }
+      } else {
+        this.nodes = data[1].cvorovi
+        this.nodes2 = data[0].cvorovi
+        for (let v of data[1].veze) {
+          this.links.push(new VezaDTO(v))
+        }
+        for (let v of data[0].veze) {
+          this.links2.push(new VezaDTO(v))
+        }
       }
-      for (let v of data[1].veze) {
-        this.links2.push(new VezaDTO(v))
-      }
+
 
       this.showGraphs = true
     }
     )
   }
 
-  public generateKnowledgeSpace(){
-    this.knowledgeService.generateIttaGraph().subscribe( next => alert("Knowledge space is generated"));
+  public generateKnowledgeSpace() {
+    this.knowledgeService.generateIttaGraph().subscribe(next => alert("Knowledge space is generated"));
   }
 
 }
