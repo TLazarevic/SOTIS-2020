@@ -7,6 +7,7 @@ import { TestPreviewComponent } from './components/test-preview/test-preview.com
 import { TestsPreviewComponent } from './components/tests-preview/tests-preview.component';
 import { NewTestComponent } from './new-test/new-test.component';
 import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
+import { GraphComparisonComponent } from './components/graph-comparison/graph-comparison.component';
 
 const routes: Routes = [
   { path: 'Tests', component: TestsPreviewComponent },
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: 'NewPitanje', component: NewPitanjeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'knowledge-graph', component: KnowledgePreviewComponent },
+  { path: 'graph-comparison', component: GraphComparisonComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', component: HomeComponent }
 ];
