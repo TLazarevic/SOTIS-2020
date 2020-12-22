@@ -23,7 +23,7 @@ insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 300, false);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (200, 100, true);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (300, 100, true);
 
-insert into prostor_znanja(id, predmet_id) values (100,1);
+insert into prostor_znanja(id, predmet_id, generisan) values (100,1, false);
 insert into cvor(cvor_id, string_id, label, pz_id) values (100, 'a','a',100);
 insert into cvor(cvor_id, string_id, label, pz_id) values (200, 'b', 'b',100);
 insert into cvor(cvor_id, string_id, label, pz_id) values (300, 'c', 'c',100);

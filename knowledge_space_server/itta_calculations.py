@@ -23,12 +23,13 @@ def get_matrix_from_java():
                 list = []
                 list.append(int(ucenik[pitanje]))
                 dict.update( {pitanje : list} )
-                print(str(pitanje) + " | " + str(ucenik[pitanje]))
+                #print(str(pitanje) + " | " + str(ucenik[pitanje]))
             df2 = pd.DataFrame.from_dict(dict)
             data_frame = data_frame.append(df2, ignore_index=True)
 
     return data_frame
 
+# ne radi sa trenutnim modelom, prepravljeno u narednim funkcijama
 def get_dict_pitanje_label(predmet_id = 1):
     URL = "http://localhost:8080/znanje/predmet/" + str(predmet_id)
 
@@ -43,9 +44,8 @@ def get_dict_pitanje_label(predmet_id = 1):
                     continue
                 else:
                     dict_pitanje_label.update({int(cvor["pitanje"]) : str(cvor["label"])})
-            print("returndje")
             return dict_pitanje_label
-    print(data)
+    #print(data)
     return dict_pitanje_label
 
 def connect_to_database():
@@ -86,7 +86,7 @@ def insert_prostor_stanja(conn, predmet_id):
         cursor = conn.cursor()
         cursor.execute(query, ("True", predmet_id))
         prostor_znanja_id = cursor.fetchall()[0][0]
-        print(prostor_znanja_id)
+        #print(prostor_znanja_id)
         conn.commit()
 
         return prostor_znanja_id
@@ -96,6 +96,8 @@ def insert_prostor_stanja(conn, predmet_id):
 
 def calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor, dict_pitanje_label):
     #data_frame = pd.DataFrame({'100': [1, 0, 0], '200': [0, 1, 0], '300': [0, 1, 1]})
+    
+    # uvek vraca isto
     data_frame = get_matrix_from_java()
 
 
@@ -104,8 +106,9 @@ def calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor, dict_pitanje_labe
 
     index = data_frame.columns.values
     a_list = list(index)
-    print(a_list[1])
+    #print(a_list[1])
     for pair in pairs:
+        print(dict_pitanje_cvor)
         print((a_list[pair[0]], a_list[pair[1]]))
 
         cvor1_id = dict_pitanje_cvor[int(a_list[pair[0]])]
@@ -126,7 +129,7 @@ def start_algorithm():
 
     # za razlicite predmete pravim razl prostore znanja
     for predmet in predmeti:
-        print(predmet[0])
+        #print(predmet[0])
         predmet_id = predmet[0]
         prostor_znanja_id = insert_prostor_stanja(conn, str(predmet_id))
         # za pitanja iz prostora znanja pravim nove cvorove
@@ -136,13 +139,26 @@ def start_algorithm():
         dict_pitanje_label = get_dict_pitanje_label(predmet_id)
         for pitanje in pitanja:
             pitanje_id = pitanje[0]
+            print(pitanje[3])
 
-            cvor_label = str(pitanje[2])
-            if pitanje_id in dict_pitanje_label:
-                cvor_label = dict_pitanje_label[pitanje_id]
+            '''
+            nalazim cvor koji je vezan za pitanje
+            '''
+            cur.execute('SELECT * FROM cvor where cvor_id = ' + str(pitanje[3]))
+            cvor = cur.fetchall()[0]
+            cvor_label = cvor[2]
+            cvor_string = cvor[1]
+            print(cvor_label)
+            #dict_pitanje_label = get_dict_pitanje_label(predmet_id)
 
 
-            cvor_id = insert_cvor(conn, cvor_label, cvor_label, str(pitanje_id), str(prostor_znanja_id))
+
+            #cvor_label = str(pitanje[2])
+            #if pitanje_id in dict_pitanje_label:
+            #    cvor_label = dict_pitanje_label[pitanje_id]
+
+
+            cvor_id = insert_cvor(conn, cvor_string, cvor_label, str(pitanje_id), str(prostor_znanja_id))
             dict_pitanje_cvor.update( {int(pitanje_id) : int(cvor_id)} )
         cur.close()
 
