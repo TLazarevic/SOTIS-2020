@@ -7,11 +7,13 @@ export class ProstorZnanja {
     predmet!: Predmet;
     cvorovi: Cvor[]=[]
     veze: Veza[]=[]
+    generisan!: boolean;
 
-    constructor(cvorovi: Cvor[], veze: Veza[], predmet: Predmet) {
+    constructor(cvorovi: Cvor[], veze: Veza[], predmet: Predmet, generisan: boolean) {
         this.veze = veze
         this.cvorovi = cvorovi
         this.predmet = predmet
+        this.generisan = generisan
         this.id = 0
     }
 }
