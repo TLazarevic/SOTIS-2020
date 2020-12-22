@@ -5,6 +5,10 @@ import itta_calculations
     Serverski deo
 '''
 class helloHandler(BaseHTTPRequestHandler):
+    def end_headers (self):
+        self.send_header('Access-Control-Allow-Origin', '*')
+        BaseHTTPRequestHandler.end_headers(self)
+
     def do_GET(self):
         self.send_response(200)
         self.send_header('content-type', 'text/html')

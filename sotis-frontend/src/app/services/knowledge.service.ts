@@ -28,4 +28,9 @@ export class KnowledgeService {
     return this.http.get<Predmet[]>("http://localhost:8080/predmet", httpOptions)
   }
 
+  generateIttaGraph(){
+    return this.http.get<any>("http://localhost:8000");
+
+  }
+
 }

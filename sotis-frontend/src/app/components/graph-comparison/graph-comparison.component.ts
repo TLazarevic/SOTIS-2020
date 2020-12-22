@@ -59,4 +59,8 @@ export class GraphComparisonComponent implements OnInit {
     )
   }
 
+  public generateKnowledgeSpace(){
+    this.knowledgeService.generateIttaGraph().subscribe( next => alert("Knowledge space is generated"));
+  }
+
 }
