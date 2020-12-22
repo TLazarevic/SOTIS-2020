@@ -47,7 +47,6 @@ public class ZnanjeController {
 			return new ResponseEntity<>(true, HttpStatus.OK);
 		else
 			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
-
 	}
 
 }

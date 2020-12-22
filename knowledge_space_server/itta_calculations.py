@@ -6,7 +6,6 @@ import sys
 sys.path.append('learning_spaces/')
 from learning_spaces.kst import iita
 
-
 def get_matrix_from_java():
     # hardkodovano je na 100, tu ce samo da ide ono sto se posalje sa fronta
     URL = "http://localhost:8080/test/matrica/100"
@@ -29,6 +28,25 @@ def get_matrix_from_java():
             data_frame = data_frame.append(df2, ignore_index=True)
 
     return data_frame
+
+def get_dict_pitanje_label(predmet_id = 1):
+    URL = "http://localhost:8080/znanje/predmet/" + str(predmet_id)
+
+    r = requests.get(url=URL)
+    data = r.json()
+
+    dict_pitanje_label = {}
+    for prostor in data:
+        if prostor["generisan"] == False:
+            for cvor in prostor["cvorovi"]:
+                if cvor["pitanje"] == None:
+                    continue
+                else:
+                    dict_pitanje_label.update({int(cvor["pitanje"]) : str(cvor["label"])})
+            print("returndje")
+            return dict_pitanje_label
+    print(data)
+    return dict_pitanje_label
 
 def connect_to_database():
     conn = psycopg2.connect(
@@ -76,9 +94,10 @@ def insert_prostor_stanja(conn, predmet_id):
         cursor.close()
 
 
-def calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor):
+def calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor, dict_pitanje_label):
     #data_frame = pd.DataFrame({'100': [1, 0, 0], '200': [0, 1, 0], '300': [0, 1, 1]})
     data_frame = get_matrix_from_java()
+
 
     response = iita(data_frame, v=1)
     pairs = response['implications']
@@ -88,8 +107,11 @@ def calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor):
     print(a_list[1])
     for pair in pairs:
         print((a_list[pair[0]], a_list[pair[1]]))
+
         cvor1_id = dict_pitanje_cvor[int(a_list[pair[0]])]
         cvor2_id = dict_pitanje_cvor[int(a_list[pair[1]])]
+
+
         insert_veza(conn, '10', '10', prostor_znanja_id, cvor1_id, cvor2_id)
 
 
@@ -111,16 +133,22 @@ def start_algorithm():
         cur = conn.cursor()
         cur.execute('SELECT * FROM pitanje where predmet_id = ' + str(predmet_id))
         pitanja = cur.fetchall()
+        dict_pitanje_label = get_dict_pitanje_label(predmet_id)
         for pitanje in pitanja:
             pitanje_id = pitanje[0]
-            cvor_id = insert_cvor(conn, str(pitanje[2]), str(pitanje[2]), str(pitanje_id), str(prostor_znanja_id))
+
+            cvor_label = str(pitanje[2])
+            if pitanje_id in dict_pitanje_label:
+                cvor_label = dict_pitanje_label[pitanje_id]
+
+
+            cvor_id = insert_cvor(conn, cvor_label, cvor_label, str(pitanje_id), str(prostor_znanja_id))
             dict_pitanje_cvor.update( {int(pitanje_id) : int(cvor_id)} )
         cur.close()
 
-        calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor)
+        calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor, get_dict_pitanje_label(predmet_id))
 
 
 if __name__ == '__main__':
-    #print(get_matrix_from_java())
     start_algorithm()
     print("End")
