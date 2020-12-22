@@ -63,10 +63,10 @@ def insert_cvor(conn, string_id, label, pitanje_id, pz_id):
 
 
 def insert_prostor_stanja(conn, predmet_id):
-    query = "INSERT INTO prostor_znanja(predmet_id) VALUES(%s) RETURNING id"
+    query = "INSERT INTO prostor_znanja(generisan, predmet_id) VALUES(%s, %s) RETURNING id"
     try:
         cursor = conn.cursor()
-        cursor.execute(query, predmet_id)
+        cursor.execute(query, ("True", predmet_id))
         prostor_znanja_id = cursor.fetchall()[0][0]
         print(prostor_znanja_id)
         conn.commit()

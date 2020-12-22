@@ -33,6 +33,7 @@ public class ZnanjeService {
 	public boolean newProstor(ProstorZnanja prostor) {
 		try {
 			prostor.setId(-1);
+			prostor.setGenerisan(false);
 			this.znanjeRepo.save(prostor);
 			return true;
 		}catch(Exception e){

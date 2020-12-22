@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -36,6 +37,9 @@ public class ProstorZnanja {
 	 * @pdRoleInfo migr=no name=Predmet assc=association9 mult=0..1 type=Aggregation
 	 */
 	public Predmet predmet;
+	
+	@Column
+	public Boolean generisan;
 
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "pz", orphanRemoval = true, fetch = FetchType.EAGER)
 	public Set<Cvor> cvorovi = new HashSet<>();
@@ -96,6 +100,14 @@ public class ProstorZnanja {
 	@Override
 	public String toString() {
 		return "ProstorZnanja [id=" + id + "]";
+	}
+
+	public Boolean getGenerisan() {
+		return generisan;
+	}
+
+	public void setGenerisan(Boolean generisan) {
+		this.generisan = generisan;
 	}
 
 }
