@@ -32,6 +32,7 @@ import { LinkDialogComponent } from './components/link-dialog/link-dialog.compon
 import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { GraphComparisonComponent } from './components/graph-comparison/graph-comparison.component';
 
 
 @NgModule({
@@ -48,7 +49,8 @@ import { MatInputModule } from '@angular/material/input';
     NewNodeDialogComponent,
     NewPitanjeComponent,
     LinkDialogComponent,
-    NewPitanjeComponent
+    NewPitanjeComponent,
+    GraphComparisonComponent
   ],
   imports: [
     BrowserModule,

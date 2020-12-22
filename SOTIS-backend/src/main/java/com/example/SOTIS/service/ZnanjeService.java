@@ -42,4 +42,8 @@ public class ZnanjeService {
 		}
 	}
 
+	public List<ProstorZnanja> findByPredmetId(Long id) {
+		return this.znanjeRepo.findByPredmetId(id);
+	}
+
 }

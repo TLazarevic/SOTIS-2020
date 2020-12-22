@@ -24,10 +24,15 @@ public class PredmetController {
 
 	@Autowired
 	PredmetService predmetService;
-	
+
+//	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<List<Predmet>> getAllByNastavnik() {
+//		return new ResponseEntity<>(predmetService.getAllPredmeti(), HttpStatus.OK);
+//	}
+
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<List<Predmet>> getAllByNastavnik() {
+	public ResponseEntity<List<Predmet>> getAll() {
 		return new ResponseEntity<>(predmetService.getAllPredmeti(), HttpStatus.OK);
 	}
-	
+
 }

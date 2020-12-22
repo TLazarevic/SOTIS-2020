@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Predmet } from '../model/predmet';
 import { ProstorZnanja } from '../model/ProstorZnanja';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
@@ -15,8 +16,16 @@ export class KnowledgeService {
     return this.http.get<ProstorZnanja>("http://localhost:8080/znanje/" + id, httpOptions)
   }
 
+  getGraphs(predmetId: number) {
+    return this.http.get<ProstorZnanja[]>("http://localhost:8080/znanje/predmet/" + predmetId, httpOptions)
+  }
+
   newGraph(pz: ProstorZnanja) {
     return this.http.post<Boolean>("http://localhost:8080/znanje", pz, httpOptions)
+  }
+
+  allPredmeti() {
+    return this.http.get<Predmet[]>("http://localhost:8080/predmet", httpOptions)
   }
 
 }
