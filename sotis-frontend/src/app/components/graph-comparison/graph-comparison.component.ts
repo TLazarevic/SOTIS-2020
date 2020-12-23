@@ -18,7 +18,7 @@ export class GraphComparisonComponent implements OnInit {
   zoomToFit$: Subject<boolean> = new Subject();
   update$: Subject<boolean> = new Subject();
   label!: string;
-  curve = shape.curveBundle
+  curve = shape.curveLinear
 
   showGraphs = false;
   predmeti: Predmet[] = [];

@@ -167,7 +167,7 @@ export class KnowledgePreviewComponent implements OnInit {
     }
     var ZAKUCANO = new Predmet()
     ZAKUCANO.id = 1
-    var prostorZnanja = new ProstorZnanja(newNodes, newLinks, ZAKUCANO)
+    var prostorZnanja = new ProstorZnanja(newNodes, newLinks, ZAKUCANO, false)
     console.log(prostorZnanja)
     this.knowledgeService.newGraph(prostorZnanja).subscribe()
   }
