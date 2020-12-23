@@ -4,8 +4,9 @@ import java.util.HashMap;
 
 // matrix dto for iita algorithm
 public class MatrixDTO {
-	
-	// matrix that contains correctnes of each question for each student that took the test
+
+	// matrix that contains correctnes of each question for each student that took
+	// the test
 	private HashMap<Long, HashMap<Long, Integer>> matrix = new HashMap<>();
 
 	public HashMap<Long, HashMap<Long, Integer>> getMatrix() {

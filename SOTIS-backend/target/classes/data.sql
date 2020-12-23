@@ -30,12 +30,12 @@ insert into cvor(cvor_id, string_id, label, pz_id) values (300, 'c', 'c',100);
 insert into cvor(cvor_id, string_id, label, pz_id) values (400, 'd', 'd',100);
 insert into cvor(cvor_id, string_id, label, pz_id) values (500, 'e', 'e',100);
 insert into cvor(cvor_id, string_id, label, pz_id) values (600, 'f', 'f',100);
-insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (100,'1','1', 100,300,100);
-insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (200,'1','1', 100,400,100);
-insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (300,'1','1', 200,500,100);
-insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (400,'1','1', 300,600,100);
-insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (500,'1','1', 400,600,100);
-insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (600,'1','1', 500,600,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (100,'a','a', 100,300,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (200,'b','b', 100,400,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (300,'c','c', 200,500,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (400,'d','d', 300,600,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (500,'e','e', 400,600,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (600,'f','f', 500,600,100);
 
 insert into pitanje(id, tekst, cvor_cvor_id, predmet_id) values (100,'p1','100',1);
 insert into pitanje(id, tekst, cvor_cvor_id, predmet_id) values (200,'p2','200',1);
