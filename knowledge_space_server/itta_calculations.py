@@ -115,7 +115,7 @@ def calculate_itta(conn, prostor_znanja_id, dict_pitanje_cvor, dict_pitanje_labe
         cvor2_id = dict_pitanje_cvor[int(a_list[pair[1]])]
 
 
-        insert_veza(conn, 'veza '+cvor1_id+cvor2_id,  'veza '+cvor1_id+cvor2_id, prostor_znanja_id, cvor1_id, cvor2_id)
+        insert_veza(conn, str(cvor1_id)+str(cvor2_id),  str(cvor1_id)+str(cvor2_id), prostor_znanja_id, cvor1_id, cvor2_id)
 
 
 def start_algorithm():

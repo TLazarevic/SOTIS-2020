@@ -4,6 +4,9 @@ import { Predmet } from '../model/predmet';
 import { ProstorZnanja } from '../model/ProstorZnanja';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
+const options = {
+  responseType: 'text' as const,
+};
 
 @Injectable({
   providedIn: 'root'
@@ -33,4 +36,7 @@ export class KnowledgeService {
 
   }
 
+  getStringGraph(id:number){
+    return this.http.get("http://localhost:8080/znanje/toString/"+id, options)
+  }
 }
