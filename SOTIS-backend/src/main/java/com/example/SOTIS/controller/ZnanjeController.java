@@ -30,8 +30,8 @@ public class ZnanjeController {
 	public ResponseEntity<List<ProstorZnanja>> getAllGrafovi() {
 		return new ResponseEntity<>(znanjeService.findAll(), HttpStatus.OK);
 	}
-	
-	@GetMapping(value="/toString/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
+
+	@GetMapping(value = "/toString/{id}", produces = MediaType.TEXT_PLAIN_VALUE)
 	public ResponseEntity<String> getString(@PathVariable Long id) {
 		System.out.println("a");
 		return new ResponseEntity<>(znanjeService.findByIdString(id), HttpStatus.OK);

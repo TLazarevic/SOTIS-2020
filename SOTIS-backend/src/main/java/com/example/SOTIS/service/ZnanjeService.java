@@ -65,8 +65,8 @@ public class ZnanjeService {
 				}
 			});
 			for (Veza v : sortedVeze) {
-				//result += v.getSource().hashCode() + v.getTarget().hashCode()+" ";
-				result += v.getSource().getLabel() + v.getTarget().getLabel()+" ";
+				result += v.hashCode();
+				// result += v.getSource().getLabel() + v.getTarget().getLabel()+" ";
 			}
 			return result;
 
