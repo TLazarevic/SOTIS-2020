@@ -38,7 +38,7 @@ public class Cvor {
 	@JsonIgnore
 	@OneToOne(mappedBy = "target")
 	private Veza veza2;
-	
+
 	@OneToOne
 	private Pitanje pitanje;
 
@@ -106,9 +106,8 @@ public class Cvor {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cvorId == null) ? 0 : cvorId.hashCode());
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((label == null) ? 0 : label.hashCode());
+		//result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((id == null) ? 0 : label.hashCode());
 		return result;
 	}
 
@@ -121,11 +120,6 @@ public class Cvor {
 		if (getClass() != obj.getClass())
 			return false;
 		Cvor other = (Cvor) obj;
-		if (cvorId == null) {
-			if (other.cvorId != null)
-				return false;
-		} else if (!cvorId.equals(other.cvorId))
-			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -137,7 +131,6 @@ public class Cvor {
 		} else if (!label.equals(other.label))
 			return false;
 		return true;
-
 	}
 
 }
