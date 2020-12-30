@@ -37,7 +37,8 @@ insert into cvor(cvor_id, string_id, label, pz_id) values (600, 'f', 'f',100);
 -- insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (500,'e','e', 400,600,100);
 -- insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (600,'f','f', 500,600,100);
 
-insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (100,'b a','b a', 200,100,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (100,'test','test', 400,500,100);
+insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (200,'test2','test2', 200,100,100);
 -- insert into veza(veza_id, string_id,  label, source_cvor_id, target_cvor_id, pz_id) values (200,'a c','a c', 100,300,100);
 
 insert into pitanje(id, tekst, cvor_cvor_id, predmet_id) values (100,'p1','100',1);

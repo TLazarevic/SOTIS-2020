@@ -6,6 +6,7 @@ export class VezaDTO {
     label!: string
     source!: string
     target!: string
+    color:string = 'white'
 
     constructor(veza: Veza) {
         this.vezaId = veza.vezaId;
