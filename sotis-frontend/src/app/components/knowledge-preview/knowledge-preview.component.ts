@@ -104,7 +104,8 @@ export class KnowledgePreviewComponent implements OnInit {
           id: result.label,
           source: node.id,
           target: result.label,
-          label: 'custom label'
+          label: 'custom label',
+          color: 'white'
         })
         this.detectCycle()
           this.update$.next(true)
@@ -141,7 +142,8 @@ export class KnowledgePreviewComponent implements OnInit {
           id: result.source + " " + result.target,
           source: result.source,
           target: result.target,
-          label: 'custom label'
+          label: 'custom label',
+          color: 'white'
         })
         this.detectCycle()
           this.update$.next(true)

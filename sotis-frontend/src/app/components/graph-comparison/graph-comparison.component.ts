@@ -17,6 +17,7 @@ export class GraphComparisonComponent implements OnInit {
   center$: Subject<boolean> = new Subject();
   zoomToFit$: Subject<boolean> = new Subject();
   update$: Subject<boolean> = new Subject();
+  update2$: Subject<boolean> = new Subject();
   label!: string;
   curve = shape.curveLinear
 
@@ -98,6 +99,29 @@ export class GraphComparisonComponent implements OnInit {
       )
     })
 
+  }
+
+  getBasic() {
+      for (let veza of this.links){
+        if(this.links2.find(x => x.source == veza.source &&  x.target == veza.target)==undefined){
+          var newVeza=veza
+          newVeza.color = 'red'
+          this.links2.push(newVeza)
+          console.log(newVeza)
+          this.update2$.next(true)
+        }
+      }
+
+      for (let veza of this.links2){
+        if(this.links.find(x => x.source == veza.source &&  x.target == veza.target)==undefined){
+          var newVeza=veza
+          newVeza.color = 'red'
+          this.links.push(newVeza)
+          console.log(newVeza)
+          this.update$.next(true)
+        }
+      }
+      
   }
 
   levenshtein(a: String, b: String): number {

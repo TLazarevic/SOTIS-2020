@@ -22,6 +22,7 @@
         <div class="container">
             <h2>Graph comparison</h2>
             <button class="button button1" (click)="generateKnowledgeSpace()">Generate knowledge space</button>
+            <button class="button button1" (click)="getBasic()">Get Basic Graph Distance</button>
             <button class="button button1" (click)="getLevenstein()">Get Levenstein Graph Distance</button>
         </div>
     </div>
@@ -57,7 +58,7 @@
 
             <ng-template #linkTemplate let-link>
                 <svg:g class="edge">
-                    <svg:path class="line" stroke-width="2" marker-end="url(#arrow)"></svg:path>
+                    <svg:path class="line" [attr.stroke]="link.color" stroke-width="2" marker-end="url(#arrow)"></svg:path>
 
                 </svg:g>
             </ng-template>
@@ -66,7 +67,7 @@
     </div>
     <div *ngIf="showGraphs " class="graph ">
         <h1>Generated space</h1>
-        <ngx-graph class="chart-container " layout="dagre" [center$]="center$ " [autoCenter]="true " [zoomToFit$]="zoomToFit$ " [update$]="update$ " [showMiniMap]="true " [curve]="curve " [view]="[2000, 700] " [links]="links2 " [nodes]="nodes2 ">
+        <ngx-graph class="chart-container " layout="dagre" [center$]="center$ " [autoCenter]="true " [zoomToFit$]="zoomToFit$ " [update$]="update2$ " [showMiniMap]="true " [curve]="curve " [view]="[2000, 700] " [links]="links2 " [nodes]="nodes2 ">
             <ng-template #nodeTemplate let-node>
                 <svg:g class=" node ">
                     <svg:circle cx="60" cy="60" r="50" [attr.fill]="node.data.color " />
@@ -83,8 +84,7 @@
 
             <ng-template #linkTemplate let-link>
                 <svg:g class="edge">
-                    <svg:path class="line" stroke-width="2" marker-end="url(#arrow)"></svg:path>
-
+                    <svg:path class="line" [attr.stroke]="link.color" stroke-width="2" marker-end="url(#arrow)"></svg:path>
                 </svg:g>
             </ng-template>
         </ngx-graph>
