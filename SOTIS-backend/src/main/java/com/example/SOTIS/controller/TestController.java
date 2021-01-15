@@ -63,7 +63,11 @@ public class TestController {
 	}
 	
 	
-	
+	@GetMapping(value = "/generateQTI/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Boolean> generateQTI(@PathVariable Long id) {
+		//testService.generateQTI();
+		return new ResponseEntity<>(testService.generateQTI(id), HttpStatus.OK);
+	}
 	
 	
 	

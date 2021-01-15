@@ -1,5 +1,7 @@
 package com.example.SOTIS.service;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -34,6 +36,10 @@ import com.example.SOTIS.repository.PredmetRepository;
 import com.example.SOTIS.repository.TestRepository;
 import com.example.SOTIS.repository.UcenikRepository;
 import com.example.SOTIS.repository.UcenikTestRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.dataformat.xml.XmlMapper;
+
+import aj.org.objectweb.asm.TypeReference;
 
 @Service
 public class TestService {
@@ -238,10 +244,29 @@ public class TestService {
 
 			return dto;
 
-		} catch (Exception e) {
+		} catch (Exception e) { 
 			e.printStackTrace();
 			return null;
 		}
+	}
+	
+	
+	public Boolean generateQTI(Long testId) {
+		
+		
+		ObjectMapper mapper = new XmlMapper();
+		//TypeReference<List<Pitanje>> typeReference = new TypeReference<List<Pitanje>>();
+		
+		TestViewDTO test = findById(testId);
+		
+		try {
+			mapper.writeValue(new File("test" + testId.toString() + "QTI.xml"), test);
+		} catch (IOException e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+		return true;
 	}
 
 }
