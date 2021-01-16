@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ChartsModule } from 'ng2-charts';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -33,6 +34,7 @@ import {MatSelectModule} from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { GraphComparisonComponent } from './components/graph-comparison/graph-comparison.component';
+import { StudentKnowledgeSpaceComponent } from './components/student-knowledge-space/student-knowledge-space.component';
 
 
 @NgModule({
@@ -50,7 +52,8 @@ import { GraphComparisonComponent } from './components/graph-comparison/graph-co
     NewPitanjeComponent,
     LinkDialogComponent,
     NewPitanjeComponent,
-    GraphComparisonComponent
+    GraphComparisonComponent,
+    StudentKnowledgeSpaceComponent
   ],
   imports: [
     BrowserModule,
@@ -69,7 +72,8 @@ import { GraphComparisonComponent } from './components/graph-comparison/graph-co
     MatMenuModule,
     MatSelectModule,
     MatFormFieldModule,
-    MatInputModule
+    MatInputModule,
+    ChartsModule
   ],
   providers: [NewQuestionService,
     { provide: APP_BASE_HREF, useValue: '/' }],

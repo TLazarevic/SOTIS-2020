@@ -1,3 +1,4 @@
+import { StudentKnowledgeSpaceComponent } from './components/student-knowledge-space/student-knowledge-space.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './components/home/home.component';
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   { path: 'knowledge-graph', component: KnowledgePreviewComponent },
   { path: 'graph-comparison', component: GraphComparisonComponent },
+  { path: 'student-ks', component: StudentKnowledgeSpaceComponent },
   { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: '**', component: HomeComponent }
 ];
