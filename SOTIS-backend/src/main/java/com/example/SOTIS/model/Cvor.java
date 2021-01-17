@@ -16,6 +16,11 @@ import com.sun.istack.NotNull;
 @Entity
 public class Cvor {
 
+	@Override
+	public String toString() {
+		return "Cvor [cvorId=" + cvorId + ", id=" + id + "]";
+	}
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long cvorId;

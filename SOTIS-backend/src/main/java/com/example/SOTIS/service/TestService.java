@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,10 +85,10 @@ public class TestService {
 
 		testRepo.save(newTest);
 
-//		//TEST
-//		Ucenik u=new Ucenik();
-//		u.setId(100);
-//		ucenikTestRepo.save(new UcenikTest(u, testID, false));
+		// //TEST
+		// Ucenik u=new Ucenik();
+		// u.setId(100);
+		// ucenikTestRepo.save(new UcenikTest(u, testID, false));
 		return true;
 	}
 
@@ -183,27 +184,116 @@ public class TestService {
 
 				visited.put(c.getCvorId(), true);
 
-				// Dequeue a vertex from queue and print it
-				c = queue.poll();
+				try {
+					// Dequeue a vertex from queue and print it
+					c = queue.poll();
 
-				// Get all adjacent vertices of the dequeued vertex s
-				// If a adjacent has not been visited, then mark it
-				// visited and enqueue it
-				List<Cvor> lista = getSiblings(new ArrayList<>(veze), cvorovi, c.getId());
-				for (Cvor n : lista) {
+					// Get all adjacent vertices of the dequeued vertex s
+					// If a adjacent has not been visited, then mark it
+					// visited and enqueue it
+					if (c != null) {
+						List<Cvor> lista = getSiblings(new ArrayList<>(veze), cvorovi, c.getId());
+						for (Cvor n : lista) {
 
-					if (!visited.get(n.getCvorId())) {
-						visited.put(n.getCvorId(), true);
-						queue.add(n);
-						if (!sorted.contains(n))
-							sorted.add(n);
+							if (!visited.get(n.getCvorId())) {
+								visited.put(n.getCvorId(), true);
+								queue.add(n);
+								if (!sorted.contains(n))
+									sorted.add(n);
+							}
+
+						}
 					}
-
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 
 			}
 		}
 
+		return sorted;
+
+	}
+
+	// https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
+	public List<Cvor> DFS(List<Cvor> korenovi, List<Cvor> cvorovi, Set<Veza> veze) {
+
+		Set<Set<String>> pz = new HashSet<Set<String>>();
+		List<Cvor> sorted = new ArrayList<Cvor>();
+//		for (Cvor k : korenovi) {
+//			
+//		}
+
+		HashMap<Long, Boolean> visited = new HashMap<Long, Boolean>();
+		for (Cvor tmp : cvorovi) {
+			visited.put(tmp.getCvorId(), false);
+		}
+
+		LinkedList<Cvor> queue = new LinkedList<>();
+
+		for (int i = 0; i < korenovi.size(); i++) {
+			Cvor k = korenovi.get(i);
+			queue.add(k);
+
+			Set<String> tmp = new HashSet<String>();
+
+			while (queue.size() != 0) {
+				try {
+
+					//System.out.println(queue);
+					// Dequeue a vertex from queue and print it
+					Cvor c = queue.poll();
+					
+					tmp = new HashSet<String>(tmp);
+					tmp.add(c.getId());
+					if(!tmp.contains(k.getId())) {
+						tmp.add(k.getId());
+					}
+					pz.add(tmp);
+					System.out.println(pz);
+					
+					
+					
+					//System.out.println(c);
+
+					sorted.add(c);
+					//System.out.println(queue);
+
+					// Get all adjacent vertices of the dequeued vertex s
+					// If a adjacent has not been visited, then mark it
+					// visited and enqueue it
+					if (c != null) {
+
+						visited.put(c.getCvorId(), true);
+						List<Cvor> lista = getChildren(new ArrayList<>(veze), cvorovi, c.getId());
+						System.out.println(lista);
+						for (Cvor n : lista) {
+
+							queue.add(0, n);
+							visited.put(n.getCvorId(), true);
+
+						}
+						if(lista.size()==0) {
+							tmp = new HashSet<String>();
+						}
+
+					}
+
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+
+			}
+		}
+		
+	
+		pz.add(new HashSet<String>());
+		Set<String> cv = new HashSet<String>();
+		for(Cvor c:cvorovi) {
+			cv.add(c.getId());
+		}
+		pz.add(cv);
+		System.out.println(pz);
 		return sorted;
 
 	}
@@ -222,6 +312,49 @@ public class TestService {
 				}
 
 			}
+		}
+
+		return resultCvor;
+	}
+
+	public List<Cvor> getChildren(List<Veza> veze, List<Cvor> cvorovi, String l) {
+
+		System.out.println("search for children\n");
+		System.out.println("source " + l);
+
+		List<Cvor> resultCvor = new ArrayList<>();
+
+		boolean search = true;
+
+		String source = l;
+		while (search) {
+
+			final String temp = source;
+
+			List<Veza> resultV = (veze.stream().filter(cv -> cv.getSource().getId().equals(temp))
+					.collect(Collectors.toList()));
+
+			for (Veza v : resultV) {
+
+				System.out.println("veza " + v.getSource().getLabel() + " " + v.getTarget().getLabel());
+
+				Optional<Cvor> result = (cvorovi.stream().filter(cv -> v.getTarget().getCvorId().equals(cv.getCvorId()))
+						.findAny());
+				if (result.isPresent()) {
+					resultCvor.add(result.get());
+
+					System.out.println(result.get().getLabel());
+					source = result.get().getId();
+					// break;
+
+				}
+
+				// else {
+				// search = false;
+				// }
+
+			}
+			search = false;
 		}
 
 		return resultCvor;
@@ -246,7 +379,7 @@ public class TestService {
 		Set<Cvor> korenovi = new HashSet<>(cvorovi);
 		korenovi.removeAll(nisu_korenovi);
 
-		return BFS(new ArrayList<>(korenovi), new ArrayList<>(cvorovi), veze);
+		return DFS(new ArrayList<>(korenovi), new ArrayList<>(cvorovi), veze);
 
 	}
 
