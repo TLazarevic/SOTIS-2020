@@ -10,6 +10,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -253,20 +254,36 @@ public class TestService {
 	
 	public Boolean generateQTI(Long testId) {
 		
-		
 		ObjectMapper mapper = new XmlMapper();
-		//TypeReference<List<Pitanje>> typeReference = new TypeReference<List<Pitanje>>();
 		
 		TestViewDTO test = findById(testId);
 		
 		try {
-			mapper.writeValue(new File("test" + testId.toString() + "QTI.xml"), test);
+			if (!makeFolder(testId)) {
+				System.out.println("Folder already exist");
+			}
+			mapper.writeValue(new File("QTI/test-" + testId.toString() + "-QTI" + "/test-" + testId.toString() + "QTI.xml"), test);
 		} catch (IOException e) {
 			e.printStackTrace();
 			return false;
 		}
 		
 		return true;
+	}
+	
+	public Boolean makeFolder(Long id) {
+
+	      //Creating a File object
+	      File file = new File("QTI/test-" + id.toString() + "-QTI");
+	      //Creating the directory
+	      boolean bool = file.mkdir();
+	      if(bool){
+	         System.out.println("Directory created successfully");
+	      }else{
+	         System.out.println("Sorry couldn’t create specified directory");
+	      }
+	      
+	      return bool;
 	}
 
 }
