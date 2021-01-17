@@ -21,7 +21,9 @@ import com.example.SOTIS.model.Ucenik;
 import com.example.SOTIS.model.UcenikTest;
 import com.example.SOTIS.model.Veza;
 import com.example.SOTIS.model.DTO.MatrixDTO;
+import com.example.SOTIS.model.DTO.NextQDTO;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
+import com.example.SOTIS.model.DTO.ProbabilityQuestionDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
 import com.example.SOTIS.repository.OdgovoriRepository;
@@ -216,13 +218,13 @@ public class TestService {
 	}
 
 	// https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
-	public List<Cvor> DFS(List<Cvor> korenovi, List<Cvor> cvorovi, Set<Veza> veze) {
+	public Set<Set<String>> DFS(Set<Cvor> korenovi, Set<Cvor> cvorovi, Set<Veza> veze) {
 
 		Set<Set<String>> pz = new HashSet<Set<String>>();
 		List<Cvor> sorted = new ArrayList<Cvor>();
-//		for (Cvor k : korenovi) {
-//			
-//		}
+		// for (Cvor k : korenovi) {
+		//
+		// }
 
 		HashMap<Long, Boolean> visited = new HashMap<Long, Boolean>();
 		for (Cvor tmp : cvorovi) {
@@ -231,8 +233,7 @@ public class TestService {
 
 		LinkedList<Cvor> queue = new LinkedList<>();
 
-		for (int i = 0; i < korenovi.size(); i++) {
-			Cvor k = korenovi.get(i);
+		for (Cvor k : korenovi) {
 			queue.add(k);
 
 			Set<String> tmp = new HashSet<String>();
@@ -240,24 +241,22 @@ public class TestService {
 			while (queue.size() != 0) {
 				try {
 
-					//System.out.println(queue);
+					// System.out.println(queue);
 					// Dequeue a vertex from queue and print it
 					Cvor c = queue.poll();
-					
+
 					tmp = new HashSet<String>(tmp);
 					tmp.add(c.getId());
-					if(!tmp.contains(k.getId())) {
+					if (!tmp.contains(k.getId())) {
 						tmp.add(k.getId());
 					}
 					pz.add(tmp);
 					System.out.println(pz);
-					
-					
-					
-					//System.out.println(c);
+
+					// System.out.println(c);
 
 					sorted.add(c);
-					//System.out.println(queue);
+					// System.out.println(queue);
 
 					// Get all adjacent vertices of the dequeued vertex s
 					// If a adjacent has not been visited, then mark it
@@ -265,7 +264,7 @@ public class TestService {
 					if (c != null) {
 
 						visited.put(c.getCvorId(), true);
-						List<Cvor> lista = getChildren(new ArrayList<>(veze), cvorovi, c.getId());
+						List<Cvor> lista = getChildren(new ArrayList<>(veze), new ArrayList<>(cvorovi), c.getId());
 						System.out.println(lista);
 						for (Cvor n : lista) {
 
@@ -273,7 +272,7 @@ public class TestService {
 							visited.put(n.getCvorId(), true);
 
 						}
-						if(lista.size()==0) {
+						if (lista.size() == 0) {
 							tmp = new HashSet<String>();
 						}
 
@@ -285,16 +284,15 @@ public class TestService {
 
 			}
 		}
-		
-	
+
 		pz.add(new HashSet<String>());
 		Set<String> cv = new HashSet<String>();
-		for(Cvor c:cvorovi) {
+		for (Cvor c : cvorovi) {
 			cv.add(c.getId());
 		}
 		pz.add(cv);
 		System.out.println(pz);
-		return sorted;
+		return pz;
 
 	}
 
@@ -379,48 +377,173 @@ public class TestService {
 		Set<Cvor> korenovi = new HashSet<>(cvorovi);
 		korenovi.removeAll(nisu_korenovi);
 
-		return DFS(new ArrayList<>(korenovi), new ArrayList<>(cvorovi), veze);
+		return BFS(new ArrayList<>(korenovi), new ArrayList<>(cvorovi), veze);
 
 	}
 
-	public TestViewDTO findById(Long id) {
+	public ProbabilityQuestionDTO startQuiz(Long id) {
 
+		
 		try {
 			Test t = testRepo.findById(id).get();
+	
 
-			List<Cvor> sortirani_cvorovi = sortirajCvorove(t);
-			List<Pitanje> sortirana_pitanja = new ArrayList<>();
+			Set<Cvor> cvorovi = t.getPredmet().getProstorZnanja().getCvorovi();
+			Set<Veza> veze = t.getPredmet().getProstorZnanja().getVeze();
 
-			for (Cvor s : sortirani_cvorovi) {
-				System.out.println(s.getLabel());
+			List<Cvor> nisu_korenovi = new ArrayList<Cvor>();
 
-				Optional<Pitanje> result = (t.getPitanje().stream().filter(p -> p.getCvor().getId() == s.getId())
-						.findAny());
-				if (result.isPresent()) {
-					sortirana_pitanja.add(result.get());
-				}
+			// svi cvorovi koji se javljaju kao target nisu korenovi
 
-			}
-			for (Pitanje p : sortirana_pitanja) {
-				System.out.println(p.getTekst());
-				// System.out.println(p.getCvor().getLabel());
-			}
-
-			TestViewDTO dto = new TestViewDTO(t);
-
-			for (Pitanje p : sortirana_pitanja) {
-				Set<Odgovor> o = odgovorRepo.findByPitanjeId(p.getId());
-				PitanjeDTO pit = new PitanjeDTO(p, o);
-				dto.pitanje.add(pit);
+			for (Veza v : veze) {
+				nisu_korenovi.add(v.getTarget());
 
 			}
 
-			return dto;
+			// korenovi su preostali cvorovi
+
+			Set<Cvor> korenovi = new HashSet<>(cvorovi);
+			korenovi.removeAll(nisu_korenovi);
+
+			Set<Set<String>> pz = DFS(korenovi, cvorovi, veze);
+
+			HashMap<Set<String>, Double> probabilities = new HashMap<>();
+			for (Set<String> kSpace : pz) {
+				probabilities.put(kSpace, (double) (1.0 / pz.size()));
+			}
+
+			ProbabilityQuestionDTO q = quiz(t.getPitanje(), probabilities);
+			return q;
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return null;
+			return new ProbabilityQuestionDTO();
 		}
+
 	}
+
+	//
+
+	public static ProbabilityQuestionDTO quiz(Set<Pitanje> set, HashMap<Set<String>, Double> proba) {
+
+		while (set.size() > 0) {
+
+			double min = Double.POSITIVE_INFINITY;
+			double choosenL = 0;
+			Pitanje choosenQ = new Pitanje();
+
+			for (Pitanje q : set) {
+
+				System.out.println("Question " + q.getCvor().getLabel());
+
+				double L = 0;
+				for (Set<?> s : proba.keySet()) {
+					Optional<?> result = (s.stream().filter(cv -> cv.equals(q.getCvor().getLabel()))
+							.findAny());
+					if (result.isPresent()) {
+						System.out.println(s);
+						L += proba.get(s);
+					}
+
+				}
+				if (Math.abs(2 * L - 1) < min) {
+					min = Math.abs(2 * L - 1);
+					choosenQ = q;
+					choosenL = L;
+				}
+				System.out.println(L);
+				System.out.println(Math.abs(2 * L - 1) + "\n");
+
+			}
+
+			System.out.println("Choosen question: " + choosenQ + "\n");
+
+			// proba = update(set, proba, choosenQ, choosenL);
+
+			set.remove(choosenQ);
+			return new ProbabilityQuestionDTO(proba, choosenQ, set);
+		}
+		return null;
+	}
+
+	// A B CORRECT
+	public static HashMap<Set<String>, Double> update(Set<Pitanje> set2, HashMap<Set<String>, Double> proba,
+			Pitanje choosenQ, Double L) {
+		double theta = 2;
+
+		System.out.println(proba);
+
+		for (Set<String> set : proba.keySet()) {
+
+			int r;
+
+			if (choosenQ.equals("a")) {
+				r = 0;
+			} else {
+				r = 1;
+			}
+
+			if (set.contains(choosenQ)) {
+
+				Double oldValue = proba.get(set);
+				Double newValue = (1 - theta) * oldValue + theta * r * oldValue / L;
+				proba.put(set, newValue);
+
+			} else {
+
+				Double oldValue = proba.get(set);
+				Double newValue = (1 - theta) * oldValue - theta * (1 - r) * oldValue / L;
+				proba.put(set, newValue);
+			}
+		}
+
+		return proba;
+	}
+
+	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
+		return quiz(nqd.getPreostalaPitanja(), nqd.getProbabilities());
+	}
+
+	//
+	// public TestViewDTO findById(Long id) {
+	//
+	// try {
+	// Test t = testRepo.findById(id).get();
+	//
+	// List<Cvor> sortirani_cvorovi = sortirajCvorove(t);
+	// List<Pitanje> sortirana_pitanja = new ArrayList<>();
+	//
+	// for (Cvor s : sortirani_cvorovi) {
+	// System.out.println(s.getLabel());
+	//
+	// Optional<Pitanje> result = (t.getPitanje().stream().filter(p ->
+	// p.getCvor().getId() == s.getId())
+	// .findAny());
+	// if (result.isPresent()) {
+	// sortirana_pitanja.add(result.get());
+	// }
+	//
+	// }
+	// for (Pitanje p : sortirana_pitanja) {
+	// System.out.println(p.getTekst());
+	// // System.out.println(p.getCvor().getLabel());
+	// }
+	//
+	// TestViewDTO dto = new TestViewDTO(t);
+	//
+	// for (Pitanje p : sortirana_pitanja) {
+	// Set<Odgovor> o = odgovorRepo.findByPitanjeId(p.getId());
+	// PitanjeDTO pit = new PitanjeDTO(p, o);
+	// dto.pitanje.add(pit);
+	//
+	// }
+	//
+	// return dto;
+	//
+	// } catch (Exception e) {
+	// e.printStackTrace();
+	// return null;
+	// }
+	// }
 
 }

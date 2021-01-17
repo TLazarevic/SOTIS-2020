@@ -16,7 +16,9 @@ import org.springframework.http.MediaType;
 import com.example.SOTIS.service.TestService;
 import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.DTO.MatrixDTO;
+import com.example.SOTIS.model.DTO.NextQDTO;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
+import com.example.SOTIS.model.DTO.ProbabilityQuestionDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
 
@@ -28,14 +30,28 @@ public class TestController {
 	@Autowired
 	TestService testService;
 
-	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<TestViewDTO> getTest(@PathVariable Long id) {
-		System.out.print(testService.findById(id));
-		if (testService.findById(id) != null)
-			return new ResponseEntity<>(testService.findById(id), HttpStatus.OK);
-		else
-			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+//	public ResponseEntity<TestViewDTO> getTest(@PathVariable Long id) {
+//		System.out.print(testService.findById(id));
+//		if (testService.findById(id) != null)
+//			return new ResponseEntity<>(testService.findById(id), HttpStatus.OK);
+//		else
+//			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
+	
+	@GetMapping(value = "/quiz/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ProbabilityQuestionDTO> startQuiz(@PathVariable Long id) {
+		ProbabilityQuestionDTO pqd = testService.startQuiz(id);
+		return new ResponseEntity<>(pqd, HttpStatus.OK);
 	}
+	
+	@GetMapping(value = "/nextQ/{id}", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ProbabilityQuestionDTO> nextQuestion(@PathVariable Long id, @RequestBody NextQDTO nqd) {
+		System.out.println(nqd.getProbabilities());
+		ProbabilityQuestionDTO pqd = testService.nextQuestion(id,nqd);
+		return new ResponseEntity<>(pqd, HttpStatus.OK);
+	}
+
 
 	@GetMapping(value = "/nastavnik/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<TestDTO>> getAllByNastavnik(@PathVariable Long id) {
