@@ -1,5 +1,7 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NextQDTO } from '../model/NextQDTO';
+import { ProbabilityQuestionDTO } from '../model/ProbabilityQuestionDTO';
 import { TestViewDTO } from '../model/testViewDTO';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
@@ -18,5 +20,13 @@ export class TakeTestService {
 
   getTest(id:number){
     return this.http.get<TestViewDTO>("http://localhost:8080/test/"+id)
+  }
+
+  startTest(id:number){
+    return this.http.get<ProbabilityQuestionDTO>("http://localhost:8080/test/quiz/"+id)
+  }
+
+  nextQ(id:number, nqd:NextQDTO){
+    return this.http.post<ProbabilityQuestionDTO>("http://localhost:8080/test/nextQ/"+id, nqd,httpOptions)
   }
 }

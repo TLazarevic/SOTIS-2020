@@ -65,28 +65,29 @@
         </div>
         <!-- End Breadcrumbs -->
 
-        <mat-paginator [length]="studentAnswers.pitanje.length" [showFirstLastButtons]="true" [pageSize]="1" (page)="pageEvent = $event">
-        </mat-paginator>
+        <!-- <mat-paginator [length]="studentAnswers.pitanje.length" [showFirstLastButtons]="true" [pageSize]="1" (page)="pageEvent = $event">
+        </mat-paginator> -->
 
         <!-- <div *ngIf="!pageEvent">
             <div>Click next to start the test</div>
           </div> -->
-        <div class="page">
-            <div class="questionNo" style=" text-align: center;">Pitanje: {{pageEvent.pageIndex+1}}</div>
-            <div *ngFor="let p of test.pitanje; index as i">
+        <div *ngIf="!this.finished" class="page">
+           <div *ngFor="let p of test.pitanje; index as i">
                 <div class="pitanje" style=" text-align: center;" *ngIf="i==pageEvent.pageIndex">
 
-                    <p class="questionText">{{test.pitanje[i].tekst}}</p>
+                    <p class="questionText">{{pitanje.tekst}}</p>
 
                     <div *ngFor="let o of p.odgovori">
                         <input type="checkbox" [checked]="o.tacnost" (change)="o.tacnost = !o.tacnost">
                         <label for="vehicle1"> {{o.tekst}}</label><br>
                     </div>
-                    <div *ngIf="i==studentAnswers.pitanje.length-1"> <button id="submit" (click)="submit()" mat-raised-button color="primary">Submit</button>
+                    <div > <button id="submit" (click)="submit()" mat-raised-button color="primary">Submit</button>
                     </div>
-
                 </div>
             </div>
+        </div>
+        <div *ngIf="this.finished" class="page">
+            <p>Test Finished!</p>
         </div>
 
     </main>

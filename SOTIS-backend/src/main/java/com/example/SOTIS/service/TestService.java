@@ -218,9 +218,9 @@ public class TestService {
 	}
 
 	// https://www.geeksforgeeks.org/breadth-first-search-or-bfs-for-a-graph/
-	public Set<Set<String>> DFS(Set<Cvor> korenovi, Set<Cvor> cvorovi, Set<Veza> veze) {
+	public List<List<String>> DFS(Set<Cvor> korenovi, Set<Cvor> cvorovi, Set<Veza> veze) {
 
-		Set<Set<String>> pz = new HashSet<Set<String>>();
+		List<List<String>> pz = new ArrayList<List<String>>();
 		List<Cvor> sorted = new ArrayList<Cvor>();
 		// for (Cvor k : korenovi) {
 		//
@@ -236,7 +236,7 @@ public class TestService {
 		for (Cvor k : korenovi) {
 			queue.add(k);
 
-			Set<String> tmp = new HashSet<String>();
+			List<String> tmp = new ArrayList<String>();
 
 			while (queue.size() != 0) {
 				try {
@@ -245,7 +245,7 @@ public class TestService {
 					// Dequeue a vertex from queue and print it
 					Cvor c = queue.poll();
 
-					tmp = new HashSet<String>(tmp);
+					tmp = new ArrayList<String>(tmp);
 					tmp.add(c.getId());
 					if (!tmp.contains(k.getId())) {
 						tmp.add(k.getId());
@@ -273,7 +273,7 @@ public class TestService {
 
 						}
 						if (lista.size() == 0) {
-							tmp = new HashSet<String>();
+							tmp = new ArrayList<String>();
 						}
 
 					}
@@ -285,8 +285,8 @@ public class TestService {
 			}
 		}
 
-		pz.add(new HashSet<String>());
-		Set<String> cv = new HashSet<String>();
+		pz.add(new ArrayList<String>());
+		List<String> cv = new ArrayList<String>();
 		for (Cvor c : cvorovi) {
 			cv.add(c.getId());
 		}
@@ -383,10 +383,8 @@ public class TestService {
 
 	public ProbabilityQuestionDTO startQuiz(Long id) {
 
-		
 		try {
 			Test t = testRepo.findById(id).get();
-	
 
 			Set<Cvor> cvorovi = t.getPredmet().getProstorZnanja().getCvorovi();
 			Set<Veza> veze = t.getPredmet().getProstorZnanja().getVeze();
@@ -405,14 +403,14 @@ public class TestService {
 			Set<Cvor> korenovi = new HashSet<>(cvorovi);
 			korenovi.removeAll(nisu_korenovi);
 
-			Set<Set<String>> pz = DFS(korenovi, cvorovi, veze);
+			List<List<String>> pz = DFS(korenovi, cvorovi, veze);
 
-			HashMap<Set<String>, Double> probabilities = new HashMap<>();
-			for (Set<String> kSpace : pz) {
-				probabilities.put(kSpace, (double) (1.0 / pz.size()));
+			List<Double> probabs = new ArrayList<Double>();
+			for (List<String> kSpace : pz) {
+				probabs.add((double) (1.0 / pz.size()));
 			}
 
-			ProbabilityQuestionDTO q = quiz(t.getPitanje(), probabilities);
+			ProbabilityQuestionDTO q = quiz(t.getPitanje(), pz,probabs);
 			return q;
 
 		} catch (Exception e) {
@@ -424,9 +422,9 @@ public class TestService {
 
 	//
 
-	public static ProbabilityQuestionDTO quiz(Set<Pitanje> set, HashMap<Set<String>, Double> proba) {
+	public static ProbabilityQuestionDTO quiz(Set<Pitanje> set, List<List<String>> kspaces, List<Double> probabs) {
 
-		while (set.size() > 0) {
+		if (set.size() > 0) {
 
 			double min = Double.POSITIVE_INFINITY;
 			double choosenL = 0;
@@ -437,12 +435,12 @@ public class TestService {
 				System.out.println("Question " + q.getCvor().getLabel());
 
 				double L = 0;
-				for (Set<?> s : proba.keySet()) {
-					Optional<?> result = (s.stream().filter(cv -> cv.equals(q.getCvor().getLabel()))
-							.findAny());
+				for (List<?> s : kspaces) {
+					Optional<?> result = (s.stream().filter(cv -> cv.equals(q.getCvor().getLabel())).findAny());
 					if (result.isPresent()) {
+						int index = s.indexOf(result.get());
 						System.out.println(s);
-						L += proba.get(s);
+						L += probabs.get(index);
 					}
 
 				}
@@ -458,50 +456,67 @@ public class TestService {
 
 			System.out.println("Choosen question: " + choosenQ + "\n");
 
-			// proba = update(set, proba, choosenQ, choosenL);
-
 			set.remove(choosenQ);
-			return new ProbabilityQuestionDTO(proba, choosenQ, set);
+			return new ProbabilityQuestionDTO(choosenQ, set,kspaces, probabs);
 		}
 		return null;
 	}
 
-	// A B CORRECT
-	public static HashMap<Set<String>, Double> update(Set<Pitanje> set2, HashMap<Set<String>, Double> proba,
-			Pitanje choosenQ, Double L) {
-		double theta = 2;
-
-		System.out.println(proba);
-
-		for (Set<String> set : proba.keySet()) {
-
-			int r;
-
-			if (choosenQ.equals("a")) {
-				r = 0;
-			} else {
-				r = 1;
-			}
-
-			if (set.contains(choosenQ)) {
-
-				Double oldValue = proba.get(set);
-				Double newValue = (1 - theta) * oldValue + theta * r * oldValue / L;
-				proba.put(set, newValue);
-
-			} else {
-
-				Double oldValue = proba.get(set);
-				Double newValue = (1 - theta) * oldValue - theta * (1 - r) * oldValue / L;
-				proba.put(set, newValue);
-			}
-		}
-
-		return proba;
-	}
+//	public static HashMap<Set<String>, Double> update(Set<Pitanje> set2, List<List<String>> kspaces, List<Double> probabs,
+//			Pitanje choosenQ, Double L) {
+//		double theta = 2;
+//
+//		System.out.println(probabs);
+//
+//		for (List<String> set : kspaces) {
+//
+//			int r;
+//	
+//			if (set.contains(choosenQ.getCvor().getLabel())) {
+//				int index = kspaces.indexOf(result.get());
+//
+//				Double oldValue = probabs.get(index);
+//				Double newValue = (1 - theta) * oldValue + theta * r * oldValue / L;
+//				probabs.set(index, newValue);
+//
+//			} else {
+//
+//				Double oldValue = proba.get(set);
+//				Double newValue = (1 - theta) * oldValue - theta * (1 - r) * oldValue / L;
+//				proba.put(set, newValue);
+//			}
+//		}
+//
+//		return proba;
+//	}
 
 	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
-		return quiz(nqd.getPreostalaPitanja(), nqd.getProbabilities());
+		nqd.getPreostalaPitanja().remove(nqd.pitanje);
+//		nqd.setProbabs(update(set, kspaces, probabs,  choosenQ, choosenL));
+		return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs());
+		
+	}
+
+	public TestViewDTO findById(Long id) {
+
+		try {
+			Test t = testRepo.findById(id).get();
+
+			TestViewDTO dto = new TestViewDTO(t);
+
+			for (Pitanje p : t.getPitanje()) {
+				Set<Odgovor> o = odgovorRepo.findTacniOdgovori(p.getId());
+				PitanjeDTO pit = new PitanjeDTO(p, o);
+				dto.pitanje.add(pit);
+
+			}
+
+			return dto;
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 	//

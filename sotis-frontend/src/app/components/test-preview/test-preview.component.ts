@@ -7,6 +7,8 @@ import { Odgovor } from 'src/app/model/odgovor';
 
 import { TakeTestService } from 'src/app/services/take-test.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NextQDTO } from 'src/app/model/NextQDTO';
+import { ThrowStmt } from '@angular/compiler';
 
 const ZAKUCANO = 100
 
@@ -21,29 +23,19 @@ export class TestPreviewComponent implements OnInit {
   test!: TestViewDTO;
   testSize: number = 0;
   studentAnswers: TestViewDTO = new TestViewDTO;
+  finished = false
 
   // MatPaginator Output
   pageEvent: PageEvent = new PageEvent;
   testId!: number;
 
+  pitanje!: Pitanje
+  kSpaces!: []
+  probabs!: []
+  tacnost!: number
+  preostalaPitanja!: []
 
   constructor(private takeTestService: TakeTestService, private route: ActivatedRoute, private router: Router) {
-
-    // this.test = new Test();
-    // var pitanje1 = new Pitanje();
-    // pitanje1.tekst = "blabla"
-    // var odgovor11 = new Odgovor();
-    // odgovor11.tekst = "tekstOdgovora1"
-    // odgovor11.tacnost = true;
-    // pitanje1.odgovori.push(odgovor11);
-    // var pitanje2 = new Pitanje();
-    // pitanje2.tekst = "blabla2"
-    // var odgovor21 = new Odgovor();
-    // odgovor21.tekst = "tekstOdgovora2"
-    // odgovor21.tacnost = false;
-    // pitanje2.odgovori.push(odgovor21);
-    // this.test.pitanje.push(pitanje1);
-    // this.test.pitanje.push(pitanje2);
 
     this.route.params.subscribe(params => {
       this.testId = params['id'];
@@ -59,6 +51,12 @@ export class TestPreviewComponent implements OnInit {
             o.tacnost = false;
           }
         }
+        this.takeTestService.startTest(this.testId).subscribe(data => {
+          this.pitanje = data.pitanje
+          this.preostalaPitanja = data.preostalaPitanja
+          this.kSpaces = data.kSpaces
+          this.probabs = data.probabs
+        })
       })
     }
     )
@@ -70,10 +68,30 @@ export class TestPreviewComponent implements OnInit {
   }
 
   submit() {
-    console.log(this.studentAnswers)
-    this.takeTestService.sendAnswers(this.studentAnswers, ZAKUCANO).subscribe()
-    alert('submitted')
-    this.router.navigate(['/Tests']);
+    // console.log(this.studentAnswers)
+    // this.takeTestService.sendAnswers(this.studentAnswers, ZAKUCANO).subscribe()
+    // alert('submitted')
+    // this.router.navigate(['/Tests']);
+
+    var nqd = new NextQDTO;
+    nqd.kSpaces = this.kSpaces
+    nqd.probabs = this.probabs
+    nqd.tacnost = 1
+    nqd.pitanje = this.pitanje
+    nqd.preostalapitanja=this.preostalaPitanja
+
+    console.log(nqd)
+    this.takeTestService.nextQ(this.testId, nqd).subscribe(data => {
+      if(data!=null){
+        this.probabs = data.probabs
+        this.pitanje = data.pitanje
+        this.preostalaPitanja = data.preostalaPitanja
+        this.kSpaces = data.kSpaces
+        alert(this.pitanje)
+      }else{
+        this.finished = true
+      }
+    })
   }
 
 

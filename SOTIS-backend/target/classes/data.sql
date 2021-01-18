@@ -17,7 +17,7 @@ insert into ucenik_predmet(ucenik_id, predmet_id) values (100,2);
 insert into ucenik_predmet(ucenik_id, predmet_id) values (200,1);
 insert into ucenik_predmet(ucenik_id, predmet_id) values (300,1);
 
-insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 100, true);
+insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 100, false);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 200, false);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (100, 300, false);
 insert into ucenik_test(ucenik_id,test_id, uradjen) values (200, 100, true);
@@ -53,10 +53,10 @@ insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values 
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (300, true, 'lalalala', 200, 1, null);
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (400, true, 'lalalala', 200, 2, null);
 
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (800, false, 'tekst_odg1', 100, 1, 100);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (500, false, 'tekst_odg2', 100, 2, 100);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (600, true, 'lalalala', 200,  1, 100);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (700, true, 'lalalala', 200, 2, 100);
+--insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (800, false, 'tekst_odg1', 100, 1, 100);
+--insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (500, false, 'tekst_odg2', 100, 2, 100);
+--insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (600, true, 'lalalala', 200,  1, 100);
+--insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (700, true, 'lalalala', 200, 2, 100);
 
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (900, true, 'tekst_odg1', 100, 1, 200);
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (990, true, 'tekst_odg2', 100, 2, 200);

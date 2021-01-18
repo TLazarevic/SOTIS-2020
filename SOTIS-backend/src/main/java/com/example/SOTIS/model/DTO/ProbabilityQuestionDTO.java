@@ -1,38 +1,35 @@
 package com.example.SOTIS.model.DTO;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import com.example.SOTIS.model.Pitanje;
 
 public class ProbabilityQuestionDTO {
 
-	public HashMap<Set<String>, Double> probabilities = new HashMap<>();
 	public Pitanje pitanje;
 	Set<Pitanje> preostalaPitanja;
+	private List<List<String>> kSpaces;
+	private List<Double> probabs;
+
+	@Override
+	public String toString() {
+		return "ProbabilityQuestionDTO [pitanje=" + pitanje + ", preostalaPitanja=" + preostalaPitanja + ", kSpaces="
+				+ kSpaces + ", probabs=" + probabs + "]";
+	}
 
 	public ProbabilityQuestionDTO() {
 		super();
 	}
 
-	public ProbabilityQuestionDTO(HashMap<Set<String>, Double> probabilities, Pitanje pitanje,
-			Set<Pitanje> preostalaPitanja) {
-		super();
-		this.probabilities = probabilities;
-		this.pitanje = pitanje;
-		this.preostalaPitanja = preostalaPitanja;
-	}
-
-	public ProbabilityQuestionDTO(Pitanje pitanje, Set<Pitanje> preostalaPitanja) {
+	public ProbabilityQuestionDTO(Pitanje pitanje, Set<Pitanje> preostalaPitanja, List<List<String>> kSpaces,
+			List<Double> probabs) {
 		super();
 		this.pitanje = pitanje;
 		this.preostalaPitanja = preostalaPitanja;
-	}
-
-	public ProbabilityQuestionDTO(HashMap<Set<String>, Double> probabilities, Pitanje pitanje) {
-		super();
-		this.probabilities = probabilities;
-		this.pitanje = pitanje;
+		this.kSpaces = kSpaces;
+		this.probabs = probabs;
 	}
 
 	public Set<Pitanje> getPreostalaPitanja() {
@@ -43,20 +40,28 @@ public class ProbabilityQuestionDTO {
 		this.preostalaPitanja = preostalaPitanja;
 	}
 
-	public HashMap<Set<String>, Double> getProbabilities() {
-		return probabilities;
-	}
-
-	public void setProbabilities(HashMap<Set<String>, Double> probabilities) {
-		this.probabilities = probabilities;
-	}
-
 	public Pitanje getPitanje() {
 		return pitanje;
 	}
 
 	public void setPitanje(Pitanje pitanje) {
 		this.pitanje = pitanje;
+	}
+
+	public List<List<String>> getkSpaces() {
+		return kSpaces;
+	}
+
+	public void setkSpaces(List<List<String>> kSpaces) {
+		this.kSpaces = kSpaces;
+	}
+
+	public List<Double> getProbabs() {
+		return probabs;
+	}
+
+	public void setProbabs(List<Double> probabs) {
+		this.probabs = probabs;
 	}
 
 }
