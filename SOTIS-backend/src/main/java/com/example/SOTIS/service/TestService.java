@@ -1,7 +1,12 @@
 package com.example.SOTIS.service;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,11 +18,21 @@ import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
+
+import javax.swing.text.Document;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.dom.DOMSource;
 
 import org.hibernate.bytecode.internal.javassist.BulkAccessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.bind.validation.ValidationBindHandler;
 import org.springframework.stereotype.Service;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
 import com.example.SOTIS.model.Cvor;
 import com.example.SOTIS.model.Nastavnik;
@@ -252,38 +267,7 @@ public class TestService {
 	}
 	
 	
-	public Boolean generateQTI(Long testId) {
-		
-		ObjectMapper mapper = new XmlMapper();
-		
-		TestViewDTO test = findById(testId);
-		
-		try {
-			if (!makeFolder(testId)) {
-				System.out.println("Folder already exist");
-			}
-			mapper.writeValue(new File("QTI/test-" + testId.toString() + "-QTI" + "/test-" + testId.toString() + "QTI.xml"), test);
-		} catch (IOException e) {
-			e.printStackTrace();
-			return false;
-		}
-		
-		return true;
-	}
 	
-	public Boolean makeFolder(Long id) {
 
-	      //Creating a File object
-	      File file = new File("QTI/test-" + id.toString() + "-QTI");
-	      //Creating the directory
-	      boolean bool = file.mkdir();
-	      if(bool){
-	         System.out.println("Directory created successfully");
-	      }else{
-	         System.out.println("Sorry couldn’t create specified directory");
-	      }
-	      
-	      return bool;
-	}
 
 }

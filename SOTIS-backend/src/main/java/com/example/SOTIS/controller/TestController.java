@@ -1,5 +1,6 @@
 package com.example.SOTIS.controller;
 
+import java.io.File;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.http.MediaType;
+
+import com.example.SOTIS.service.QtiService;
 import com.example.SOTIS.service.TestService;
 import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
@@ -26,6 +29,9 @@ public class TestController {
 
 	@Autowired
 	TestService testService;
+	
+	@Autowired
+	QtiService qtiService;
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<TestViewDTO> getTest(@PathVariable Long id) {
@@ -63,10 +69,11 @@ public class TestController {
 	}
 	
 	
+	// vraca lokaciju samog zip fajla, za download
 	@GetMapping(value = "/generateQTI/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Boolean> generateQTI(@PathVariable Long id) {
+	public ResponseEntity<byte[]> generateQTI(@PathVariable Long id) {
 		//testService.generateQTI();
-		return new ResponseEntity<>(testService.generateQTI(id), HttpStatus.OK);
+		return new ResponseEntity<>(qtiService.generateQTI(id), HttpStatus.OK);
 	}
 	
 	
