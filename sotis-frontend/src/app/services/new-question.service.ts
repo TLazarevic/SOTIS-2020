@@ -3,7 +3,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
 import {PitanjeDTO } from '../model/PitanjeDTO';
-import { Test } from '../model/Test';
+import { Test } from '../model/test';
 
 
 @Injectable()
@@ -37,6 +37,10 @@ export class NewQuestionService {
   public dodajTest(test: Test){
     console.log(test);
     return this.http.post<Test>(this.testUrl , test);
+  }
+
+  downloadFile(): Observable<any> {
+		return this.http.get('http://localhost:8086/test/generateQTI/100', {responseType: 'blob'});
   }
 
 }

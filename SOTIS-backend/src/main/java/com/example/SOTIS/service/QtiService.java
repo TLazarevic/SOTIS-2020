@@ -6,6 +6,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -171,6 +173,11 @@ public byte[] generateQTI(Long testId) {
 
 	public Boolean makeFolders(Long id) {
 
+		if (!new File("QTI").exists()) {
+		    File folderQTI = new File("QTI");
+		    Boolean b = folderQTI.mkdir();
+		}
+		
 	      //Creating a File object
 	      File folder1 = new File("QTI/test-" + id.toString() + "-QTI");
 	      //Creating the directory
