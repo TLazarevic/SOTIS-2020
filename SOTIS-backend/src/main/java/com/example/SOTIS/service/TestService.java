@@ -463,9 +463,27 @@ public class TestService {
 	}
 
 	public static NextQDTO update(NextQDTO nqd) {
-		double theta = 2;
+		double theta = 0.5;
 
+		System.out.println("updating");
 		System.out.println(nqd.getProbabs());
+
+		double LcontainQ = 0;
+		double LdontContainQ = 0;
+
+		for (int i = 0; i < nqd.getkSpaces().size(); i++) {
+			// System.out.println("debug "+nqd.getkSpaces().get(i)+"
+			// "+nqd.getPitanje().getCvor().getLabel());
+			if (nqd.getkSpaces().get(i).contains(nqd.getPitanje().getCvor().getLabel())) {
+
+				LcontainQ = nqd.getProbabs().get(i);
+			} else {
+				LdontContainQ += nqd.getProbabs().get(i);
+			}
+		}
+
+		System.out.println(LcontainQ);
+		System.out.println(LdontContainQ);
 
 		for (List<String> set : nqd.getkSpaces()) {
 
@@ -473,24 +491,29 @@ public class TestService {
 				int index = nqd.getkSpaces().indexOf(set);
 
 				Double oldValue = nqd.getProbabs().get(index);
-				Double newValue = (1 - theta) * oldValue + theta * nqd.getTacnost() * oldValue / nqd.getL();
+				Double newValue = (1 - theta) * oldValue + theta * nqd.getTacnost() * oldValue / LcontainQ;
 				nqd.getProbabs().set(index, newValue);
 
 			} else {
 				int index = nqd.getkSpaces().indexOf(set);
 				Double oldValue = nqd.getProbabs().get(index);
-				Double newValue = (1 - theta) * oldValue - theta * (1 -  nqd.getTacnost()) * oldValue / nqd.getL();
+				Double newValue = (1 - theta) * oldValue - theta * (1 - nqd.getTacnost()) * oldValue / LdontContainQ;
 				nqd.getProbabs().set(index, newValue);
 			}
 		}
-
+		System.out.println(nqd.getkSpaces() + "\n");
+		System.out.println(nqd.getProbabs() + "\n");
 		return nqd;
 	}
 
 	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
 		nqd.getPreostalaPitanja().remove(nqd.pitanje);
-		nqd=(update(nqd));
-		return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs());
+		if (nqd.getPreostalaPitanja().size() > 0) {
+			nqd = (update(nqd));
+			return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs());
+		} else {
+			return new ProbabilityQuestionDTO();
+		}
 
 	}
 
