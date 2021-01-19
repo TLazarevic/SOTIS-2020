@@ -6,5 +6,6 @@ export class NextQDTO {
     kSpaces!:[]
     probabs!:[]
     l!:number
-
+    ucenikId!:number
+    testId!:number
 }

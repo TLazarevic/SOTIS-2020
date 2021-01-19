@@ -22,8 +22,8 @@ export class TakeTestService {
     return this.http.get<TestViewDTO>("http://localhost:8080/test/"+id)
   }
 
-  startTest(id:number){
-    return this.http.get<ProbabilityQuestionDTO>("http://localhost:8080/test/quiz/"+id)
+  startTest(id:number, ucenikId:number){
+    return this.http.get<ProbabilityQuestionDTO>("http://localhost:8080/test/quiz/"+id+"/"+ucenikId)
   }
 
   nextQ(id:number, nqd:NextQDTO){

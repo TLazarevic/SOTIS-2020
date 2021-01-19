@@ -29,6 +29,7 @@ export class TestPreviewComponent implements OnInit {
   // MatPaginator Output
   pageEvent: PageEvent = new PageEvent;
   testId!: number;
+  ucenikId!: number;
 
   pqd!: ProbabilityQuestionDTO
 
@@ -36,7 +37,7 @@ export class TestPreviewComponent implements OnInit {
 
     this.route.params.subscribe(params => {
       this.testId = params['id'];
-      console.log(this.testId)
+      this.ucenikId = ZAKUCANO
       this.takeTestService.getTest(this.testId).subscribe(data => {
         this.test = data
         console.log(this.test)
@@ -48,7 +49,7 @@ export class TestPreviewComponent implements OnInit {
             o.tacnost = false;
           }
         }
-        this.takeTestService.startTest(this.testId).subscribe(data => {
+        this.takeTestService.startTest(this.testId, this.ucenikId).subscribe(data => {
           this.pqd = data
           console.log(data)
         })
@@ -75,11 +76,15 @@ export class TestPreviewComponent implements OnInit {
     nqd.pitanje = this.pqd.pitanje
     nqd.preostalapitanja = this.pqd.preostalaPitanja
     nqd.l = this.pqd.l
+    nqd.ucenikId = this.ucenikId
+    nqd.testId = this.testId
 
     console.log(nqd)
     this.takeTestService.nextQ(this.testId, nqd).subscribe(data => {
-      if (data != null) {
+      if (data.preostalaPitanja != undefined) {
         this.pqd = data
+        this.testId = data.testId
+        this.ucenikId = data.ucenikId
       } else {
         this.finished = true
       }

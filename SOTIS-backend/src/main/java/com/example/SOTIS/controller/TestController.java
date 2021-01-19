@@ -38,9 +38,9 @@ public class TestController {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
-	@GetMapping(value = "/quiz/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<ProbabilityQuestionDTO> startQuiz(@PathVariable Long id) {
-		ProbabilityQuestionDTO pqd = testService.startQuiz(id);
+	@GetMapping(value = "/quiz/{id}/{ucenikId}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<ProbabilityQuestionDTO> startQuiz(@PathVariable Long id, @PathVariable Long ucenikId) {
+		ProbabilityQuestionDTO pqd = testService.startQuiz(id, ucenikId);
 		return new ResponseEntity<>(pqd, HttpStatus.OK);
 	}
 

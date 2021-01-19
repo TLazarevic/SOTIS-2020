@@ -20,12 +20,15 @@ import com.example.SOTIS.model.Test;
 import com.example.SOTIS.model.Ucenik;
 import com.example.SOTIS.model.UcenikTest;
 import com.example.SOTIS.model.Veza;
+import com.example.SOTIS.model.DTO.MarkovljevProstorZnanja;
 import com.example.SOTIS.model.DTO.MatrixDTO;
 import com.example.SOTIS.model.DTO.NextQDTO;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.ProbabilityQuestionDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
+import com.example.SOTIS.repository.CvorRepository;
+import com.example.SOTIS.repository.MarkovljevProstorZnanjaRepository;
 import com.example.SOTIS.repository.OdgovoriRepository;
 import com.example.SOTIS.repository.PitanjeRepository;
 import com.example.SOTIS.repository.PredmetRepository;
@@ -53,6 +56,9 @@ public class TestService {
 
 	@Autowired
 	PitanjeRepository pitanjeRepo;
+
+	@Autowired
+	MarkovljevProstorZnanjaRepository markovRepo;
 
 	public List<TestDTO> findAllByNastavnik(Long id) {
 		return testRepo.findAllByNastavnik(id);
@@ -381,7 +387,7 @@ public class TestService {
 
 	}
 
-	public ProbabilityQuestionDTO startQuiz(Long id) {
+	public ProbabilityQuestionDTO startQuiz(Long id, Long ucenikId) {
 
 		try {
 			Test t = testRepo.findById(id).get();
@@ -410,7 +416,7 @@ public class TestService {
 				probabs.add((double) (1.0 / pz.size()));
 			}
 
-			ProbabilityQuestionDTO q = quiz(t.getPitanje(), pz, probabs);
+			ProbabilityQuestionDTO q = quiz(t.getPitanje(), pz, probabs, ucenikId, id);
 			return q;
 
 		} catch (Exception e) {
@@ -422,7 +428,8 @@ public class TestService {
 
 	//
 
-	public static ProbabilityQuestionDTO quiz(Set<Pitanje> set, List<List<String>> kspaces, List<Double> probabs) {
+	public static ProbabilityQuestionDTO quiz(Set<Pitanje> set, List<List<String>> kspaces, List<Double> probabs,
+			Long ucenikId, Long testId) {
 
 		if (set.size() > 0) {
 
@@ -457,7 +464,7 @@ public class TestService {
 			System.out.println("Choosen question: " + choosenQ + "\n");
 
 			set.remove(choosenQ);
-			return new ProbabilityQuestionDTO(choosenQ, set, kspaces, probabs, choosenL);
+			return new ProbabilityQuestionDTO(choosenQ, set, kspaces, probabs, choosenL, ucenikId, testId);
 		}
 		return null;
 	}
@@ -507,14 +514,26 @@ public class TestService {
 	}
 
 	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
-		nqd.getPreostalaPitanja().remove(nqd.pitanje);
+
 		if (nqd.getPreostalaPitanja().size() > 0) {
+			nqd.getPreostalaPitanja().remove(nqd.pitanje);
 			nqd = (update(nqd));
-			return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs());
+			return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs(), nqd.getUcenikId(),
+					nqd.getTestId());
 		} else {
+			Ucenik ucenik = ucenikRepo.findById(nqd.getUcenikId()).get();
+			Test test = testRepo.findById(nqd.getTestId()).get();
+
+			for (int i = 0; i < nqd.getkSpaces().size(); i++) {
+
+				markovRepo.save(
+						new MarkovljevProstorZnanja(ucenik, test, nqd.getkSpaces().get(i), nqd.getProbabs().get(i)));
+				UcenikTest ut = ucenikTestRepo.getByUcenikIdAndTestId(nqd.getUcenikId(),nqd.getTestId());
+				ut.setUradjen(true);
+				this.ucenikTestRepo.save(ut);
+			}
 			return new ProbabilityQuestionDTO();
 		}
-
 	}
 
 	public TestViewDTO findById(Long id) {

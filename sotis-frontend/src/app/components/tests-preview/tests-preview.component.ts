@@ -34,5 +34,9 @@ export class TestsPreviewComponent implements OnInit {
     this.router.navigate(['/Test', { id: id }]);
   }
 
+  getPZ(id: number){
+    this.router.navigate(['/student-ks', { id: id, ucenikId: zakucano }]);
+  }
+
 
 }

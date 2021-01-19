@@ -1,6 +1,5 @@
 package com.example.SOTIS.model.DTO;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -8,11 +7,13 @@ import com.example.SOTIS.model.Pitanje;
 
 public class ProbabilityQuestionDTO {
 
-	public Pitanje pitanje;
+	public Pitanje pitanje = new Pitanje();
 	Set<Pitanje> preostalaPitanja;
 	private List<List<String>> kSpaces;
 	private List<Double> probabs;
 	private Double l;
+	private Long ucenikId;
+	private Long testId;
 
 	@Override
 	public String toString() {
@@ -21,13 +22,15 @@ public class ProbabilityQuestionDTO {
 	}
 
 	public ProbabilityQuestionDTO(Pitanje choosenQ, Set<Pitanje> set, List<List<String>> kspaces2,
-			List<Double> probabs2, double choosenL) {
+			List<Double> probabs2, double choosenL, Long ucenikId, Long testId) {
 		super();
 		this.pitanje = choosenQ;
 		this.preostalaPitanja = set;
 		this.kSpaces = kspaces2;
 		this.probabs = probabs2;
 		this.l = choosenL;
+		this.ucenikId = ucenikId;
+		this.testId = testId;
 	}
 
 	public ProbabilityQuestionDTO() {
@@ -71,6 +74,22 @@ public class ProbabilityQuestionDTO {
 
 	public void setL(Double l) {
 		this.l = l;
+	}
+
+	public Long getUcenikId() {
+		return ucenikId;
+	}
+
+	public void setUcenikId(Long ucenikId) {
+		this.ucenikId = ucenikId;
+	}
+
+	public Long getTestId() {
+		return testId;
+	}
+
+	public void setTestId(Long testId) {
+		this.testId = testId;
 	}
 
 }
