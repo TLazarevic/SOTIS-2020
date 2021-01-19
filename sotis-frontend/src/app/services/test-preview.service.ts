@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { TestDTO } from '../model/testDTO';
+import {Observable, throwError} from 'rxjs';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
 
@@ -19,4 +20,7 @@ export class TestPreviewService {
     return this.http.get<TestDTO[]>("http://localhost:8080/test/all")
   }
 
+  downloadQtiZip(testId: number): Observable<any> {
+		return this.http.get('http://localhost:8080/test/generateQTI/' + testId, {responseType: 'blob'});
+  }
 }

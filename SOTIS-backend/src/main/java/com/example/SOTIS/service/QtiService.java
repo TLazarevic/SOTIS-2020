@@ -26,7 +26,6 @@ import com.example.SOTIS.repository.TestRepository;
 import com.example.SOTIS.repository.UcenikRepository;
 import com.example.SOTIS.repository.UcenikTestRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 
 @Service
 public class QtiService {
@@ -55,7 +54,6 @@ public class QtiService {
 
 public byte[] generateQTI(Long testId) {
 		
-		ObjectMapper mapper = new XmlMapper();
 		
 		TestViewDTO test = testService.findById(testId);
 		

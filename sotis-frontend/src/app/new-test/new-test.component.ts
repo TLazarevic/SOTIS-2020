@@ -51,7 +51,7 @@ export class NewTestComponent implements OnInit {
 
     console.log(this.odabraniPredmet)
 
-    this.newQuestionService.downloadFile().subscribe(response => {
+    this.newQuestionService.downloadQtiZip(100).subscribe(response => {
 			let blob:any = new Blob([response], { type: 'zip' });
 			const url= window.URL.createObjectURL(blob);
 			//window.open(url);
