@@ -32,7 +32,6 @@ public class TestController {
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<TestViewDTO> getTest(@PathVariable Long id) {
-		System.out.print(testService.findById(id));
 		if (testService.findById(id) != null)
 			return new ResponseEntity<>(testService.findById(id), HttpStatus.OK);
 		else

@@ -15,6 +15,7 @@ public class NextQDTO {
 	Set<Pitanje> preostalapitanja = new HashSet<Pitanje>();
 	private List<List<String>> kSpaces;
 	private List<Double> probabs;
+	private Double l;
 
 	public NextQDTO() {
 
@@ -66,6 +67,14 @@ public class NextQDTO {
 
 	public void setProbabs(List<Double> probabs) {
 		this.probabs = probabs;
+	}
+
+	public Double getL() {
+		return l;
+	}
+
+	public void setL(Double l) {
+		this.l = l;
 	}
 
 }

@@ -100,4 +100,9 @@ public class Test {
 		this.predmet = predmet;
 	}
 
+	@Override
+	public String toString() {
+		return "Test [id=" + id + ", pitanje=" + pitanje + "]";
+	}
+
 }

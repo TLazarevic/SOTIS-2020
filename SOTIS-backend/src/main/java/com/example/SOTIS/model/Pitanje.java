@@ -81,7 +81,7 @@ public class Pitanje {
 
 	@Override
 	public String toString() {
-		return "Pitanje [id=" + id + ", test=" + test + ", tekst=" + tekst + "]";
+		return "Pitanje [id=" + id + ", tekst=" + tekst + "]";
 	}
 
 	public Long getPredmetId() {

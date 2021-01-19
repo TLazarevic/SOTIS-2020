@@ -1,3 +1,4 @@
+import { ProbabilityQuestionDTO } from './../../model/ProbabilityQuestionDTO';
 import { Component, OnInit } from '@angular/core';
 import { Pitanje } from 'src/app/model/pitanje';
 import { Predmet } from 'src/app/model/predmet';
@@ -29,11 +30,7 @@ export class TestPreviewComponent implements OnInit {
   pageEvent: PageEvent = new PageEvent;
   testId!: number;
 
-  pitanje!: Pitanje
-  kSpaces!: []
-  probabs!: []
-  tacnost!: number
-  preostalaPitanja!: []
+  pqd!: ProbabilityQuestionDTO
 
   constructor(private takeTestService: TakeTestService, private route: ActivatedRoute, private router: Router) {
 
@@ -52,10 +49,8 @@ export class TestPreviewComponent implements OnInit {
           }
         }
         this.takeTestService.startTest(this.testId).subscribe(data => {
-          this.pitanje = data.pitanje
-          this.preostalaPitanja = data.preostalaPitanja
-          this.kSpaces = data.kSpaces
-          this.probabs = data.probabs
+          this.pqd = data
+          console.log(data)
         })
       })
     }
@@ -74,21 +69,18 @@ export class TestPreviewComponent implements OnInit {
     // this.router.navigate(['/Tests']);
 
     var nqd = new NextQDTO;
-    nqd.kSpaces = this.kSpaces
-    nqd.probabs = this.probabs
+    nqd.kSpaces = this.pqd.kSpaces
+    nqd.probabs = this.pqd.probabs
     nqd.tacnost = 1
-    nqd.pitanje = this.pitanje
-    nqd.preostalapitanja=this.preostalaPitanja
+    nqd.pitanje = this.pqd.pitanje
+    nqd.preostalapitanja = this.pqd.preostalaPitanja
+    nqd.l = this.pqd.l
 
     console.log(nqd)
     this.takeTestService.nextQ(this.testId, nqd).subscribe(data => {
-      if(data!=null){
-        this.probabs = data.probabs
-        this.pitanje = data.pitanje
-        this.preostalaPitanja = data.preostalaPitanja
-        this.kSpaces = data.kSpaces
-        alert(this.pitanje)
-      }else{
+      if (data != null) {
+        this.pqd = data
+      } else {
         this.finished = true
       }
     })

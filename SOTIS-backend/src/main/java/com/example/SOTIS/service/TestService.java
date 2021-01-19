@@ -410,7 +410,7 @@ public class TestService {
 				probabs.add((double) (1.0 / pz.size()));
 			}
 
-			ProbabilityQuestionDTO q = quiz(t.getPitanje(), pz,probabs);
+			ProbabilityQuestionDTO q = quiz(t.getPitanje(), pz, probabs);
 			return q;
 
 		} catch (Exception e) {
@@ -457,44 +457,41 @@ public class TestService {
 			System.out.println("Choosen question: " + choosenQ + "\n");
 
 			set.remove(choosenQ);
-			return new ProbabilityQuestionDTO(choosenQ, set,kspaces, probabs);
+			return new ProbabilityQuestionDTO(choosenQ, set, kspaces, probabs, choosenL);
 		}
 		return null;
 	}
 
-//	public static HashMap<Set<String>, Double> update(Set<Pitanje> set2, List<List<String>> kspaces, List<Double> probabs,
-//			Pitanje choosenQ, Double L) {
-//		double theta = 2;
-//
-//		System.out.println(probabs);
-//
-//		for (List<String> set : kspaces) {
-//
-//			int r;
-//	
-//			if (set.contains(choosenQ.getCvor().getLabel())) {
-//				int index = kspaces.indexOf(result.get());
-//
-//				Double oldValue = probabs.get(index);
-//				Double newValue = (1 - theta) * oldValue + theta * r * oldValue / L;
-//				probabs.set(index, newValue);
-//
-//			} else {
-//
-//				Double oldValue = proba.get(set);
-//				Double newValue = (1 - theta) * oldValue - theta * (1 - r) * oldValue / L;
-//				proba.put(set, newValue);
-//			}
-//		}
-//
-//		return proba;
-//	}
+	public static NextQDTO update(NextQDTO nqd) {
+		double theta = 2;
+
+		System.out.println(nqd.getProbabs());
+
+		for (List<String> set : nqd.getkSpaces()) {
+
+			if (set.contains(nqd.getPitanje().getCvor().getLabel())) {
+				int index = nqd.getkSpaces().indexOf(set);
+
+				Double oldValue = nqd.getProbabs().get(index);
+				Double newValue = (1 - theta) * oldValue + theta * nqd.getTacnost() * oldValue / nqd.getL();
+				nqd.getProbabs().set(index, newValue);
+
+			} else {
+				int index = nqd.getkSpaces().indexOf(set);
+				Double oldValue = nqd.getProbabs().get(index);
+				Double newValue = (1 - theta) * oldValue - theta * (1 -  nqd.getTacnost()) * oldValue / nqd.getL();
+				nqd.getProbabs().set(index, newValue);
+			}
+		}
+
+		return nqd;
+	}
 
 	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
 		nqd.getPreostalaPitanja().remove(nqd.pitanje);
-//		nqd.setProbabs(update(set, kspaces, probabs,  choosenQ, choosenL));
+		nqd=(update(nqd));
 		return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs());
-		
+
 	}
 
 	public TestViewDTO findById(Long id) {
@@ -503,6 +500,7 @@ public class TestService {
 			Test t = testRepo.findById(id).get();
 
 			TestViewDTO dto = new TestViewDTO(t);
+			System.out.println(t.getPitanje());
 
 			for (Pitanje p : t.getPitanje()) {
 				Set<Odgovor> o = odgovorRepo.findTacniOdgovori(p.getId());

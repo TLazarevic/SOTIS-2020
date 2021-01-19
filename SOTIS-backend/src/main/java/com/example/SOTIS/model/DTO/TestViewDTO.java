@@ -38,4 +38,9 @@ public class TestViewDTO {
 		this.pitanje = pitanje;
 	}
 
+	@Override
+	public String toString() {
+		return "TestViewDTO [id=" + id + ", pitanje=" + pitanje + "]";
+	}
+
 }

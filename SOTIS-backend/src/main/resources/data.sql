@@ -52,28 +52,51 @@ insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values 
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (200, true, 'tekst_odg2', 100, 2,  null);
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (300, true, 'lalalala', 200, 1, null);
 insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (400, true, 'lalalala', 200, 2, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (500, true, 'lalalala', 300, 1, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (600, true, 'lalalala', 300, 2, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (700, true, 'lalalala', 400, 1, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (800, true, 'lalalala', 400, 2, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (900, true, 'lalalala', 500, 1, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (1000, true, 'lalalala', 500, 2, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (1100, true, 'lalalala', 600, 1, null);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (1200, true, 'lalalala', 600, 2, null);
 
 --insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (800, false, 'tekst_odg1', 100, 1, 100);
 --insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (500, false, 'tekst_odg2', 100, 2, 100);
 --insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (600, true, 'lalalala', 200,  1, 100);
 --insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (700, true, 'lalalala', 200, 2, 100);
 
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (900, true, 'tekst_odg1', 100, 1, 200);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (990, true, 'tekst_odg2', 100, 2, 200);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (980, true, 'lalalala', 200,  1, 200);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (970, true, 'lalalala', 200, 2, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (901, true, 'tekst_odg1', 100, 1, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (902, true, 'tekst_odg2', 100, 2, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (903, true, 'lalalala', 200,  1, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (904, true, 'lalalala', 200, 2, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (905, true, 'lalalala', 300,  1, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (906, true, 'lalalala', 300, 2, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (907, true, 'lalalala', 400,  1, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (908, true, 'lalalala', 400, 2, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (909, true, 'lalalala', 500,  1, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (910, true, 'lalalala', 500, 2, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (911, true, 'lalalala', 600,  1, 200);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (912, true, 'lalalala', 600, 2, 200);
 
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (960, true, 'tekst_odg1', 100, 1, 300);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (950, true, 'tekst_odg2', 100, 2, 300);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (940, true, 'lalalala', 200,  1, 300);
-insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (930, true, 'lalalala', 200, 2, 300);
-
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (801, true, 'tekst_odg1', 100, 1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (802, true, 'tekst_odg2', 100, 2, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (803, true, 'lalalala', 200,  1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (804, true, 'lalalala', 200, 2, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (805, true, 'lalalala', 300,  1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (806, true, 'lalalala', 300, 2, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (807, true, 'lalalala', 400,  1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (808, true, 'lalalala', 400, 2, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (809, true, 'lalalala', 500,  1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (810, true, 'lalalala', 500, 2, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (811, true, 'lalalala', 600,  1, 300);
+insert into odgovor(id, tacnost, tekst, pitanje_id, redni_br, ucenik_id) values (812, true, 'lalalala', 600, 2, 300);
 
 insert into test_pitanje(test_id,pitanje_id) values(100,100);
 insert into test_pitanje(test_id,pitanje_id) values(100,200);
-insert into test_pitanje(test_id,pitanje_id) values(200,300);
-insert into test_pitanje(test_id,pitanje_id) values(200,400);
-insert into test_pitanje(test_id,pitanje_id) values(200,500);
-insert into test_pitanje(test_id,pitanje_id) values(200,600);
+insert into test_pitanje(test_id,pitanje_id) values(100,300);
+insert into test_pitanje(test_id,pitanje_id) values(100,400);
+insert into test_pitanje(test_id,pitanje_id) values(100,500);
+insert into test_pitanje(test_id,pitanje_id) values(100,600);
 
 

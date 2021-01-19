@@ -76,4 +76,9 @@ public class PitanjeDTO {
 		this.cvor = cvor;
 	}
 
+	@Override
+	public String toString() {
+		return "PitanjeDTO [id=" + id + ", tekst=" + tekst + "]";
+	}
+
 }
