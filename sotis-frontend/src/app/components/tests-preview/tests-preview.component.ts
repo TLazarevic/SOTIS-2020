@@ -35,6 +35,10 @@ export class TestsPreviewComponent implements OnInit {
     this.router.navigate(['/Test', { id: id }]);
   }
 
+<<<<<<< HEAD
+  getPZ(id: number){
+    this.router.navigate(['/student-ks', { id: id, ucenikId: zakucano }]);
+=======
   downloadQTI(id: number){
     this.testService.downloadQtiZip(id).subscribe(response => {
 			let blob:any = new Blob([response], { type: 'zip' });
@@ -44,6 +48,7 @@ export class TestsPreviewComponent implements OnInit {
       fileSaver.saveAs(blob, 'test-' + id + '-QTI.zip');
       console.log(response)
 		});
+>>>>>>> main
   }
 
 

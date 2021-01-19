@@ -27,9 +27,9 @@
     <!-- End Breadcrumbs -->
 
 
-    <div>
-        <div style="display: block">
-          <canvas baseChart
+    <div >
+        <div *ngIf="dataRecieved" style="display: block" >
+          <canvas height="500" baseChart
                   [datasets]="barChartData"
                   [labels]="barChartLabels"
                   [options]="barChartOptions"

@@ -1,3 +1,4 @@
+import { MarkovPZ } from './../model/MarkovPZ';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Predmet } from '../model/predmet';
@@ -38,5 +39,9 @@ export class KnowledgeService {
 
   getStringGraph(id:number){
     return this.http.get("http://localhost:8080/znanje/toString/"+id, options)
+  }
+
+  getMarkovPZ(testId:number, ucenikId:number){
+    return this.http.get<MarkovPZ[]>("http://localhost:8080/znanje/markov/"+ucenikId+"/"+testId, httpOptions)
   }
 }

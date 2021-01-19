@@ -5,5 +5,7 @@ export class NextQDTO {
     tacnost!:number
     kSpaces!:[]
     probabs!:[]
-
+    l!:number
+    ucenikId!:number
+    testId!:number
 }

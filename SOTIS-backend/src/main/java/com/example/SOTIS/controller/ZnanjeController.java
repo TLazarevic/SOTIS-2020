@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.SOTIS.model.Cvor;
 import com.example.SOTIS.model.ProstorZnanja;
+import com.example.SOTIS.model.DTO.MarkovljevProstorZnanja;
+import com.example.SOTIS.repository.MarkovljevProstorZnanjaRepository;
 import com.example.SOTIS.service.ZnanjeService;
 
 @RestController
@@ -25,6 +27,14 @@ public class ZnanjeController {
 
 	@Autowired
 	ZnanjeService znanjeService;
+	
+	@Autowired 
+	MarkovljevProstorZnanjaRepository markovRepo;
+	
+	@GetMapping(value="/markov/{ucenikId}/{testId}")
+	public ResponseEntity<List<MarkovljevProstorZnanja>> getMarkovPZ(@PathVariable Long ucenikId, @PathVariable Long testId){
+		return new ResponseEntity<>(markovRepo.getByUcenikIdAndTestId(ucenikId, testId), HttpStatus.OK);
+	}
 
 	@GetMapping(value = "", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<ProstorZnanja>> getAllGrafovi() {

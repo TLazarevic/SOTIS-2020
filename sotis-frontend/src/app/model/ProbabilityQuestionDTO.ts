@@ -4,4 +4,7 @@ export class ProbabilityQuestionDTO {
     probabs!:[]
     pitanje!: Pitanje
     preostalaPitanja!: []
+    l!: number
+    ucenikId!:number
+    testId!:number
 }

@@ -75,7 +75,7 @@
            <div *ngFor="let p of test.pitanje; index as i">
                 <div class="pitanje" style=" text-align: center;" *ngIf="i==pageEvent.pageIndex">
 
-                    <p class="questionText">{{pitanje.tekst}}</p>
+                    <p class="questionText">{{pqd.pitanje.tekst}}</p>
 
                     <div *ngFor="let o of p.odgovori">
                         <input type="checkbox" [checked]="o.tacnost" (change)="o.tacnost = !o.tacnost">

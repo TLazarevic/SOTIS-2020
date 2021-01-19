@@ -20,6 +20,8 @@ public interface UcenikTestRepository extends JpaRepository<UcenikTest, Long> {
 	
 	@Query("Select ut.ucenik.id from UcenikTest ut where ut.test.id = ?1 and ut.uradjen = true")
 	public List<Long> studentsThatTookTheTest(Long id);
+
+	public UcenikTest getByUcenikIdAndTestId(Long ucenikId, Long testId);
 	
 	
 

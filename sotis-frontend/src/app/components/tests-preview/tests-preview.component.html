@@ -14,7 +14,9 @@
     <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        rel="stylesheet">
 
 
     <!-- <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
@@ -60,7 +62,8 @@
         <div class="breadcrumbs">
             <div class="container">
                 <h2>Your Tests</h2>
-                <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
+                <p>Est dolorum ut non facere possimus quibusdam eligendi voluptatem. Quia id aut similique quia voluptas
+                    sit quaerat debitis. Rerum omnis ipsam aperiam consequatur laboriosam nemo harum praesentium. </p>
             </div>
         </div>
         <!-- End Breadcrumbs -->
@@ -81,7 +84,8 @@
                                 </div>
 
                                 <h3><a href="course-details.html">{{test.predmet.naziv}}</a></h3>
-                                <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae dolores dolorem tempore.
+                                <p>Et architecto provident deleniti facere repellat nobis iste. Id facere quia quae
+                                    dolores dolorem tempore.
                                 </p>
                                 <div class="trainer d-flex justify-content-between align-items-center">
                                     <div class="trainer-profile d-flex align-items-center">
@@ -89,6 +93,13 @@
                                         <span>{{test.nastavnik.ime}} {{test.nastavnik.prezime}}</span>
                                     </div>
 
+<<<<<<< HEAD
+                                    <div *ngIf="!test.uradjen; else elseBlock">
+                                        <button id="submit" (click)="submit(test.id)" mat-raised-button
+                                            color="primary">Take test
+                                        </button>
+                                    </div>
+=======
                                     <div >
                                         <button *ngIf="!test.uradjen; else elseBlock" id="submit" (click)="submit(test.id)" mat-raised-button color="primary">Take test
                                         </button>
@@ -96,8 +107,12 @@
                                         </button>
                                     </div>
 
+>>>>>>> main
                                     <ng-template #elseBlock>
                                         <div>Done</div>
+                                        <button id="submit" (click)="getPZ(test.id)" mat-raised-button
+                                            color="primary">Knowledge Space
+                                        </button>
                                     </ng-template>
 
 
@@ -182,7 +197,9 @@
                     <!-- You can delete the links only if you purchased the pro version. -->
                     <!-- Licensing information: https://bootstrapmade.com/license/ -->
                     <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
-                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
+                    Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> Icons made by <a
+                        href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a
+                        href="https://www.flaticon.com/" title="Flaticon"> www.flaticon.com</a>
                 </div>
             </div>
             <div class="social-links text-center text-md-right pt-3 pt-md-0">
