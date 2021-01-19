@@ -89,9 +89,13 @@
                                         <span>{{test.nastavnik.ime}} {{test.nastavnik.prezime}}</span>
                                     </div>
 
-                                    <div *ngIf="!test.uradjen; else elseBlock">
-                                        <button id="submit" (click)="submit(test.id)" mat-raised-button color="primary">Take test
-                                        </button></div>
+                                    <div >
+                                        <button *ngIf="!test.uradjen; else elseBlock" id="submit" (click)="submit(test.id)" mat-raised-button color="primary">Take test
+                                        </button>
+                                        <button id="downloadQTI" (click)="downloadQTI(test.id)" mat-raised-button color="get-started-btn">Dowload QTI
+                                        </button>
+                                    </div>
+
                                     <ng-template #elseBlock>
                                         <div>Done</div>
                                     </ng-template>

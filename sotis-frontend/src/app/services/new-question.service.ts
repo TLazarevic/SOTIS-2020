@@ -39,4 +39,8 @@ export class NewQuestionService {
     return this.http.post<Test>(this.testUrl , test);
   }
 
+  downloadQtiZip(testId: number): Observable<any> {
+		return this.http.get('http://localhost:8080/test/generateQTI/' + testId, {responseType: 'blob'});
+  }
+
 }
