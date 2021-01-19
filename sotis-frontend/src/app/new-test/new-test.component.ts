@@ -6,7 +6,7 @@ import { PitanjeDTO } from '../model/PitanjeDTO';
 import { Predmet } from '../model/predmet';
 import { Test } from '../model/test';
 import { NewQuestionService } from '../services/new-question.service';
-
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-new-test',
@@ -50,6 +50,17 @@ export class NewTestComponent implements OnInit {
     this.newQuestionService.getPitanjaZaPredmet(this.odabraniPredmet.id).subscribe(response => this.pitanjaZaPredmet = response);
 
     console.log(this.odabraniPredmet)
+
+    this.newQuestionService.downloadFile().subscribe(response => {
+			let blob:any = new Blob([response], { type: 'zip' });
+			const url= window.URL.createObjectURL(blob);
+			//window.open(url);
+			//window.location.href = response.url;
+      fileSaver.saveAs(blob, 'QTI.zip');
+      console.log(response)
+		});
+
+
   }
 
   public addAnswer(){
