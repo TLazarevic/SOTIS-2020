@@ -1,14 +1,11 @@
 package com.example.SOTIS.service;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.SOTIS.model.Cvor;
 import com.example.SOTIS.model.ProstorZnanja;
 import com.example.SOTIS.model.Veza;
 import com.example.SOTIS.model.DTO.VezaRepository;

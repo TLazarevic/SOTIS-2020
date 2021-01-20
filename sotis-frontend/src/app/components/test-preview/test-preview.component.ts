@@ -32,6 +32,7 @@ export class TestPreviewComponent implements OnInit {
   ucenikId!: number;
 
   pqd!: ProbabilityQuestionDTO
+  odgovori:Odgovor[]=[]
 
   constructor(private takeTestService: TakeTestService, private route: ActivatedRoute, private router: Router) {
 
@@ -52,6 +53,11 @@ export class TestPreviewComponent implements OnInit {
         this.takeTestService.startTest(this.testId, this.ucenikId).subscribe(data => {
           this.pqd = data
           console.log(data)
+          for (let pitanje of this.test.pitanje){
+            if (pitanje.id==this.pqd.pitanje.id){
+              this.odgovori = pitanje.odgovori
+            }
+          }
         })
       })
     }
@@ -85,6 +91,11 @@ export class TestPreviewComponent implements OnInit {
         this.pqd = data
         this.testId = data.testId
         this.ucenikId = data.ucenikId
+        for (let pitanje of this.test.pitanje){
+          if (pitanje.id==this.pqd.pitanje.id){
+            this.odgovori = pitanje.odgovori
+          }
+        }
       } else {
         this.finished = true
       }
