@@ -72,12 +72,12 @@
             <div>Click next to start the test</div>
           </div> -->
         <div *ngIf="!this.finished" class="page">
-           <div *ngFor="let p of test.pitanje; index as i">
-                <div class="pitanje" style=" text-align: center;" *ngIf="i==pageEvent.pageIndex">
+           <div >
+                <div class="pitanje" style=" text-align: center;" >
 
                     <p class="questionText">{{pqd.pitanje.tekst}}</p>
 
-                    <div *ngFor="let o of p.odgovori">
+                    <div *ngFor="let o of odgovori">
                         <input type="checkbox" [checked]="o.tacnost" (change)="o.tacnost = !o.tacnost">
                         <label for="vehicle1"> {{o.tekst}}</label><br>
                     </div>
