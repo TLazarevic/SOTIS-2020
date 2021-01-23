@@ -12,13 +12,19 @@ Učenik popunjava test putem platforme
 
 Test je predstavljen u skladu sa IMS QTI specifikacijom 
 
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/qti.png" width="500" height="250">
+
 Redosled pitanja na testu uslovljen je očekivanim prostorom znanja 
 
 Očekivani prostor znanja definiše ekspert u okviru platforme  
 
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/graph.png" width="500" height="250">
+
 Na osnovu rezultata testa formira se stanje znanja i stvarni prostor znanja 
 
 Vizuelizacija dobijenog stanja znanja i prostora znanja u formi grafa 
+
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/graph-comparison.png" width="500" height="250">
 
 Repozitorijum za predmet Savremene obrazovne tehnologije i standardi, 2020/21.
 Tamara Lazarevic 
