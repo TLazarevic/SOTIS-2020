@@ -1,7 +1,5 @@
 import { ProbabilityQuestionDTO } from './../../model/ProbabilityQuestionDTO';
 import { Component, OnInit } from '@angular/core';
-import { Pitanje } from 'src/app/model/pitanje';
-import { Predmet } from 'src/app/model/predmet';
 import { TestViewDTO } from 'src/app/model/testViewDTO';
 import { PageEvent } from '@angular/material/paginator';
 import { Odgovor } from 'src/app/model/odgovor';
@@ -9,7 +7,6 @@ import { Odgovor } from 'src/app/model/odgovor';
 import { TakeTestService } from 'src/app/services/take-test.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NextQDTO } from 'src/app/model/NextQDTO';
-import { ThrowStmt } from '@angular/compiler';
 
 const ZAKUCANO = 100
 
@@ -26,15 +23,14 @@ export class TestPreviewComponent implements OnInit {
   studentAnswers: TestViewDTO = new TestViewDTO;
   finished = false
 
-  // MatPaginator Output
   pageEvent: PageEvent = new PageEvent;
   testId!: number;
   ucenikId!: number;
 
   pqd!: ProbabilityQuestionDTO
-  odgovori:Odgovor[]=[]
+  odgovori: Odgovor[] = []
 
-  constructor(private takeTestService: TakeTestService, private route: ActivatedRoute, private router: Router) {
+  constructor(private takeTestService: TakeTestService, private route: ActivatedRoute) {
 
     this.route.params.subscribe(params => {
       this.testId = params['id'];
@@ -53,8 +49,8 @@ export class TestPreviewComponent implements OnInit {
         this.takeTestService.startTest(this.testId, this.ucenikId).subscribe(data => {
           this.pqd = data
           console.log(data)
-          for (let pitanje of this.test.pitanje){
-            if (pitanje.id==this.pqd.pitanje.id){
+          for (let pitanje of this.studentAnswers.pitanje) {
+            if (pitanje.id == this.pqd.pitanje.id) {
               this.odgovori = pitanje.odgovori
             }
           }
@@ -79,6 +75,19 @@ export class TestPreviewComponent implements OnInit {
     nqd.kSpaces = this.pqd.kSpaces
     nqd.probabs = this.pqd.probabs
     nqd.tacnost = 1
+    for (let pitanje of this.studentAnswers.pitanje) {
+      if (pitanje.id == this.pqd.pitanje.id) {
+        for (let odgovor of this.odgovori) {
+          for (let odgovor2 of pitanje.odgovori) {
+            if (odgovor.id == odgovor2.id) {
+              if (odgovor.tacnost != odgovor2.tacnost) {
+                nqd.tacnost = 0
+              }
+            }
+          }
+        }
+      }
+    }
     nqd.pitanje = this.pqd.pitanje
     nqd.preostalapitanja = this.pqd.preostalaPitanja
     nqd.l = this.pqd.l
@@ -91,8 +100,8 @@ export class TestPreviewComponent implements OnInit {
         this.pqd = data
         this.testId = data.testId
         this.ucenikId = data.ucenikId
-        for (let pitanje of this.test.pitanje){
-          if (pitanje.id==this.pqd.pitanje.id){
+        for (let pitanje of this.studentAnswers.pitanje) {
+          if (pitanje.id == this.pqd.pitanje.id) {
             this.odgovori = pitanje.odgovori
           }
         }
