@@ -22,6 +22,10 @@ Očekivani prostor znanja definiše ekspert u okviru platforme
 
 Na osnovu rezultata testa formira se stanje znanja i stvarni prostor znanja 
 
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/update-rule.PNG" width="500" height="200">
+
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/update-rule-code.PNG" width="500" height="250">
+
 Vizuelizacija dobijenog stanja znanja i prostora znanja u formi grafa 
 
 <img src="https://github.com/dusankg/SOTIS-2020/blob/main/graph-comparison.png" width="500" height="250">
