@@ -10,13 +10,11 @@ import com.example.SOTIS.model.Cvor;
 import com.example.SOTIS.model.Odgovor;
 import com.example.SOTIS.model.Pitanje;
 import com.example.SOTIS.model.DTO.PitanjeDTO;
-import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.repository.CvorRepository;
 import com.example.SOTIS.repository.OdgovoriRepository;
 import com.example.SOTIS.repository.PitanjeRepository;
 import com.example.SOTIS.repository.TestRepository;
 import com.example.SOTIS.repository.UcenikRepository;
-import com.example.SOTIS.repository.UcenikTestRepository;
 
 @Service
 public class PitanjeService {

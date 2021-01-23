@@ -1,6 +1,7 @@
 package com.example.SOTIS.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -27,7 +28,6 @@ import com.example.SOTIS.model.DTO.PitanjeDTO;
 import com.example.SOTIS.model.DTO.ProbabilityQuestionDTO;
 import com.example.SOTIS.model.DTO.TestDTO;
 import com.example.SOTIS.model.DTO.TestViewDTO;
-import com.example.SOTIS.repository.CvorRepository;
 import com.example.SOTIS.repository.MarkovljevProstorZnanjaRepository;
 import com.example.SOTIS.repository.OdgovoriRepository;
 import com.example.SOTIS.repository.PitanjeRepository;
@@ -515,7 +515,7 @@ public class TestService {
 
 	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
 
-		if (nqd.getPreostalaPitanja().size() > 0) {
+		if (nqd.getPreostalaPitanja().size() > 0 ||  Collections.max(nqd.getProbabs())<0.7) {
 			nqd.getPreostalaPitanja().remove(nqd.pitanje);
 			nqd = (update(nqd));
 			return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs(), nqd.getUcenikId(),
