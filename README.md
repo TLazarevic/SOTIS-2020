@@ -2,6 +2,8 @@
 
 ## Projektni zadatak - Veb platforma za testiranje znanja zasnovana na teoriji prostora znanja  
 
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/favicon.png" width="200" height="200">
+
 Napraviti veb aplikaciju za kreiranje testova i vršenje online testiranja sa sledećim funkcionalnostima:  
 
 Nastavnik može da kreira test (definiše pitanja i odgovore). Pitanja su tipa višestrukog izbora 
