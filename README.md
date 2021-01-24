@@ -26,7 +26,7 @@ Redosled pitanja na testu uslovljen je očekivanim prostorom znanja
 
 Očekivani prostor znanja definiše ekspert u okviru platforme  
 
-<img src="https://github.com/dusankg/SOTIS-2020/blob/main/142280339_162515105634982_8367844360794927232_n.png" width="350" height="200">
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/142280339_162515105634982_8367844360794927232_n.png" width="350" height="220">
 
 <img src="https://github.com/dusankg/SOTIS-2020/blob/main/graph.png" width="500" height="250">
 
