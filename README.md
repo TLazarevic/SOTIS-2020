@@ -12,7 +12,7 @@ Nastavnik može da kreira test (definiše pitanja i odgovore). Pitanja su tipa v
 
 Učenik popunjava test putem platforme 
 
-<img src="https://github.com/dusankg/SOTIS-2020/blob/main/142130182_409795596956218_3608370850852644165_n.png" width="450" height="250">
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/142130182_409795596956218_3608370850852644165_n.png" width="450" height="300">
 
 <img src="https://github.com/dusankg/SOTIS-2020/blob/main/142048237_114848010520180_247120116507956389_n.png" width="500" height="250">
 
