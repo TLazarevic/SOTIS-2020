@@ -36,8 +36,10 @@ export class TestPreviewComponent implements OnInit {
       this.testId = params['id'];
       this.ucenikId = ZAKUCANO
       this.takeTestService.getTest(this.testId).subscribe(data => {
+
         this.test = data
-        console.log(this.test)
+        console.log("DATA: ")
+        console.log(data)
         this.pageEvent.pageIndex = 0
 
         this.studentAnswers = this.test
@@ -75,11 +77,15 @@ export class TestPreviewComponent implements OnInit {
     nqd.kSpaces = this.pqd.kSpaces
     nqd.probabs = this.pqd.probabs
     nqd.tacnost = 1
-    for (let pitanje of this.studentAnswers.pitanje) {
+    console.log(this.test)
+
+    for (let pitanje of this.test.pitanje) {
       if (pitanje.id == this.pqd.pitanje.id) {
         for (let odgovor of this.odgovori) {
           for (let odgovor2 of pitanje.odgovori) {
             if (odgovor.id == odgovor2.id) {
+              console.log(odgovor)
+              console.log(odgovor2)
               if (odgovor.tacnost != odgovor2.tacnost) {
                 nqd.tacnost = 0
               }
