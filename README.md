@@ -44,9 +44,9 @@
 
 <img src="https://github.com/dusankg/SOTIS-2020/blob/main/kspace.png" width="500" height="270">
 
-Frontend : Angular
-Bekend : Java Spring Boot + Python mikroservis
+Frontend : Angular. Pokretanje na npm start. Adresa : http://localhost:4200/
+Bekend : Java Spring Boot, adresa : http://localhost:8080 + Python mikroservis, adresa : http://localhost:8000  
 
-Repozitorijum za predmet Savremene obrazovne tehnologije i standardi, 2020/21.
-Tamara Lazarevic 
-Dusan Blanusa
+Repozitorijum za predmet Savremene obrazovne tehnologije i standardi, 2020/21.  
+Tamara Lazarevic   
+Dusan Blanusa  
