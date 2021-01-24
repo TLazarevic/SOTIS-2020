@@ -515,12 +515,14 @@ public class TestService {
 
 	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
 
-		if (nqd.getPreostalaPitanja().size() > 0 ||  Collections.max(nqd.getProbabs())<0.7) {
+		System.out.println("Collection max: " + Collections.max(nqd.getProbabs()));
+		if (nqd.getPreostalaPitanja().size() > 0 &&  Collections.max(nqd.getProbabs())<(Double)0.8) {
+			
 			nqd.getPreostalaPitanja().remove(nqd.pitanje);
 			nqd = (update(nqd));
 			return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs(), nqd.getUcenikId(),
 					nqd.getTestId());
-		} else {
+		} else { 
 			Ucenik ucenik = ucenikRepo.findById(nqd.getUcenikId()).get();
 			Test test = testRepo.findById(nqd.getTestId()).get();
 

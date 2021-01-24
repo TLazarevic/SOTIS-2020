@@ -69,6 +69,9 @@ public class Odgovor {
 		this.tekst = tekst;
 	}
 
+	public boolean getTacnost() {
+		return tacnost;
+	}
 	public boolean isTacnost() {
 		return tacnost;
 	}
