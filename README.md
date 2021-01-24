@@ -8,7 +8,7 @@ Napraviti veb aplikaciju za kreiranje testova i vršenje online testiranja sa sl
 
 Nastavnik može da kreira test (definiše pitanja i odgovore). Pitanja su tipa višestrukog izbora 
 
-<img src="https://github.com/dusankg/SOTIS-2020/blob/main/141735388_3589360481141273_8482913905932160461_n.png" width="500" height="250">
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/141735388_3589360481141273_8482913905932160461_n.png" width="500" height="270">
 
 Učenik popunjava test putem platforme 
 
@@ -22,7 +22,7 @@ Test je predstavljen u skladu sa IMS QTI specifikacijom
 
 Redosled pitanja na testu uslovljen je očekivanim prostorom znanja 
 
-<img src="https://github.com/dusankg/SOTIS-2020/blob/main/142133103_316687056435199_2311006712936513737_n.png" width="500" height="250">
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/142133103_316687056435199_2311006712936513737_n.png" width="500" height="300">
 
 Očekivani prostor znanja definiše ekspert u okviru platforme  
 
