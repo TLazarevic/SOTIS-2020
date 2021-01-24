@@ -42,6 +42,8 @@ Vizuelizacija dobijenog stanja znanja i prostora znanja u formi grafa
 
 <img src="https://github.com/dusankg/SOTIS-2020/blob/main/141931023_804117950457794_5746941685246071237_n.png" width="500" height="250">
 
+<img src="https://github.com/dusankg/SOTIS-2020/blob/main/kspace.png" width="500" height="270">
+
 Repozitorijum za predmet Savremene obrazovne tehnologije i standardi, 2020/21.
 Tamara Lazarevic 
 Dusan Blanusa
