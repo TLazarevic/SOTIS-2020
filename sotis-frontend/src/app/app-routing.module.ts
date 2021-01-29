@@ -9,6 +9,7 @@ import { TestsPreviewComponent } from './components/tests-preview/tests-preview.
 import { NewTestComponent } from './new-test/new-test.component';
 import { NewPitanjeComponent } from './new-pitanje/new-pitanje.component';
 import { GraphComparisonComponent } from './components/graph-comparison/graph-comparison.component';
+import { LoginComponent } from './components/permissions/login/login.component';
 
 const routes: Routes = [
   { path: 'Tests', component: TestsPreviewComponent },
@@ -16,6 +17,7 @@ const routes: Routes = [
   { path: 'NewTest', component: NewTestComponent },
   { path: 'NewPitanje', component: NewPitanjeComponent },
   { path: 'register', component: RegisterComponent },
+  { path: 'login', component: LoginComponent },
   { path: 'knowledge-graph', component: KnowledgePreviewComponent },
   { path: 'graph-comparison', component: GraphComparisonComponent },
   { path: 'student-ks', component: StudentKnowledgeSpaceComponent },

@@ -11,7 +11,10 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
   register(user: Ucenik) {
-    const user1 = JSON.stringify(user);
     return this.http.post("http://localhost:8080/user/ucenik/" , user, httpOptions)
+  }
+
+  login(user: Ucenik){
+    return this.http.post<String>("http://localhost:8080/user/login/" , user, httpOptions)
   }
 }

@@ -1,44 +1,53 @@
 <style>
     .table-main {
-      border-collapse: collapse;
-      width: 70%;
+        border-collapse: collapse;
+        width: 70%;
     }
-    th, td {
-      text-align: left;
-      padding: 8px;
+    
+    th,
+    td {
+        text-align: left;
+        padding: 8px;
     }
-    .btn-delete{
-      background:  none;
-      color: red;
-      border: none;
+    
+    .btn-delete {
+        background: none;
+        color: red;
+        border: none;
     }
+    
     .btn-delete:hover {
-      background-color: red;
-      color: white;
+        background-color: red;
+        color: white;
     }
-  
-    .btn-block{
-      background:  none;
-      color: orange;
-      border: none;
+    
+    .btn-block {
+        background: none;
+        color: orange;
+        border: none;
     }
+    
     .btn-block:hover {
-      background-color: orange;
-      color: white;
+        background-color: orange;
+        color: white;
     }
-  
-    .btn-add{
-      background:  none;
-      color: #4CAF50;
-      border: none;
-      border-radius: 5px;
+    
+    .btn-add {
+        background: none;
+        color: #4CAF50;
+        border: none;
+        border-radius: 5px;
     }
+    
     .btn-add:hover {
-      background-color: #4CAF50;
-      color: white;
+        background-color: #4CAF50;
+        color: white;
     }
-    tr:nth-child(even) {background-color: #f2f2f2;}
-  </style>
+    
+    tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+</style>
 
 <script src="new-test.component.ts"></script>
 <!DOCTYPE html>
@@ -73,20 +82,18 @@
 
             <app-navbar></app-navbar>
 
-            <a href="courses.html" class="get-started-btn">Get Started</a>
-
         </div>
     </header>
     <!-- End Header -->
 
-    <main id="main" data-aos="fade-in" >
+    <main id="main" data-aos="fade-in">
 
         <!-- ======= Breadcrumbs ======= -->
         <div class="breadcrumbs">
             <div class="container">
                 <h2>New question</h2>
                 <br/>
-                <button (click) = "addQuestion()" class="btn-delete" [hidden]="hiddenUnosPitanja">Confirm question</button>
+                <button (click)="addQuestion()" class="btn-delete" [hidden]="hiddenUnosPitanja">Confirm question</button>
             </div>
         </div>
         <!-- End Breadcrumbs -->
@@ -96,101 +103,101 @@
         <!-- <div *ngIf="!pageEvent">
             <div>Click next to start the test</div>
           </div> -->
-        <div class="divNazivTesta" align = "center" [hidden]="hiddenUnosTest">
+        <div class="divNazivTesta" align="center" [hidden]="hiddenUnosTest">
             <table>
                 <tbody>
                     <tr>
                         <td>Subject</td>
-                        <td> 
-                            <select [(ngModel)]="odabraniPredmet" >
+                        <td>
+                            <select [(ngModel)]="odabraniPredmet">
                                 <option *ngFor="let p of predmeti" selected [ngValue]="p"> {{p.naziv}}</option>
                             </select>
                         </td>
                     </tr>
                     <tr>
-                        <td> <button id='btnConfirmTest' (click) = "confirmTest()" class="btn-add">Confirm</button></td>
+                        <td> <button id='btnConfirmTest' (click)="confirmTest()" class="btn-add">Confirm</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div id="divPitanja" class="galaksija" align = "center" [hidden]="hiddenUnosPitanja">
+        <div id="divPitanja" class="galaksija" align="center" [hidden]="hiddenUnosPitanja">
             <table>
                 <tbody>
-                <tr valign="top">
-                <td>
-                    <div class="graph" align="left">
-                        <ngx-graph class="chart-container" [center$]="center$" [zoomToFit$]="zoomToFit$" [update$]="update$" [showMiniMap]="true"  [links]="links" [nodes]="nodes" (select)="onNodeSelect($event)" (contextmenu)="onRightClick($event)">
-                            <ng-template #nodeTemplate let-node>
-                                <svg:g class=" node ">
-                                    <svg:circle [attr.cx]="0 " [attr.cy]="40 " r="40 " [attr.fill]="node.data.color " />
-                                    <svg:text alignment-baseline="central " [attr.y]="node.dimension.height / 2 "> {{node.label}}
-                                    </svg:text>
-                                </svg:g>
-                            </ng-template>
-                        </ngx-graph>
-                    </div>
-                </td>
-                <td>
+                    <tr valign="top">
+                        <td>
+                            <div class="graph" align="left">
+                                <ngx-graph class="chart-container" [center$]="center$" [zoomToFit$]="zoomToFit$" [update$]="update$" [showMiniMap]="true" [links]="links" [nodes]="nodes" (select)="onNodeSelect($event)" (contextmenu)="onRightClick($event)">
+                                    <ng-template #nodeTemplate let-node>
+                                        <svg:g class=" node ">
+                                            <svg:circle [attr.cx]="0 " [attr.cy]="40 " r="40 " [attr.fill]="node.data.color " />
+                                            <svg:text alignment-baseline="central " [attr.y]="node.dimension.height / 2 "> {{node.label}}
+                                            </svg:text>
+                                        </svg:g>
+                                    </ng-template>
+                                </ngx-graph>
+                            </div>
+                        </td>
+                        <td>
 
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Node</td>
-                            </tr>
-                            <tr>
-                                <td><input id="inputTextPitanja" [(ngModel)]="odabraniCvor.label" disabled [ngModelOptions]="{standalone: true}"></td>
-                            </tr>
-                            <tr>
-                                <td>Question</td>
-                            </tr>
-                            <tr>
-                                <td><input id="inputTextPitanja" [(ngModel)]="textTempPitanje" [ngModelOptions]="{standalone: true}"></td>
-                            </tr>
-                        </tbody>
-                    </table>        
-                    
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td>Answer</td>
-                                <td>True/False</td>
-                            </tr>
-                            <tr>
-                                <td><input id="inputTextOdgovora" [(ngModel)]="textTempOdgovor" [ngModelOptions]="{standalone: true}"></td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Node</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="inputTextPitanja" [(ngModel)]="odabraniCvor.label" disabled [ngModelOptions]="{standalone: true}"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Question</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="inputTextPitanja" [(ngModel)]="textTempPitanje" [ngModelOptions]="{standalone: true}"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-                                
-                                <td>
-                                    
-                                    <label class="switch">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td>Answer</td>
+                                        <td>True/False</td>
+                                    </tr>
+                                    <tr>
+                                        <td><input id="inputTextOdgovora" [(ngModel)]="textTempOdgovor" [ngModelOptions]="{standalone: true}"></td>
+
+
+                                        <td>
+
+                                            <label class="switch">
                                         <input type="checkbox" [checked]="tacnostTempOdgovor" (change)="tacnostTempOdgovor = !tacnostTempOdgovor">
                                         <span class="slider round"></span>
                                       </label>
-                                </td>
-                                <td><button (click) = "addAnswer()" class="btn-block">Add answer</button></td>
-                            </tr>
-                            
-                            <tr *ngFor="let o of tempOdgovori">
-                                <td>{{o.tekst}}</td>
-                                <td><input type="checkbox" [checked]="o.tacnost" disabled></td>
-                            </tr>
-                        </tbody>
-                    </table>
-        
-                </td>
-                </tr>
+                                        </td>
+                                        <td><button (click)="addAnswer()" class="btn-block">Add answer</button></td>
+                                    </tr>
+
+                                    <tr *ngFor="let o of tempOdgovori">
+                                        <td>{{o.tekst}}</td>
+                                        <td><input type="checkbox" [checked]="o.tacnost" disabled></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </td>
+                    </tr>
                 </tbody>
-                </table>
+            </table>
 
 
-           
+
 
 
 
         </div>
 
 
-        <div id="divPotvrdaPitanja" [hidden] = "hiddenPotvrdaPitanja"  align = "center">
+        <div id="divPotvrdaPitanja" [hidden]="hiddenPotvrdaPitanja" align="center">
             <table>
                 <tbody>
                     <tr>
@@ -223,7 +230,7 @@
                         <td>Answers</td>
                         <td>True/False</td>
                     </tr>
-                    <tr *ngFor="let o of tempOdgovori"> 
+                    <tr *ngFor="let o of tempOdgovori">
                         <td>
                             {{o.tekst}}
                         </td>
