@@ -8,8 +8,6 @@
 
         <app-navbar></app-navbar>
 
-        <a routerLink="/register" class="active" class="get-started-btn">Get Started</a>
-
     </div>
 </header>
 <!-- End Header -->
@@ -21,26 +19,18 @@
     <div class="breadcrumbs">
         <div class="container">
             <h2>Student knowledge space</h2>
-          
+
         </div>
     </div>
     <!-- End Breadcrumbs -->
 
 
-    <div >
-        <div *ngIf="dataRecieved" style="display: block" >
-          <canvas height="500" baseChart
-                  [datasets]="barChartData"
-                  [labels]="barChartLabels"
-                  [options]="barChartOptions"
-                  [legend]="barChartLegend"
-                  [colors]="barChartColors"
-                  [options]="options"
-                  chartType='bar'
-                 >
+    <div>
+        <div *ngIf="dataRecieved" style="display: block">
+            <canvas height="500" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend" [colors]="barChartColors" [options]="options" chartType='bar'>
           </canvas>
         </div>
-      </div>
+    </div>
 
 
 
@@ -109,9 +99,7 @@
                 <!-- You can delete the links only if you purchased the pro version. -->
                 <!-- Licensing information: https://bootstrapmade.com/license/ -->
                 <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/mentor-free-education-bootstrap-theme/ -->
-                Designed by <a href="https://bootstrapmade.com/ ">BootstrapMade</a> Icons made by <a
-                    href="https://www.flaticon.com/authors/freepik " title="Freepik ">Freepik</a> from <a
-                    href="https://www.flaticon.com/ " title="Flaticon "> www.flaticon.com</a>
+                Designed by <a href="https://bootstrapmade.com/ ">BootstrapMade</a> Icons made by <a href="https://www.flaticon.com/authors/freepik " title="Freepik ">Freepik</a> from <a href="https://www.flaticon.com/ " title="Flaticon "> www.flaticon.com</a>
             </div>
         </div>
         <div class="social-links text-center text-md-right pt-3 pt-md-0 ">

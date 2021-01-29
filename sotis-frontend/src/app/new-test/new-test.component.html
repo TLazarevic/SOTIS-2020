@@ -1,6 +1,6 @@
 <style>
 
-  </style>
+</style>
 
 <script src="new-test.component.ts"></script>
 <!DOCTYPE html>
@@ -35,20 +35,18 @@
 
             <app-navbar></app-navbar>
 
-            <a href="courses.html" class="get-started-btn">Get Started</a>
-
         </div>
     </header>
     <!-- End Header -->
 
-    <main id="main" data-aos="fade-in" >
+    <main id="main" data-aos="fade-in">
 
         <!-- ======= Breadcrumbs ======= -->
         <div class="breadcrumbs">
             <div class="container">
                 <h2>New test</h2>
                 <br/>
-                <button (click) = "finishTest()" class="btn-delete" [hidden]="hiddenUnosPitanja">Finish test</button>
+                <button (click)="finishTest()" class="btn-delete" [hidden]="hiddenUnosPitanja">Finish test</button>
             </div>
         </div>
         <!-- End Breadcrumbs -->
@@ -58,66 +56,67 @@
         <!-- <div *ngIf="!pageEvent">
             <div>Click next to start the test</div>
           </div> -->
-        <div class="divNazivTesta" align = "center" [hidden]="hiddenUnosTest">
+        <div class="divNazivTesta" align="center" [hidden]="hiddenUnosTest">
             <table>
                 <tbody>
                     <tr>
                         <td>Subject</td>
-                        <td> 
-                            <select [(ngModel)]="odabraniPredmet" >
+                        <td>
+                            <select [(ngModel)]="odabraniPredmet">
                                 <option *ngFor="let p of predmeti" selected [ngValue]="p"> {{p.naziv}}</option>
                             </select>
-                        </td>                    </tr>
+                        </td>
+                    </tr>
                     <tr>
-                        <td> <button id='btnConfirmTest' (click) = "confirmTest()" class="btn-add">Confirm</button></td>
+                        <td> <button id='btnConfirmTest' (click)="confirmTest()" class="btn-add">Confirm</button></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <div id="divPitanja" align = "center" [hidden]="hiddenUnosPitanja">
+        <div id="divPitanja" align="center" [hidden]="hiddenUnosPitanja">
 
-                <table>
-                    <tr valign="top">
+            <table>
+                <tr valign="top">
 
-                        <td>
-                            <table>
-                                <tbody>
+                    <td>
+                        <table>
+                            <tbody>
                                 <tr>
                                     <td>Question</td>
                                     <td>Add</td>
                                 </tr>
-                                <tr *ngFor="let p of pitanjaZaPredmet"> 
+                                <tr *ngFor="let p of pitanjaZaPredmet">
                                     <td>
                                         {{p.tekst}}
                                     </td>
                                     <td>
-                                        <button class="btn-add" (click) = "addQuestion(p)">Add</button>
+                                        <button class="btn-add" (click)="addQuestion(p)">Add</button>
                                     </td>
                                 </tr>
-                                </tbody>
-                                </table>
-                        </td>
-                        <td>
-                            <table>
-                                <tbody>
+                            </tbody>
+                        </table>
+                    </td>
+                    <td>
+                        <table>
+                            <tbody>
                                 <tr>
                                     <td>Question</td>
                                     <td>Remove</td>
                                 </tr>
-                                <tr *ngFor="let p of odabranaPitanja"> 
+                                <tr *ngFor="let p of odabranaPitanja">
                                     <td>
                                         {{p.tekst}}
                                     </td>
                                     <td>
-                                        <button class="btn-delete" (click) = "removeQuestion(p)">Remove</button>
+                                        <button class="btn-delete" (click)="removeQuestion(p)">Remove</button>
                                     </td>
                                 </tr>
-                                </tbody>
-                                </table>
-                        </td>
-                    </tr>
-                </table>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </table>
 
 
 
@@ -127,7 +126,7 @@
         </div>
 
 
-        <div id="divPotvrdaTesta" [hidden] = "hiddenPotvrdaTesta"  align = "center">
+        <div id="divPotvrdaTesta" [hidden]="hiddenPotvrdaTesta" align="center">
             <table>
                 <tbody>
                     <tr>
@@ -139,7 +138,7 @@
                         <td>
 
                             <table>
-                                <tr *ngFor="let o of p.odgovori"> 
+                                <tr *ngFor="let o of p.odgovori">
                                     <td>
                                         {{o.tekst}}
                                     </td>

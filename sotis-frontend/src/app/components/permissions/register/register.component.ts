@@ -37,6 +37,10 @@ export class RegisterComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
 
+  login(){
+    this.router.navigate(['/login']);
+  }
+
   onSubmit() {
 
 
@@ -45,7 +49,6 @@ export class RegisterComponent implements OnInit {
     // stop here if form is invalid
     if (this.registerForm.invalid) {
 
-      alert(1)
       return;
     }
 
@@ -55,13 +58,13 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
-          this._snackBar.open("Uspešno ste se registrovali! Molimo Vas ulogujte se kako biste koristili usluge kliničkog centra!", "", {
+          this._snackBar.open("Registration successful!", "", {
             duration: 3000
           });
           this.router.navigate(['/login']);
         },
         error => {
-          this._snackBar.open("Greška prilikom registracije!", "", {
+          this._snackBar.open("Registration error", "", {
             duration: 3000
           });
           this.loading = false;
