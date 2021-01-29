@@ -16,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 /** @pdOid a8444d5b-5cb7-4497-865b-0eb2abb0682d */
-public class Ucenik {
+public class Ucenik extends Korisnik{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

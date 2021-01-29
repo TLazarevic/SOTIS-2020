@@ -1,13 +1,14 @@
 <nav class="nav-menu d-none d-lg-block">
     <ul>
-        <li><a routerLink="">Home</a></li>
+        <li *ngIf="authorised"><a routerLink="">Home</a></li>
         <!-- <li><a>About</a></li> -->
-        <li routerLink="/Tests" class="active"><a>Tests</a></li>
-        <li routerLink="/NewTest" class="active"><a>New test</a></li>
-        <li routerLink="/knowledge-graph"><a>Knowledge</a></li>
-        <li routerLink="/graph-comparison"><a>Graph Comparison</a></li>
+        <li *ngIf="authorised" routerLink="/Tests" class="active"><a>Tests</a></li>
+        <li *ngIf="authorised" routerLink="/NewTest" class="active"><a>New test</a></li>
+        <li *ngIf="authorised" routerLink="/knowledge-graph"><a>Knowledge</a></li>
+        <li *ngIf="authorised" routerLink="/graph-comparison"><a>Graph Comparison</a></li>
+        <button *ngIf="authorised" (click)="logout()" class="active" class="get-started-btn">Logout</button>
 
-        <a routerLink="/register" class="active" class="get-started-btn">Get Started</a>
+        <a *ngIf="!authorised" routerLink="/register" class="active" class="get-started-btn">Get Started</a>
     </ul>
 
 </nav>

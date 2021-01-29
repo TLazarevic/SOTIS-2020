@@ -93,15 +93,13 @@ public class TestController {
 	@PostMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Boolean> newTest(@RequestBody Test t) {
 		System.out.print(t);
-		if (testService.addTest(t))
-			;
+		if (testService.addTest(t));
 		return new ResponseEntity<>(true, HttpStatus.OK);
 	}
 
 	// vraca lokaciju samog zip fajla, za download
 	@GetMapping(value = "/generateQTI/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<byte[]> generateQTI(@PathVariable Long id) {
-		// testService.generateQTI();
 		return new ResponseEntity<>(qtiService.generateQTI(id), HttpStatus.OK);
 	}
 

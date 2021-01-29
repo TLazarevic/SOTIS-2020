@@ -28,21 +28,18 @@ export class LoginComponent implements OnInit {
 
   login() {
 
-    let ucenik = {
+    let korisnik = {
       id: 0,
-      prostorZnanja: [],
       ime: "",
       prezime: "",
       lozinka: this.loginForm.value.lozinka,
       email: this.loginForm.value.email
     }
 
-    this.registerService.login(ucenik).subscribe(data => {
+    this.registerService.login(korisnik).subscribe(data => {
       localStorage.setItem('loggedIn', data.toString());
-      console.log(localStorage.getItem("loggedIn"))
       this.router.navigate(['/home'])
     })
   }
-
 
 }

@@ -65,7 +65,7 @@ public class TestService {
 	}
 
 	public List<TestDTO> findAllByUcenik(Long id) {
-		System.out.println(ucenikTestRepo.findByUcenikId(id).size());
+		System.out.println(ucenikTestRepo.findByUcenikId(id).get(0).getNastavnik().getIme());
 		return ucenikTestRepo.findByUcenikId(id);
 	}
 
@@ -247,7 +247,6 @@ public class TestService {
 			while (queue.size() != 0) {
 				try {
 
-					// System.out.println(queue);
 					// Dequeue a vertex from queue and print it
 					Cvor c = queue.poll();
 
@@ -259,10 +258,7 @@ public class TestService {
 					pz.add(tmp);
 					System.out.println(pz);
 
-					// System.out.println(c);
-
 					sorted.add(c);
-					// System.out.println(queue);
 
 					// Get all adjacent vertices of the dequeued vertex s
 					// If a adjacent has not been visited, then mark it
@@ -349,7 +345,6 @@ public class TestService {
 
 					System.out.println(result.get().getLabel());
 					source = result.get().getId();
-					// break;
 
 				}
 
@@ -479,8 +474,7 @@ public class TestService {
 		double LdontContainQ = 0;
 
 		for (int i = 0; i < nqd.getkSpaces().size(); i++) {
-			// System.out.println("debug "+nqd.getkSpaces().get(i)+"
-			// "+nqd.getPitanje().getCvor().getLabel());
+
 			if (nqd.getkSpaces().get(i).contains(nqd.getPitanje().getCvor().getLabel())) {
 
 				LcontainQ = nqd.getProbabs().get(i);
@@ -504,7 +498,7 @@ public class TestService {
 			} else {
 				int index = nqd.getkSpaces().indexOf(set);
 				Double oldValue = nqd.getProbabs().get(index);
-				Double newValue = (1 - theta) * oldValue - theta * (1 - nqd.getTacnost()) * oldValue / LdontContainQ;
+				Double newValue = (1 - theta) * oldValue + theta * (1 - nqd.getTacnost()) * oldValue / LdontContainQ;
 				nqd.getProbabs().set(index, newValue);
 			}
 		}
@@ -516,13 +510,13 @@ public class TestService {
 	public ProbabilityQuestionDTO nextQuestion(Long id, NextQDTO nqd) {
 
 		System.out.println("Collection max: " + Collections.max(nqd.getProbabs()));
-		if (nqd.getPreostalaPitanja().size() > 0 &&  Collections.max(nqd.getProbabs())<(Double)0.8) {
-			
+		if (nqd.getPreostalaPitanja().size() > 0 && Collections.max(nqd.getProbabs()) < (Double) 0.8) {
+
 			nqd.getPreostalaPitanja().remove(nqd.pitanje);
 			nqd = (update(nqd));
 			return quiz(nqd.getPreostalaPitanja(), nqd.getkSpaces(), nqd.getProbabs(), nqd.getUcenikId(),
 					nqd.getTestId());
-		} else { 
+		} else {
 			Ucenik ucenik = ucenikRepo.findById(nqd.getUcenikId()).get();
 			Test test = testRepo.findById(nqd.getTestId()).get();
 
@@ -530,7 +524,7 @@ public class TestService {
 
 				markovRepo.save(
 						new MarkovljevProstorZnanja(ucenik, test, nqd.getkSpaces().get(i), nqd.getProbabs().get(i)));
-				UcenikTest ut = ucenikTestRepo.getByUcenikIdAndTestId(nqd.getUcenikId(),nqd.getTestId());
+				UcenikTest ut = ucenikTestRepo.getByUcenikIdAndTestId(nqd.getUcenikId(), nqd.getTestId());
 				ut.setUradjen(true);
 				this.ucenikTestRepo.save(ut);
 			}
@@ -560,47 +554,5 @@ public class TestService {
 			return null;
 		}
 	}
-
-	//
-	// public TestViewDTO findById(Long id) {
-	//
-	// try {
-	// Test t = testRepo.findById(id).get();
-	//
-	// List<Cvor> sortirani_cvorovi = sortirajCvorove(t);
-	// List<Pitanje> sortirana_pitanja = new ArrayList<>();
-	//
-	// for (Cvor s : sortirani_cvorovi) {
-	// System.out.println(s.getLabel());
-	//
-	// Optional<Pitanje> result = (t.getPitanje().stream().filter(p ->
-	// p.getCvor().getId() == s.getId())
-	// .findAny());
-	// if (result.isPresent()) {
-	// sortirana_pitanja.add(result.get());
-	// }
-	//
-	// }
-	// for (Pitanje p : sortirana_pitanja) {
-	// System.out.println(p.getTekst());
-	// // System.out.println(p.getCvor().getLabel());
-	// }
-	//
-	// TestViewDTO dto = new TestViewDTO(t);
-	//
-	// for (Pitanje p : sortirana_pitanja) {
-	// Set<Odgovor> o = odgovorRepo.findByPitanjeId(p.getId());
-	// PitanjeDTO pit = new PitanjeDTO(p, o);
-	// dto.pitanje.add(pit);
-	//
-	// }
-	//
-	// return dto;
-	//
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// return null;
-	// }
-	// }
 
 }
