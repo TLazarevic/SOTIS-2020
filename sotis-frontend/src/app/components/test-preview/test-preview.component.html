@@ -48,8 +48,6 @@
 
             <app-navbar></app-navbar>
 
-            <a href="courses.html" class="get-started-btn">Get Started</a>
-
         </div>
     </header>
     <!-- End Header -->
@@ -71,9 +69,9 @@
         <!-- <div *ngIf="!pageEvent">
             <div>Click next to start the test</div>
           </div> -->
-        <div *ngIf="!this.finished" class="page">
-           <div >
-                <div class="pitanje" style=" text-align: center;" >
+        <div *ngIf="!this.finished && this.testStarted" class="page">
+            <div>
+                <div class="pitanje" style=" text-align: center;">
 
                     <p class="questionText">{{pqd.pitanje.tekst}}</p>
 
@@ -81,13 +79,16 @@
                         <input type="checkbox" [checked]="o.tacnost" (change)="o.tacnost = !o.tacnost">
                         <label for="vehicle1"> {{o.tekst}}</label><br>
                     </div>
-                    <div > <button id="submit" (click)="submit()" mat-raised-button color="primary">Submit</button>
+                    <div> <button id="submit" (click)="submit()" mat-raised-button color="primary">Submit</button>
                     </div>
                 </div>
             </div>
         </div>
         <div *ngIf="this.finished" class="page">
             <p>Test Finished!</p>
+        </div>
+        <div *ngIf="!this.testStarted">
+            <button mat-raised-button color="primary" (click)="start()">Start test</button>
         </div>
 
     </main>

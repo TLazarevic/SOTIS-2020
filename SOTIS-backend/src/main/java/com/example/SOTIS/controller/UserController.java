@@ -30,4 +30,14 @@ public class UserController {
 			return new ResponseEntity<>(false, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Long> login(@RequestBody Ucenik ucenik) {
+		Long id = userService.login(ucenik);
+		if (id!=0) {
+			return new ResponseEntity<>(id, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>((long) 0, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
 }

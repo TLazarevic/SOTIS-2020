@@ -13,11 +13,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 
 @Entity
 /** @pdOid 185aebef-076c-48f3-aede-3d29dff41459 */
-public class Nastavnik {
+public class Nastavnik extends Korisnik{
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,30 +30,12 @@ public class Nastavnik {
 	@Column
 	/** @pdOid ae58c1fd-e5b8-4efa-993a-7bbef9991cef */
 	private String prezime;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getIme() {
-		return ime;
-	}
-
-	public void setIme(String ime) {
-		this.ime = ime;
-	}
-
-	public String getPrezime() {
-		return prezime;
-	}
-
-	public void setPrezime(String prezime) {
-		this.prezime = prezime;
-	}
+	
+	@Column(nullable = false)
+	private String email;
+	
+	@Column(nullable = false)
+	private String lozinka;
 
 
 }

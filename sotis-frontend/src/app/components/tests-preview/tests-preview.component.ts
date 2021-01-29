@@ -4,7 +4,6 @@ import { TestPreviewService } from 'src/app/services/test-preview.service';
 import { Router } from '@angular/router';
 import * as fileSaver from 'file-saver';
 
-const zakucano = 100
 
 @Component({
   selector: 'app-tests-preview',
@@ -15,14 +14,16 @@ const zakucano = 100
 export class TestsPreviewComponent implements OnInit {
 
   tests: TestDTO[] = [];
+  loggedIn!: number
 
   constructor(private testService: TestPreviewService, private router: Router) {
 
-    this.testService.getTestsByUcenik(zakucano).subscribe(
+    this.loggedIn = Number(localStorage.getItem("loggedIn"))
+    this.testService.getTestsByUcenik(this.loggedIn).subscribe(
       data => {
         this.tests = data;
         console.log(this.tests[0])
-        
+
       }
     )
   }
@@ -35,18 +36,19 @@ export class TestsPreviewComponent implements OnInit {
     this.router.navigate(['/Test', { id: id }]);
   }
 
-  getPZ(id: number){
-    this.router.navigate(['/student-ks', { id: id, ucenikId: zakucano }]);
+  getPZ(id: number) {
+    this.router.navigate(['/student-ks', { id: id, ucenikId: this.loggedIn }]);
   }
-  downloadQTI(id: number){
+
+  downloadQTI(id: number) {
     this.testService.downloadQtiZip(id).subscribe(response => {
-			let blob:any = new Blob([response], { type: 'zip' });
-			const url= window.URL.createObjectURL(blob);
-			//window.open(url);
-			//window.location.href = response.url;
+      let blob: any = new Blob([response], { type: 'zip' });
+      const url = window.URL.createObjectURL(blob);
+      //window.open(url);
+      //window.location.href = response.url;
       fileSaver.saveAs(blob, 'test-' + id + '-QTI.zip');
       console.log(response)
-		});
+    });
   }
 
 

@@ -23,4 +23,15 @@ public class UserService {
 		}
 
 	}
+
+	public Long login(Ucenik ucenik) {
+		Ucenik found = ucenikRepo.findByEmail(ucenik.getEmail());
+		if (found == null) {
+			return (long)0;
+		}
+		if (!found.getLozinka().equals(ucenik.getLozinka())) {
+			return (long)0;
+		}
+		return found.getId();
+	}
 }

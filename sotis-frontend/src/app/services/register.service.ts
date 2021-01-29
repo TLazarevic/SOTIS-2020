@@ -1,5 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Korisnik } from '../model/Korisnik';
 import { Ucenik } from '../model/Ucenik';
 
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) };
@@ -11,7 +12,14 @@ export class RegisterService {
 
   constructor(private http: HttpClient) { }
   register(user: Ucenik) {
-    const user1 = JSON.stringify(user);
     return this.http.post("http://localhost:8080/user/ucenik/" , user, httpOptions)
+  }
+
+  login(user: Korisnik){
+    return this.http.post<String>("http://localhost:8080/user/login/" , user, httpOptions)
+  }
+
+  logout(){
+    localStorage.removeItem('loggedIn');
   }
 }

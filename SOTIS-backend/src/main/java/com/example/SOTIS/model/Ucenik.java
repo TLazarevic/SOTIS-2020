@@ -1,6 +1,5 @@
 package com.example.SOTIS.model;
 
-import java.util.Iterator;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -17,7 +16,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 /** @pdOid a8444d5b-5cb7-4497-865b-0eb2abb0682d */
-public class Ucenik {
+public class Ucenik extends Korisnik{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +31,11 @@ public class Ucenik {
 	/** @pdOid ce10ec1b-51a0-48cf-ae50-72d9f042f277 */
 	private String prezime;
 
-	@Column
+	@Column(nullable = false)
 	private String email;
+	
+	@Column(nullable = false)
+	private String lozinka;
 
 //	@OneToMany
 //	/**
@@ -108,6 +110,20 @@ public class Ucenik {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public String getLozinka() {
+		return lozinka;
+	}
+
+	public void setLozinka(String lozinka) {
+		this.lozinka = lozinka;
+	}
+
+	@Override
+	public String toString() {
+		return "Ucenik [id=" + id + ", ime=" + ime + ", prezime=" + prezime + ", email=" + email + ", lozinka="
+				+ lozinka + "]";
 	}
 
 }

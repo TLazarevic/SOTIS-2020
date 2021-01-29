@@ -48,8 +48,6 @@
 
             <app-navbar></app-navbar>
 
-            <a href="courses.html" class="get-started-btn">Get Started</a>
-
         </div>
     </header>
     <!-- End Header -->
@@ -102,14 +100,14 @@
                                     <small class="form-text text-muted mb-4" id="defaultRegisterFormPasswordHelpBlock">
                                         Password must be minimum 8 characters long
                                         Password must contain a character and a number
-                                      </small>
+                                    </small>
 
                                     <div class="form-group">
                                         <input aria-describedby="defaultRegisterFormPasswordHelpBlock" class="form-control" formControlName="lozinka2" id="defaultRegisterFormPassword2" placeholder="Password" type="password">
 
                                     </div>
                                     <small class="form-text text-muted mb-4" id="defaultRegisterFormPasswordHelpBlock2">
-                                       Repeat the password
+                                        Repeat the password
                                     </small>
                                 </div>
 
@@ -124,7 +122,14 @@
                             <div class="fadeIn fourth" id="formFooter">
                                 By <em>Registering</em> you become a member of Apollo platform
                             </div>
+
                         </form>
+                        <div>
+                            Already a member?
+
+                            <button mat-flat-button color="primary" (click)="login()">Login</button>
+
+                        </div>
                     </div>
                 </div>
             </div>

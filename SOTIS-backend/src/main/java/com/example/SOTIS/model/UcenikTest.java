@@ -49,14 +49,6 @@ public class UcenikTest {
 		this.id = id;
 	}
 
-	public Ucenik getStudent() {
-		return ucenik;
-	}
-
-	public void setStudent(Ucenik student) {
-		this.ucenik = student;
-	}
-
 	public Test getTest() {
 		return test;
 	}

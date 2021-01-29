@@ -1,29 +1,15 @@
 <nav class="nav-menu d-none d-lg-block">
     <ul>
-        <li><a routerLink="">Home</a></li>
-        <li><a>About</a></li>
-        <li routerLink="/Tests" class="active"><a>Tests</a></li>
-        <li routerLink="/NewTest" class="active"><a>New test</a></li>
-        <li routerLink="/knowledge-graph"><a>Knowledge</a></li>
-        <li class="drop-down"><a href="">Drop Down</a>
-            <ul>
-                <li><a href="#">Drop Down 1</a></li>
-                <li class="drop-down"><a href="#">Deep Drop Down</a>
-                    <ul>
-                        <li><a href="#">Deep Drop Down 1</a></li>
-                        <li><a href="#">Deep Drop Down 2</a></li>
-                        <li><a href="#">Deep Drop Down 3</a></li>
-                        <li><a href="#">Deep Drop Down 4</a></li>
-                        <li><a href="#">Deep Drop Down 5</a></li>
-                    </ul>
-                </li>
-                <li><a href="#">Drop Down 2</a></li>
-                <li><a href="#">Drop Down 3</a></li>
-                <li><a href="#">Drop Down 4</a></li>
-            </ul>
-        </li>
-        <li><a href="contact.html">Contact</a></li>
+        <li *ngIf="authorised"><a routerLink="">Home</a></li>
+        <!-- <li><a>About</a></li> -->
+        <li *ngIf="authorised" routerLink="/Tests" class="active"><a>Tests</a></li>
+        <li *ngIf="authorised" routerLink="/NewTest" class="active"><a>New test</a></li>
+        <li *ngIf="authorised" routerLink="/knowledge-graph"><a>Knowledge</a></li>
+        <li *ngIf="authorised" routerLink="/graph-comparison"><a>Graph Comparison</a></li>
+        <button *ngIf="authorised" (click)="logout()" class="active" class="get-started-btn">Logout</button>
 
+        <a *ngIf="!authorised" routerLink="/register" class="active" class="get-started-btn">Get Started</a>
     </ul>
+
 </nav>
 <!-- .nav-menu -->

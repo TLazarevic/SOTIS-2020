@@ -1,16 +1,19 @@
 
-insert into nastavnik(id, ime, prezime) values (1,'Milan','Vidakovic');
+insert into nastavnik(id, ime, prezime, lozinka, email) values (1,'Milan','Vidakovic', '12345678', 'vidak@gmail.com');
 insert into predmet(id, naziv) values (1, 'Web programiranje');
 insert into predmet(id, naziv) values (2, 'Agentske tehnologije');
+insert into predmet(id, naziv) values (3, 'Objektno programiranje');
 insert into predmet_nastavnik(nastavnik_id, predmet_id) values (1,1);
 insert into predmet_nastavnik(nastavnik_id, predmet_id) values (1,2);
+insert into predmet_nastavnik(nastavnik_id, predmet_id) values (1,3);
 
 insert into test(id, nastavnik_id, predmet_id) values (100,1,1);
 insert into test(id, nastavnik_id, predmet_id) values (200,1,2);
-insert into test(id, nastavnik_id, predmet_id) values (300,1,1);
-insert into ucenik(id, ime, prezime) values (100, 'Tamara', 'Lazarevic');
-insert into ucenik(id, ime, prezime) values (200, 'Dusan', 'Blanusa');
-insert into ucenik(id, ime, prezime) values (300, 'Bla', 'Blabic');
+insert into test(id, nastavnik_id, predmet_id) values (300,1,3);
+
+insert into ucenik(id, ime, prezime, lozinka, email) values (100, 'Tamara', 'Lazarevic', '12345678', 'email@gmail.com');
+insert into ucenik(id, ime, prezime, lozinka, email) values (200, 'Dusan', 'Blanusa', '12345678', 'email2@gmail.com');
+insert into ucenik(id, ime, prezime, lozinka, email) values (300, 'Bla', 'Blabic','12345678', 'email3@gmail.com');
 
 insert into ucenik_predmet(ucenik_id, predmet_id) values (100,1);
 insert into ucenik_predmet(ucenik_id, predmet_id) values (100,2);
@@ -98,5 +101,4 @@ insert into test_pitanje(test_id,pitanje_id) values(100,300);
 insert into test_pitanje(test_id,pitanje_id) values(100,400);
 insert into test_pitanje(test_id,pitanje_id) values(100,500);
 insert into test_pitanje(test_id,pitanje_id) values(100,600);
-
 
